@@ -43,9 +43,19 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-white text-dark font-sans antialiased selection:bg-porsche-red selection:text-white;
+    @apply bg-white text-dark font-sans antialiased selection:bg-porsche-red selection:text-white overflow-x-hidden;
+  }
+  
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Ensure touch targets are accessible */
+  button, a {
+    @apply min-h-[44px] md:min-h-0;
   }
   
   /* Minimalist Scrollbar */

@@ -12,6 +12,7 @@ import {
   MapPin,
   Instagram,
   Linkedin,
+  Facebook,
   Phone,
   Twitter,
   TrendingUp,
@@ -63,7 +64,7 @@ const FeatureCard = ({ icon: Icon, title, description, badge, onClick }: { icon:
       <div className="w-16 h-16 flex items-center justify-center bg-dark text-white rounded-none transition-all duration-500 group-hover:bg-porsche-red group-hover:rotate-[360deg]">
         <Icon className="w-7 h-7" />
       </div>
-      <span className="bg-gray-100 text-dark/40 text-[7px] font-black px-3 py-1 tracking-[0.3em] uppercase whitespace-nowrap group-hover:bg-porsche-red group-hover:text-white transition-colors duration-500">
+      <span className="bg-gray-100 text-dark/40 text-[8px] md:text-[7px] font-black px-3 py-1 tracking-[0.3em] uppercase whitespace-nowrap group-hover:bg-porsche-red group-hover:text-white transition-colors duration-500">
         {badge}
       </span>
     </div>
@@ -105,23 +106,23 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
   return (
     <div className="min-h-screen bg-white font-sans text-dark">
       {/* Header */}
-      <header className="px-8 lg:px-24 py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-50">
+      <header className="px-6 md:px-8 lg:px-24 py-6 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-50">
         <div className="flex items-baseline gap-1">
-          <span className="text-dark font-display font-black text-2xl tracking-tighter">ROCK</span>
-          <span className="text-dark/40 font-display font-light text-2xl tracking-tighter">DEALS</span>
+          <span className="text-dark font-display font-black text-xl md:text-2xl tracking-tighter">ROCK</span>
+          <span className="text-dark/40 font-display font-light text-xl md:text-2xl tracking-tighter">DEALS</span>
         </div>
         <button 
           onClick={onBack}
-          className="flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase font-black hover:text-porsche-red transition-colors"
+          className="flex items-center gap-2 md:gap-3 text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-black hover:text-porsche-red transition-colors min-h-[44px]"
         >
-          <X className="w-4 h-4" /> Close Calculator
+          <X className="w-4 h-4" /> <span className="hidden sm:inline">Close Calculator</span><span className="sm:hidden">Close</span>
         </button>
       </header>
 
-      <main className="max-w-5xl mx-auto px-8 py-24">
-        <div className="mb-20">
-          <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-6">Financial Intelligence</p>
-          <h1 className="text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
+      <main className="max-w-5xl mx-auto px-6 md:px-8 py-12 md:py-24">
+        <div className="mb-12 md:20">
+          <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Financial Intelligence</p>
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
             Payment Plan<br />
             <span className="text-porsche-red">Calculator.</span>
           </h1>
@@ -303,27 +304,27 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-[#B12B28] selection:text-white">
       {/* Header */}
-      <header className="px-8 lg:px-24 py-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#0A0A0A]/80 backdrop-blur-xl z-50">
+      <header className="px-6 md:px-8 lg:px-24 py-6 md:py-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#0A0A0A]/80 backdrop-blur-xl z-50">
         <div className="flex items-baseline gap-1">
-          <span className="text-white font-display font-black text-2xl tracking-tighter">ROCK</span>
-          <span className="text-white/40 font-display font-light text-2xl tracking-tighter">DEALS</span>
+          <span className="text-white font-display font-black text-xl md:text-2xl tracking-tighter">ROCK</span>
+          <span className="text-white/40 font-display font-light text-xl md:text-2xl tracking-tighter">DEALS</span>
         </div>
         <button 
           onClick={onBack}
-          className="flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase font-black hover:text-[#B12B28] transition-colors"
+          className="flex items-center gap-2 md:gap-3 text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-black hover:text-[#B12B28] transition-colors min-h-[44px]"
         >
-          <X className="w-4 h-4" /> Exit Calculator
+          <X className="w-4 h-4" /> <span className="hidden sm:inline">Exit Calculator</span><span className="sm:hidden">Exit</span>
         </button>
       </header>
 
-      <main className="max-w-7xl mx-auto px-8 py-24">
-        <div className="max-w-3xl mb-24">
-          <p className="text-[#B12B28] text-[10px] tracking-[0.5em] uppercase font-black mb-6">Investment Analytics</p>
-          <h1 className="text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase mb-8">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-24">
+        <div className="max-w-3xl mb-16 md:mb-24">
+          <p className="text-[#B12B28] text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Investment Analytics</p>
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase mb-6 md:mb-8">
             Property ROI<br />
             <span className="text-[#B12B28]">Calculator.</span>
           </h1>
-          <p className="text-[#BFBFBF] text-xl font-light leading-relaxed">
+          <p className="text-[#BFBFBF] text-lg md:text-xl font-light leading-relaxed">
             Calculate rental yield, ROI and future value in seconds with precision-engineered financial modeling.
           </p>
           <button 
@@ -331,7 +332,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
               setShowResults(true);
               window.scrollTo({ top: 800, behavior: 'smooth' });
             }}
-            className="mt-12 bg-[#B12B28] text-white px-12 py-6 text-[10px] tracking-[0.4em] uppercase font-black hover:bg-white hover:text-black transition-all duration-500"
+            className="mt-8 md:mt-12 bg-[#B12B28] text-white px-8 md:px-12 py-5 md:py-6 text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.4em] uppercase font-black hover:bg-white hover:text-black transition-all duration-500 min-h-[48px]"
           >
             Calculate ROI
           </button>
@@ -1678,10 +1679,11 @@ Furnish: ${searchFurnishStatus}
             </div>
 
             <button 
-              className={`md:hidden w-10 h-10 flex items-center justify-center cursor-pointer ${isScrolled ? 'text-dark' : 'text-white'}`}
+              className={`lg:hidden w-12 h-12 flex items-center justify-center cursor-pointer transition-colors ${isScrolled ? 'text-dark' : 'text-white'}`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle Menu"
             >
-              {isMobileMenuOpen ? <X /> : <Menu />}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -1756,25 +1758,25 @@ Furnish: ${searchFurnishStatus}
           </div>
         </div>
 
-        <div className="relative w-full px-8 lg:px-16 pt-20 flex flex-col items-center text-center">
-          <div className="max-w-5xl mb-12">
+        <div className="relative w-full px-6 md:px-8 lg:px-16 pt-24 md:pt-20 flex flex-col items-center text-center">
+          <div className="max-w-5xl mb-8 md:mb-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center justify-center gap-4 mb-6"
+              className="flex items-center justify-center gap-3 md:gap-4 mb-4 md:mb-6"
             >
-              <div className="w-12 h-[2px] bg-porsche-red"></div>
-              <p className="text-white text-[10px] tracking-[0.3em] uppercase font-technical font-bold opacity-60">
+              <div className="w-8 md:w-12 h-[2px] bg-porsche-red"></div>
+              <p className="text-white text-[8px] md:text-[10px] tracking-[0.3em] uppercase font-technical font-bold opacity-60">
                 The New Standard of Luxury
               </p>
-              <div className="w-12 h-[2px] bg-porsche-red"></div>
+              <div className="w-8 md:w-12 h-[2px] bg-porsche-red"></div>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-script font-bold text-white leading-tight mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-script font-bold text-white leading-tight mb-6 md:mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
             >
               Your Dream Home <span className="text-porsche-red glow-porsche">Awaits.</span>
             </motion.h1>
@@ -1783,7 +1785,7 @@ Furnish: ${searchFurnishStatus}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-white/50 text-[10px] md:text-xs font-light tracking-[0.4em] uppercase"
+              className="text-white/50 text-[8px] md:text-xs font-light tracking-[0.3em] md:tracking-[0.4em] uppercase max-w-xs md:max-w-none mx-auto"
             >
               The Journey To Modern Living Starts Here At Rock Deals
             </motion.p>
@@ -1794,21 +1796,21 @@ Furnish: ${searchFurnishStatus}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="w-full max-w-4xl bg-black/30 backdrop-blur-3xl border border-white/10 rounded-xl p-2 md:p-3.5 shadow-[0_0_80px_rgba(0,0,0,0.6)] relative z-[45] overflow-hidden group"
+            className="w-full max-w-4xl bg-black/10 backdrop-blur-3xl border border-white/10 rounded-xl p-3 md:p-3.5 shadow-[0_0_80px_rgba(0,0,0,0.4)] relative z-[45] overflow-hidden group"
           >
             {/* Animated Border Glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
             
             {/* Tabs */}
-            <div className="flex flex-wrap items-center justify-center gap-1 mb-3.5 relative z-10">
+            <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4 relative z-10">
               {['RENT', 'BUY', 'OFF PLAN', 'COMMERCIAL'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setSearchTab(tab)}
-                  className={`px-4 py-1.5 rounded-lg text-[12px] font-technical font-bold tracking-[0.25em] transition-all duration-500 ${
+                  className={`px-3 md:px-4 py-2 md:py-1.5 rounded-lg text-[10px] md:text-[12px] font-technical font-bold tracking-[0.2em] md:tracking-[0.25em] transition-all duration-500 min-h-[40px] md:min-h-0 ${
                     searchTab === tab 
                       ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.5)]' 
-                      : 'bg-white/2 text-white/30 hover:bg-white/10 hover:text-white'
+                      : 'bg-white/1 text-white/30 hover:bg-white/10 hover:text-white'
                   }`}
                 >
                   {tab}
@@ -1817,16 +1819,16 @@ Furnish: ${searchFurnishStatus}
             </div>
 
             {/* Inputs Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-1.5 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-2 md:gap-1.5 relative z-10">
               {/* Location Input */}
               <div className="relative lg:col-span-3">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-porsche-red" />
+                <Search className="absolute left-4 md:left-3 top-1/2 -translate-y-1/2 w-3 h-3 md:w-2.5 md:h-2.5 text-porsche-red" />
                 <input 
                   type="text"
                   placeholder="Search Location"
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
-                  className="w-full bg-white/2 border border-white/5 rounded-lg py-2 pl-9 pr-3 text-white text-[14px] font-technical tracking-widest focus:outline-none focus:border-porsche-red/40 transition-all placeholder:text-white/10"
+                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 pl-11 md:pl-9 pr-4 md:pr-3 text-white text-[14px] font-technical tracking-widest focus:outline-none focus:border-porsche-red/40 transition-all placeholder:text-white/10"
                 />
               </div>
 
@@ -1834,10 +1836,10 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-2">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'price' ? null : 'price')}
-                  className="w-full bg-white/2 border border-white/5 rounded-lg py-2 px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden"
+                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
                 >
                   <span className="truncate">{searchPrice.min || searchPrice.max ? `${searchPrice.min}-${searchPrice.max} AED` : 'Price'}</span>
-                  <ChevronDown className={`w-2.5 h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'price' ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'price' ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
                   {activePopover === 'price' && (
@@ -1854,14 +1856,14 @@ Furnish: ${searchFurnishStatus}
                           placeholder="Min"
                           value={searchPrice.min}
                           onChange={(e) => setSearchPrice({...searchPrice, min: e.target.value})}
-                          className="w-1/2 bg-white/2 border border-white/10 rounded-xl py-3 px-4 text-white text-sm font-technical focus:outline-none focus:border-porsche-red/50"
+                          className="w-1/2 bg-white/1 border border-white/10 rounded-xl py-3 px-4 text-white text-sm font-technical focus:outline-none focus:border-porsche-red/50"
                         />
                         <input 
                           type="number" 
                           placeholder="Max"
                           value={searchPrice.max}
                           onChange={(e) => setSearchPrice({...searchPrice, max: e.target.value})}
-                          className="w-1/2 bg-white/2 border border-white/10 rounded-xl py-3 px-4 text-white text-sm font-technical focus:outline-none focus:border-porsche-red/50"
+                          className="w-1/2 bg-white/1 border border-white/10 rounded-xl py-3 px-4 text-white text-sm font-technical focus:outline-none focus:border-porsche-red/50"
                         />
                       </div>
                       <button 
@@ -1879,10 +1881,10 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-2">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'beds' ? null : 'beds')}
-                  className="w-full bg-white/2 border border-white/5 rounded-lg py-2 px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden"
+                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
                 >
                   <span className="truncate">{searchBeds.beds || searchBeds.baths ? `${searchBeds.beds}B / ${searchBeds.baths}Ba` : 'Beds & Baths'}</span>
-                  <ChevronDown className={`w-2.5 h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'beds' ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'beds' ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
                   {activePopover === 'beds' && (
@@ -1900,7 +1902,7 @@ Furnish: ${searchFurnishStatus}
                               <button 
                                 key={n}
                                 onClick={() => setSearchBeds({...searchBeds, beds: n})}
-                                className={`w-8 h-8 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.beds === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/2 text-white/40 hover:bg-white/10'}`}
+                                className={`w-8 h-8 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.beds === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/1 text-white/40 hover:bg-white/10'}`}
                               >
                                 {n}
                               </button>
@@ -1914,7 +1916,7 @@ Furnish: ${searchFurnishStatus}
                               <button 
                                 key={n}
                                 onClick={() => setSearchBeds({...searchBeds, baths: n})}
-                                className={`w-8 h-8 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.baths === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/2 text-white/40 hover:bg-white/10'}`}
+                                className={`w-8 h-8 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.baths === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/1 text-white/40 hover:bg-white/10'}`}
                               >
                                 {n}
                               </button>
@@ -1924,7 +1926,7 @@ Furnish: ${searchFurnishStatus}
                         <div className="flex items-center gap-2 pt-2">
                           <button 
                             onClick={() => { setSearchBeds({beds: 0, baths: 0}); setActivePopover(null); }}
-                            className="flex-1 py-3 bg-white/2 text-[10px] font-technical font-bold text-white/40 uppercase tracking-widest hover:bg-white/10 transition-all rounded-xl"
+                            className="flex-1 py-3 bg-white/1 text-[10px] font-technical font-bold text-white/40 uppercase tracking-widest hover:bg-white/10 transition-all rounded-xl"
                           >
                             Reset
                           </button>
@@ -1945,10 +1947,10 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-2">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'type' ? null : 'type')}
-                  className="w-full bg-white/2 border border-white/5 rounded-lg py-2 px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden"
+                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
                 >
                   <span className="truncate">{searchPropertyType}</span>
-                  <ChevronDown className={`w-2.5 h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'type' ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'type' ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
                   {activePopover === 'type' && (
@@ -1976,10 +1978,10 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-1">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'furnish' ? null : 'furnish')}
-                  className="w-full bg-white/2 border border-white/5 rounded-lg py-2 px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden"
+                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
                 >
                   <span className="truncate">{searchFurnishStatus === 'Furnish Status' ? 'Furnish' : searchFurnishStatus}</span>
-                  <ChevronDown className={`w-2.5 h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'furnish' ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'furnish' ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
                   {activePopover === 'furnish' && (
@@ -2006,7 +2008,7 @@ Furnish: ${searchFurnishStatus}
               {/* Submit Enquiry Button */}
               <button 
                 onClick={() => setIsEnquiryModalOpen(true)}
-                className="lg:col-span-2 bg-porsche-red text-white rounded-lg py-2 px-3 text-[12px] font-technical font-bold tracking-[0.25em] uppercase hover:bg-porsche-red/80 transition-all shadow-[0_0_15px_rgba(213,0,28,0.4)] active:scale-95"
+                className="lg:col-span-2 bg-porsche-red text-white rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-[12px] font-technical font-bold tracking-[0.25em] uppercase hover:bg-porsche-red/80 transition-all shadow-[0_0_15px_rgba(213,0,28,0.4)] active:scale-95 min-h-[48px] md:min-h-0"
               >
                 Submit Enquiry
               </button>
@@ -2017,10 +2019,10 @@ Furnish: ${searchFurnishStatus}
 
       <section 
         id="filters" 
-        className={`px-8 lg:px-16 py-3 bg-white/90 backdrop-blur-md border-b border-gray-100 sticky z-40 transition-all duration-500 ${isScrolled ? 'top-[60px] shadow-lg' : 'top-[80px] shadow-sm'}`}
+        className={`px-4 md:px-8 lg:px-16 py-4 bg-white/90 backdrop-blur-md border-b border-gray-100 sticky z-40 transition-all duration-500 ${isScrolled ? 'top-[60px] shadow-lg' : 'top-[80px] shadow-sm'}`}
       >
-        <div className="max-w-7xl mx-auto overflow-x-auto no-scrollbar">
-          <div className="flex items-center justify-center gap-3 min-w-max px-4">
+        <div className="max-w-7xl mx-auto overflow-x-auto no-scrollbar -mx-4 px-4">
+          <div className="flex items-center justify-start md:justify-center gap-3 min-w-max">
             {['All Properties', 'Luxury Villas', 'Apartments', 'Townhouses', 'Off-Plan', 'Ready to Move', 'Developers'].map((filter) => (
               <button 
                 key={filter} 
@@ -2031,14 +2033,14 @@ Furnish: ${searchFurnishStatus}
                     setActiveFilter(filter);
                   }
                 }}
-                className={`group flex items-center gap-2 rounded-full border font-black tracking-[0.2em] uppercase transition-all duration-500 shadow-sm hover:shadow-md whitespace-nowrap 
+                className={`group flex items-center gap-2 rounded-full border font-black tracking-[0.2em] uppercase transition-all duration-500 shadow-sm hover:shadow-md whitespace-nowrap min-h-[40px] md:min-h-0
                   ${filter === 'Developers' 
                     ? 'bg-porsche-red text-white border-porsche-red shadow-[0_0_15px_rgba(213,0,28,0.3)]' 
                     : activeFilter === filter 
                       ? 'bg-dark text-white border-dark' 
                       : 'bg-white text-dark border-gray-100 hover:bg-gray-50'
                   } 
-                  ${isScrolled ? 'px-4 py-1.5 text-[7px]' : 'px-5 py-2 text-[8px]'}`}
+                  ${isScrolled ? 'px-4 py-2 md:py-1.5 text-[8px] md:text-[7px]' : 'px-5 py-2.5 md:py-2 text-[9px] md:text-[8px]'}`}
               >
                 <span className={`rounded-full transition-all duration-300 
                   ${filter === 'Developers' 
@@ -2057,29 +2059,29 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Intro Section */}
-      <section className="px-8 lg:px-24 py-40 bg-white">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+      <section className="px-6 md:px-8 lg:px-24 py-24 md:py-40 bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex items-center gap-4 mb-8"
+              className="flex items-center gap-4 mb-6 md:mb-8"
             >
-              <div className="w-12 h-[1px] bg-porsche-red"></div>
-              <span className="text-porsche-red text-[10px] tracking-[0.4em] uppercase font-black">Philosophy</span>
+              <div className="w-10 md:w-12 h-[1px] bg-porsche-red"></div>
+              <span className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-black">Philosophy</span>
             </motion.div>
-            <h2 className="text-5xl md:text-8xl font-display font-black text-dark leading-[0.9] mb-12 tracking-tighter">
+            <h2 className="text-4xl sm:text-5xl md:text-8xl font-display font-black text-dark leading-[0.9] mb-8 md:mb-12 tracking-tighter">
               PRECISION<br />
               <span className="text-porsche-red">IN EVERY</span><br />
               DEAL.
             </h2>
-            <p className="text-dark/60 text-lg md:text-xl leading-relaxed font-light max-w-xl mb-12">
+            <p className="text-dark/60 text-base md:text-xl leading-relaxed font-light max-w-xl mb-8 md:mb-12">
               Rock Deals combines luxury property expertise with next-generation technology to deliver the most advanced real estate experience in the region.
             </p>
             <motion.button
               whileHover={{ x: 10 }}
-              className="flex items-center gap-4 text-dark text-[10px] font-black tracking-[0.4em] uppercase group"
+              className="flex items-center gap-4 text-dark text-[10px] font-black tracking-[0.4em] uppercase group min-h-[44px]"
             >
               Learn Our Method <ArrowRight className="w-4 h-4 text-porsche-red group-hover:translate-x-2 transition-transform" />
             </motion.button>
@@ -2091,9 +2093,9 @@ Furnish: ${searchFurnishStatus}
               { label: 'Smart Analytics', value: 'AI' },
               { label: 'Verified Listings', value: 'DLD' }
             ].map((stat, i) => (
-              <div key={i} className="bg-white p-12 hover:bg-gray-50 transition-colors group">
-                <div className="text-5xl font-display font-black text-dark mb-4 group-hover:text-porsche-red transition-colors">{stat.value}</div>
-                <div className="text-dark/30 text-[9px] tracking-[0.3em] uppercase font-black">{stat.label}</div>
+              <div key={i} className="bg-white p-6 md:p-12 hover:bg-gray-50 transition-colors group">
+                <div className="text-3xl md:text-5xl font-display font-black text-dark mb-2 md:mb-4 group-hover:text-porsche-red transition-colors">{stat.value}</div>
+                <div className="text-dark/30 text-[9px] md:text-[9px] tracking-[0.3em] uppercase font-black">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -2101,16 +2103,16 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Property Types Section (Filtered Grid) */}
-      <section id="property-types" className="px-8 lg:px-24 py-48 bg-white">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-12">
+      <section id="property-types" className="px-6 md:px-8 lg:px-24 py-24 md:py-48 bg-white">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-32 gap-8 md:gap-12">
           <div className="max-w-3xl">
-            <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-6">Portfolio</p>
-            <h2 className="text-7xl md:text-[10rem] font-display font-black text-dark tracking-tighter leading-[0.8]">
+            <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Portfolio</p>
+            <h2 className="text-5xl sm:text-7xl md:text-[10rem] font-display font-black text-dark tracking-tighter leading-[0.8]">
               FEATURED<br />
               <span className="text-porsche-red">LISTINGS.</span>
             </h2>
           </div>
-          <p className="text-dark/40 text-base max-w-md leading-relaxed font-light mb-4">
+          <p className="text-dark/40 text-sm md:text-base max-w-md leading-relaxed font-light">
             Discover our curated selection of the UAE's most prestigious properties, filtered by your specific requirements.
           </p>
         </div>
@@ -2139,7 +2141,7 @@ Furnish: ${searchFurnishStatus}
                 
                 {/* Category Badge (Optional, kept subtle) */}
                 <div className="absolute top-6 left-8">
-                  <span className="text-white/60 text-[8px] font-black tracking-[0.3em] uppercase">
+                  <span className="text-white/60 text-[9px] md:text-[8px] font-black tracking-[0.3em] uppercase">
                     {prop.category}
                   </span>
                 </div>
@@ -2151,7 +2153,7 @@ Furnish: ${searchFurnishStatus}
                       {prop.title}
                       <span className="text-porsche-red ml-1">.</span>
                     </h3>
-                    <p className="text-white/60 text-[10px] tracking-[0.2em] uppercase font-medium mt-1">{prop.location} — {prop.price}</p>
+                    <p className="text-white/60 text-[11px] md:text-[10px] tracking-[0.2em] uppercase font-medium mt-1">{prop.location} — {prop.price}</p>
                   </div>
                   
                   <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500">
@@ -2173,15 +2175,15 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="px-8 lg:px-24 py-40 bg-gray-50/50">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12">
+      <section id="features" className="px-6 md:px-8 lg:px-24 py-24 md:py-40 bg-gray-50/50">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8 md:gap-12">
           <div className="max-w-2xl">
-            <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-6">Innovation</p>
-            <h2 className="text-6xl md:text-9xl font-display font-black text-dark tracking-tighter leading-[0.8]">
+            <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Innovation</p>
+            <h2 className="text-5xl md:text-9xl font-display font-black text-dark tracking-tighter leading-[0.8]">
               THE<br />SMART HUB.
             </h2>
           </div>
-          <p className="text-dark/40 text-base max-w-md font-light leading-relaxed mb-4">
+          <p className="text-dark/40 text-sm md:text-base max-w-md font-light leading-relaxed">
             Experience real estate through the lens of high-performance technology and uncompromising luxury standards.
           </p>
         </div>
@@ -2217,18 +2219,18 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* The Journey - Mapped Blueprint */}
-      <section id="journey" className="px-8 lg:px-24 py-48 bg-white overflow-hidden">
+      <section id="journey" className="px-6 md:px-8 lg:px-24 py-24 md:py-48 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-48">
+          <div className="text-center mb-24 md:mb-48">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="inline-block border border-dark/10 px-10 py-4 mb-12"
+              className="inline-block border border-dark/10 px-6 md:px-10 py-3 md:py-4 mb-8 md:mb-12"
             >
-              <span className="text-dark text-[11px] tracking-[0.8em] uppercase font-black">Technical_Process_Flow</span>
+              <span className="text-dark text-[9px] md:text-[11px] tracking-[0.5em] md:tracking-[0.8em] uppercase font-black">Technical_Process_Flow</span>
             </motion.div>
-            <h2 className="text-7xl md:text-[12rem] font-display font-black text-dark tracking-tighter leading-none">
+            <h2 className="text-6xl md:text-[12rem] font-display font-black text-dark tracking-tighter leading-none">
               THE<br />
               <span className="text-porsche-red">JOURNEY.</span>
             </h2>
@@ -2306,16 +2308,16 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Area Guide Section - Interactive Map */}
-      <section id="explore" className="px-8 lg:px-24 py-48 bg-dark">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-32">
+      <section id="explore" className="px-6 md:px-8 lg:px-24 py-24 md:py-48 bg-dark">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12 mb-16 md:mb-32">
           <div className="max-w-3xl">
-            <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-6">Location Intelligence</p>
-            <h2 className="text-7xl md:text-[10rem] font-display font-black text-white tracking-tighter leading-[0.8]">
+            <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Location Intelligence</p>
+            <h2 className="text-5xl sm:text-7xl md:text-[10rem] font-display font-black text-white tracking-tighter leading-[0.8]">
               ZONE<br />
               <span className="text-porsche-red">EXPLORER.</span>
             </h2>
           </div>
-          <p className="text-white/40 text-base max-w-md leading-relaxed font-light mb-4">
+          <p className="text-white/40 text-sm md:text-base max-w-md leading-relaxed font-light">
             Navigate the most prestigious investment zones in the UAE. Our interactive map provides real-time yield data and district insights.
           </p>
         </div>
@@ -2325,31 +2327,32 @@ Furnish: ${searchFurnishStatus}
 
       {/* Footer */}
       <footer id="contact" className="bg-white border-t border-gray-100">
-        <div className="px-8 lg:px-24 py-32">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-20">
+        <div className="px-6 md:px-8 lg:px-24 py-24 md:py-32">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-20">
             <div className="md:col-span-4">
               <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-dark font-display font-black text-4xl tracking-tighter">ROCK</span>
-                <span className="text-dark/40 font-display font-light text-4xl tracking-tighter">DEALS</span>
+                <span className="text-dark font-display font-black text-3xl md:text-4xl tracking-tighter">ROCK</span>
+                <span className="text-dark/40 font-display font-light text-3xl md:text-4xl tracking-tighter">DEALS</span>
               </div>
-              <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-12">
+              <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-8 md:mb-12">
                 A DEAL FOR EVERYONE
               </p>
-              <p className="text-dark/50 text-base leading-relaxed mb-8 max-w-xs font-light">
+              <p className="text-dark/50 text-sm md:text-base leading-relaxed mb-8 max-w-xs font-light">
                 Redefining luxury real estate in the UAE. Connecting discerning buyers with the finest properties across Dubai and Abu Dhabi.
               </p>
-              <div className="mb-12">
-                <a href="tel:+971529178630" className="flex items-center gap-4 group">
+              <div className="mb-8 md:mb-12">
+                <a href="tel:+971529178630" className="flex items-center gap-4 group min-h-[44px]">
                   <div className="w-10 h-10 rounded-full border border-dark/5 flex items-center justify-center group-hover:bg-porsche-red group-hover:border-porsche-red transition-all duration-500">
                     <Phone className="w-4 h-4 text-dark/40 group-hover:text-white transition-colors" />
                   </div>
-                  <span className="text-dark font-technical font-bold text-lg tracking-tight group-hover:text-porsche-red transition-colors">+971 529178630</span>
+                  <span className="text-dark font-technical font-bold text-base md:text-lg tracking-tight group-hover:text-porsche-red transition-colors">+971 529178630</span>
                 </a>
               </div>
-              <div className="flex items-center gap-8">
+              <div className="flex items-center gap-6 md:gap-8">
                 {[
                   { Icon: Instagram, href: 'https://www.instagram.com/rockdeals.ae/' },
-                  { Icon: Linkedin, href: '#' },
+                  { Icon: Facebook, href: 'https://www.facebook.com/people/Rock-Deals/61574389357052' },
+                  { Icon: Linkedin, href: 'https://www.linkedin.com/in/rock-deals-b826103b5/' },
                   { Icon: Phone, href: 'tel:+971529178630' },
                   { Icon: Twitter, href: '#' }
                 ].map(({ Icon, href }, i) => (
