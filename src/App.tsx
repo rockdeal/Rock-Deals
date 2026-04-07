@@ -1039,21 +1039,19 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
 };
 
 const PROPERTIES = [
-  { id: 1, title: 'The Royal Palm Villa', category: 'Luxury Villas', price: 'AED 45,000,000', location: 'Palm Jumeirah', image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800' },
-  { id: 2, title: 'Skyline Penthouse', category: 'Penthouses', price: 'AED 28,500,000', location: 'Downtown Dubai', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' },
-  { id: 3, title: 'Marina Edge Apartment', category: 'Apartments', price: 'AED 4,200,000', location: 'Dubai Marina', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800' },
-  { id: 4, title: 'Desert Rose Townhouse', category: 'Townhouses', price: 'AED 3,800,000', location: 'Arabian Ranches', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' },
-  { id: 5, title: 'The Crystal Tower', category: 'Off-Plan', price: 'Starting AED 1,500,000', location: 'Business Bay', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800' },
-  { id: 6, title: 'Modern Creek Residence', category: 'Ready to Move', price: 'AED 2,100,000', location: 'Dubai Creek Harbour', image: 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?auto=format&fit=crop&q=80&w=800' },
-  { id: 7, title: 'Azure Waterfront Villa', category: 'Luxury Villas', price: 'AED 32,000,000', location: 'Jumeirah Bay', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
-];
-
-const DEVELOPERS = [
+  { id: 1, title: 'Luxury Palm Villa | Dubai Best Deal', category: 'Luxury Villas', price: 'AED 45,000,000', location: 'Palm Jumeirah', image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800' },
+  { id: 2, title: 'Skyline Penthouse | High ROI Investment', category: 'Penthouses', price: 'AED 28,500,000', location: 'Downtown Dubai', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' },
+  { id: 3, title: 'Marina Edge | Apartments for Sale in Dubai', category: 'Apartments', price: 'AED 4,200,000', location: 'Dubai Marina', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800' },
+  { id: 4, title: 'Desert Rose | Villas for Sale in Dubai', category: 'Townhouses', price: 'AED 3,800,000', location: 'Arabian Ranches', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' },
+  { id: 5, title: 'Crystal Tower | Dubai Off Plan Properties', category: 'Off-Plan', price: 'Starting AED 1,500,000', location: 'Business Bay', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800' },
+  { id: 6, title: 'Modern Creek | Ready to Move Property', category: 'Ready to Move', price: 'AED 2,100,000', location: 'Dubai Creek Harbour', image: 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?auto=format&fit=crop&q=80&w=800' },
+  { id: 7, title: 'Azure Waterfront | Dubai Distress Deals', category: 'Luxury Villas', price: 'AED 32,000,000', location: 'Jumeirah Bay', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
+];const DEVELOPERS = [
   {
     id: 1,
     name: 'Emaar Properties',
     logo: 'https://logo.clearbit.com/emaar.com',
-    description: 'The global developer of iconic landmarks including Burj Khalifa and Dubai Mall.',
+    description: 'Explore properties by Emaar Properties, the global developer of iconic landmarks including Burj Khalifa.',
     projects: [
       { name: 'Burj Khalifa', type: 'Iconic Landmark', location: 'Downtown Dubai', details: 'The world\'s tallest building, featuring luxury residences and corporate suites.' },
       { name: 'Dubai Hills Estate', type: 'Master Community', location: 'Dubai Hills', details: 'A vast green community with villas, apartments, and a championship golf course.' }
@@ -1063,7 +1061,7 @@ const DEVELOPERS = [
     id: 2,
     name: 'Nakheel',
     logo: 'https://logo.clearbit.com/nakheel.com',
-    description: 'Renowned for world-famous projects like Palm Jumeirah and The World Islands.',
+    description: 'Discover world-famous projects by Nakheel, including Palm Jumeirah and The World Islands.',
     projects: [
       { name: 'Palm Jumeirah', type: 'Island Community', location: 'The Palm', details: 'The world\'s largest man-made island, home to ultra-luxury villas and resorts.' },
       { name: 'The World Islands', type: 'Archipelago', location: 'Dubai Coast', details: 'A collection of 300 man-made private islands shaped like the world map.' }
@@ -1073,7 +1071,7 @@ const DEVELOPERS = [
     id: 3,
     name: 'DAMAC Properties',
     logo: 'https://logo.clearbit.com/damacproperties.com',
-    description: 'Leading luxury real estate developer in the Middle East since 2002.',
+    description: 'Leading luxury real estate developer. View the latest projects by DAMAC Properties in Dubai.',
     projects: [
       { name: 'DAMAC Hills', type: 'Golf Community', location: 'Dubailand', details: 'Luxury villas and apartments centered around the Trump International Golf Club.' },
       { name: 'Cavalli Tower', type: 'Ultra-Luxury Residential', location: 'Dubai Marina', details: 'The only Cavalli-branded tower in the world with private pools and beach access.' }
@@ -1083,7 +1081,7 @@ const DEVELOPERS = [
     id: 4,
     name: 'Sobha Realty',
     logo: 'https://logo.clearbit.com/sobharealty.com',
-    description: 'A global luxury developer committed to redefining the art of living.',
+    description: 'Redefining the art of living. Explore premium projects by Sobha Realty in MBR City.',
     projects: [
       { name: 'Sobha Hartland', type: 'Master Community', location: 'MBR City', details: 'An 8 million sq. ft. waterfront community featuring luxury apartments and villas.' },
       { name: 'Sobha SeaHaven', type: 'Waterfront Living', location: 'Dubai Harbour', details: 'Ultra-luxury apartments with panoramic views of the Palm and Dubai Marina.' }
@@ -1091,12 +1089,12 @@ const DEVELOPERS = [
   },
   {
     id: 5,
-    name: 'Meraas',
-    logo: 'https://logo.clearbit.com/meraas.com',
-    description: 'Creating destinations that enhance the Dubai lifestyle through innovation.',
+    name: 'Azizi Developments',
+    logo: 'https://logo.clearbit.com/azizidevelopments.com',
+    description: 'Creating destinations that enhance the Dubai lifestyle. View projects by Azizi Developments.',
     projects: [
-      { name: 'Bluewaters Island', type: 'Lifestyle Destination', location: 'Dubai Coast', details: 'Home to Ain Dubai, featuring premium residences and retail experiences.' },
-      { name: 'City Walk', type: 'Urban Living', location: 'Al Wasl', details: 'A sophisticated urban destination with high-end retail, dining, and residences.' }
+      { name: 'Azizi Riviera', type: 'Waterfront Community', location: 'Meydan', details: 'A French Mediterranean-inspired community with retail and residential units.' },
+      { name: 'Azizi Mina', type: 'Luxury Living', location: 'Palm Jumeirah', details: 'High-end serviced apartments on the iconic Palm Jumeirah crescent.' }
     ]
   },
   {
@@ -1778,7 +1776,7 @@ Furnish: ${searchFurnishStatus}
               transition={{ delay: 0.2 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-script font-bold text-white leading-tight mb-6 md:mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
             >
-              Your Dream Home <span className="text-porsche-red glow-porsche">Awaits.</span>
+              Best Property Deals in <span className="text-porsche-red glow-porsche">Dubai.</span>
             </motion.h1>
 
             <motion.p
@@ -1787,7 +1785,7 @@ Furnish: ${searchFurnishStatus}
               transition={{ delay: 0.4 }}
               className="text-white/50 text-[8px] md:text-xs font-light tracking-[0.3em] md:tracking-[0.4em] uppercase max-w-xs md:max-w-none mx-auto"
             >
-              The Journey To Modern Living Starts Here At Rock Deals
+              Buy Property in Dubai with 1% Payment Plans and Zero Commission
             </motion.p>
           </div>
 
@@ -2072,12 +2070,12 @@ Furnish: ${searchFurnishStatus}
               <span className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-black">Philosophy</span>
             </motion.div>
             <h2 className="text-4xl sm:text-5xl md:text-8xl font-display font-black text-dark leading-[0.9] mb-8 md:mb-12 tracking-tighter">
-              PRECISION<br />
-              <span className="text-porsche-red">IN EVERY</span><br />
-              DEAL.
+              DUBAI<br />
+              <span className="text-porsche-red">REAL ESTATE</span><br />
+              DEALS.
             </h2>
             <p className="text-dark/60 text-base md:text-xl leading-relaxed font-light max-w-xl mb-8 md:mb-12">
-              Rock Deals combines luxury property expertise with next-generation technology to deliver the most advanced real estate experience in the region.
+              Rock Deals specializes in Dubai distress deals, off-plan properties, and high ROI investments. We provide a comprehensive Dubai property investment guide to help you find the cheapest property in Dubai with the best payment plans.
             </p>
             <motion.button
               whileHover={{ x: 10 }}
@@ -2184,7 +2182,7 @@ Furnish: ${searchFurnishStatus}
             </h2>
           </div>
           <p className="text-dark/40 text-sm md:text-base max-w-md font-light leading-relaxed">
-            Experience real estate through the lens of high-performance technology and uncompromising luxury standards.
+            Experience the Dubai property market through the lens of high-performance technology. Find the best off-plan projects in Dubai and new launch projects with high ROI.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200 border border-gray-200">
@@ -2338,7 +2336,7 @@ Furnish: ${searchFurnishStatus}
                 A DEAL FOR EVERYONE
               </p>
               <p className="text-dark/50 text-sm md:text-base leading-relaxed mb-8 max-w-xs font-light">
-                Redefining luxury real estate in the UAE. Connecting discerning buyers with the finest properties across Dubai and Abu Dhabi.
+                Redefining luxury real estate in the UAE. Find Dubai real estate deals, luxury properties in Dubai, and apartments for sale in Dubai with zero commission.
               </p>
               <div className="mb-8 md:mb-12">
                 <a href="tel:+971529178630" className="flex items-center gap-4 group min-h-[44px]">
