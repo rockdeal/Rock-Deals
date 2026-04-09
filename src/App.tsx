@@ -3,6 +3,8 @@ import {
   Menu, 
   X, 
   ChevronDown, 
+  ChevronLeft,
+  ChevronRight,
   ArrowRight, 
   ArrowLeft,
   CreditCard, 
@@ -26,7 +28,19 @@ import {
   Building2,
   Home,
   Key,
-  Briefcase
+  Briefcase,
+  Calendar,
+  Bed,
+  Bath,
+  Maximize,
+  MessageSquare,
+  Layout,
+  Layers,
+  CheckCircle2,
+  Image as ImageIcon,
+  ExternalLink,
+  Clock,
+  Wallet
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -43,6 +57,10 @@ import {
   AreaChart, 
   Area 
 } from 'recharts';
+
+import { DEVELOPERS } from './data/developers';
+import { PROJECTS } from './data/projects';
+import { Developer, Project, PropertyType } from './types';
 
 const NavLink = ({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) => (
   <a 
@@ -593,22 +611,31 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                       <h3 className="text-black font-display font-black text-4xl tracking-tighter uppercase mb-6">Want the best property deals in Dubai?</h3>
                       <p className="text-black/50 text-sm font-light mb-12">Our AI-driven platform identifies high-yield opportunities before they hit the open market.</p>
                       
-                      <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                      <form className="space-y-6" onSubmit={(e) => {
+                        e.preventDefault();
+                        const target = e.target as any;
+                        const name = target[0].value;
+                        const phone = target[1].value;
+                        const email = target[2].value;
+                        const subject = `Investment Deal Request from ${name}`;
+                        const body = `Investment Deal Request:\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nROI Parameters:\nPrice: ${price}\nYield: ${netYield.toFixed(2)}%`;
+                        window.location.href = `mailto:Rockdeals.ae@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                      }}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="relative">
                             <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20" />
-                            <input type="text" placeholder="Full Name" className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 text-black outline-none focus:border-[#B12B28]" />
+                            <input required type="text" placeholder="Full Name" className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 text-black outline-none focus:border-[#B12B28]" />
                           </div>
                           <div className="relative">
                             <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20" />
-                            <input type="tel" placeholder="Phone Number" className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 text-black outline-none focus:border-[#B12B28]" />
+                            <input required type="tel" placeholder="Phone Number" className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 text-black outline-none focus:border-[#B12B28]" />
                           </div>
                         </div>
                         <div className="relative">
                           <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20" />
-                          <input type="email" placeholder="Email Address" className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 text-black outline-none focus:border-[#B12B28]" />
+                          <input required type="email" placeholder="Email Address" className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 text-black outline-none focus:border-[#B12B28]" />
                         </div>
-                        <button className="w-full bg-[#B12B28] text-white py-6 text-[10px] tracking-[0.4em] uppercase font-black hover:bg-black transition-all duration-500">
+                        <button type="submit" className="w-full bg-[#B12B28] text-white py-6 text-[10px] tracking-[0.4em] uppercase font-black hover:bg-black transition-all duration-500">
                           Get Investment Deals
                         </button>
                       </form>
@@ -1046,264 +1073,542 @@ const PROPERTIES = [
   { id: 5, title: 'Crystal Tower | Dubai Off Plan Properties', category: 'Off-Plan', price: 'Starting AED 1,500,000', location: 'Business Bay', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800' },
   { id: 6, title: 'Modern Creek | Ready to Move Property', category: 'Ready to Move', price: 'AED 2,100,000', location: 'Dubai Creek Harbour', image: 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?auto=format&fit=crop&q=80&w=800' },
   { id: 7, title: 'Azure Waterfront | Dubai Distress Deals', category: 'Luxury Villas', price: 'AED 32,000,000', location: 'Jumeirah Bay', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
-];const DEVELOPERS = [
-  {
-    id: 1,
-    name: 'Emaar Properties',
-    logo: 'https://logo.clearbit.com/emaar.com',
-    description: 'Explore properties by Emaar Properties, the global developer of iconic landmarks including Burj Khalifa.',
-    projects: [
-      { name: 'Burj Khalifa', type: 'Iconic Landmark', location: 'Downtown Dubai', details: 'The world\'s tallest building, featuring luxury residences and corporate suites.' },
-      { name: 'Dubai Hills Estate', type: 'Master Community', location: 'Dubai Hills', details: 'A vast green community with villas, apartments, and a championship golf course.' }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Nakheel',
-    logo: 'https://logo.clearbit.com/nakheel.com',
-    description: 'Discover world-famous projects by Nakheel, including Palm Jumeirah and The World Islands.',
-    projects: [
-      { name: 'Palm Jumeirah', type: 'Island Community', location: 'The Palm', details: 'The world\'s largest man-made island, home to ultra-luxury villas and resorts.' },
-      { name: 'The World Islands', type: 'Archipelago', location: 'Dubai Coast', details: 'A collection of 300 man-made private islands shaped like the world map.' }
-    ]
-  },
-  {
-    id: 3,
-    name: 'DAMAC Properties',
-    logo: 'https://logo.clearbit.com/damacproperties.com',
-    description: 'Leading luxury real estate developer. View the latest projects by DAMAC Properties in Dubai.',
-    projects: [
-      { name: 'DAMAC Hills', type: 'Golf Community', location: 'Dubailand', details: 'Luxury villas and apartments centered around the Trump International Golf Club.' },
-      { name: 'Cavalli Tower', type: 'Ultra-Luxury Residential', location: 'Dubai Marina', details: 'The only Cavalli-branded tower in the world with private pools and beach access.' }
-    ]
-  },
-  {
-    id: 4,
-    name: 'Sobha Realty',
-    logo: 'https://logo.clearbit.com/sobharealty.com',
-    description: 'Redefining the art of living. Explore premium projects by Sobha Realty in MBR City.',
-    projects: [
-      { name: 'Sobha Hartland', type: 'Master Community', location: 'MBR City', details: 'An 8 million sq. ft. waterfront community featuring luxury apartments and villas.' },
-      { name: 'Sobha SeaHaven', type: 'Waterfront Living', location: 'Dubai Harbour', details: 'Ultra-luxury apartments with panoramic views of the Palm and Dubai Marina.' }
-    ]
-  },
-  {
-    id: 5,
-    name: 'Azizi Developments',
-    logo: 'https://logo.clearbit.com/azizidevelopments.com',
-    description: 'Creating destinations that enhance the Dubai lifestyle. View projects by Azizi Developments.',
-    projects: [
-      { name: 'Azizi Riviera', type: 'Waterfront Community', location: 'Meydan', details: 'A French Mediterranean-inspired community with retail and residential units.' },
-      { name: 'Azizi Mina', type: 'Luxury Living', location: 'Palm Jumeirah', details: 'High-end serviced apartments on the iconic Palm Jumeirah crescent.' }
-    ]
-  },
-  {
-    id: 6,
-    name: 'Dubai Properties',
-    logo: 'https://logo.clearbit.com/dp.ae',
-    description: 'Developing and managing some of the most iconic destinations in Dubai.',
-    projects: [
-      { name: 'Jumeirah Beach Residence (JBR)', type: 'Beachfront Community', location: 'Dubai Marina', details: 'One of the most popular residential and tourist destinations in the city.' },
-      { name: 'Business Bay', type: 'Commercial & Residential', location: 'Business Bay', details: 'The central business district of Dubai with high-rise towers and canal views.' }
-    ]
-  },
-  {
-    id: 7,
-    name: 'Deyaar',
-    logo: 'https://logo.clearbit.com/deyaar.ae',
-    description: 'One of the largest real estate developers in Dubai with a diverse portfolio.',
-    projects: [
-      { name: 'Regalia', type: 'Luxury Residential', location: 'Business Bay', details: 'A 70-storey luxury residential tower with high-end amenities and smart home tech.' },
-      { name: 'Midtown', type: 'Integrated Community', location: 'IMPZ', details: 'An expansive residential community with retail and leisure facilities.' }
-    ]
-  },
-  {
-    id: 8,
-    name: 'Azizi Developments',
-    logo: 'https://logo.clearbit.com/azizidevelopments.com',
-    description: 'Committed to creating quality living spaces and vibrant communities.',
-    projects: [
-      { name: 'Azizi Riviera', type: 'Waterfront Community', location: 'Meydan', details: 'A French Mediterranean-inspired community with retail and leisure attractions.' },
-      { name: 'Azizi Venice', type: 'Waterfront Living', location: 'Dubai South', details: 'A massive crystal lagoon community with luxury villas and apartments.' }
-    ]
-  },
-  {
-    id: 9,
-    name: 'Ellington Properties',
-    logo: 'https://logo.clearbit.com/ellingtonproperties.ae',
-    description: 'Dubai\'s leading design-led real estate developer.',
-    projects: [
-      { name: 'Belgravia', type: 'Design-led Residential', location: 'JVC', details: 'Award-winning residential developments known for their modern design and quality.' },
-      { name: 'The Portman', type: 'Luxury Apartments', location: 'JVC', details: 'A contemporary residential building with a focus on wellness and community.' }
-    ]
-  },
-  {
-    id: 10,
-    name: 'Omniyat',
-    logo: 'https://logo.clearbit.com/omniyat.com',
-    description: 'Creating unique architectural masterpieces and ultra-luxury experiences.',
-    projects: [
-      { name: 'One at Palm Jumeirah', type: 'Ultra-Luxury Residential', location: 'Palm Jumeirah', details: 'Managed by Dorchester Collection, featuring some of the most expensive penthouses.' },
-      { name: 'The Opus', type: 'Architectural Landmark', location: 'Business Bay', details: 'Designed by Zaha Hadid, a unique building housing residences and a hotel.' }
-    ]
-  }
 ];
 
-const DevelopersView = ({ onBack }: { onBack: () => void }) => {
-  const [selectedDeveloper, setSelectedDeveloper] = useState<typeof DEVELOPERS[0] | null>(null);
+
+const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: () => void }) => {
+  const [subView, setSubView] = useState<'list' | 'projects' | 'details'>('list');
+  const [selectedDevId, setSelectedDevId] = useState<number | null>(null);
+  const [selectedProjId, setSelectedProjId] = useState<number | null>(null);
+
+  // Filter states
+  const [filterLocation, setFilterLocation] = useState('All');
+  const [filterType, setFilterType] = useState('All');
+  const [filterPrice, setFilterPrice] = useState('All');
+  const [filterHandover, setFilterHandover] = useState('All');
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 9;
+
+  // Search state
+  const [projectSearch, setProjectSearch] = useState('');
+
+  const selectedDeveloper = DEVELOPERS.find(d => d.id === selectedDevId);
+  const selectedProject = PROJECTS.find(p => p.id === selectedProjId);
+
+  const filteredProjects = PROJECTS.filter(p => {
+    if (selectedDevId && p.developerId !== selectedDevId) return false;
+    if (filterLocation !== 'All' && p.location !== filterLocation) return false;
+    if (filterType !== 'All' && p.type !== filterType) return false;
+    
+    // Search filter
+    if (projectSearch && !p.name.toLowerCase().includes(projectSearch.toLowerCase()) && !p.location.toLowerCase().includes(projectSearch.toLowerCase())) return false;
+
+    // Simple price filter logic for demo
+    if (filterPrice !== 'All') {
+      const priceVal = parseInt(p.price.replace(/[^0-9]/g, ''));
+      if (filterPrice === 'Under 2M' && priceVal >= 2000000) return false;
+      if (filterPrice === '2M - 5M' && (priceVal < 2000000 || priceVal > 5000000)) return false;
+      if (filterPrice === 'Above 5M' && priceVal <= 5000000) return false;
+    }
+    if (filterHandover !== 'All' && !p.handover.includes(filterHandover)) return false;
+    return true;
+  });
+
+  // Get current projects
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
+  const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const locations = Array.from(new Set(PROJECTS.map(p => p.location)));
+  const propertyTypes = Array.from(new Set(PROJECTS.map(p => p.type)));
+  const handoverYears = Array.from(new Set(PROJECTS.map(p => p.handover.split(' ').pop())));
+
+  const handleDevClick = (id: number) => {
+    setSelectedDevId(id);
+    setSubView('projects');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleProjClick = (id: number) => {
+    setSelectedProjId(id);
+    setSubView('details');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const resetFilters = () => {
+    setFilterLocation('All');
+    setFilterType('All');
+    setFilterPrice('All');
+    setFilterHandover('All');
+  };
 
   return (
-    <div className="min-h-screen bg-white selection:bg-dark selection:text-white">
+    <div className="min-h-screen bg-white selection:bg-dark selection:text-white font-sans">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-        <div className="px-8 lg:px-16 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-12">
+      <header className="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div className="px-6 md:px-12 lg:px-16 py-4 md:py-6 flex items-center justify-between">
+          <div className="flex items-center gap-6 md:gap-12">
             <button 
-              onClick={onBack}
-              className="group flex items-center gap-3 text-dark/40 hover:text-porsche-red transition-colors"
+              onClick={() => {
+                if (subView === 'details') setSubView('projects');
+                else if (subView === 'projects') {
+                  setSubView('list');
+                  setSelectedDevId(null);
+                }
+                else onBack();
+              }}
+              className="group flex items-center gap-2 md:gap-3 text-dark/40 hover:text-porsche-red transition-colors"
             >
-              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-              <span className="text-[10px] font-black tracking-[0.3em] uppercase">Return Home</span>
+              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
+              <span className="text-[9px] md:text-[10px] font-black tracking-[0.2em] md:tracking-[0.3em] uppercase">
+                {subView === 'list' ? 'Return Home' : subView === 'projects' ? 'Back to Developers' : 'Back to Projects'}
+              </span>
             </button>
             <div className="flex items-baseline gap-1">
-              <span className="text-dark font-display font-black text-2xl tracking-tighter">ROCK</span>
-              <span className="text-dark/40 font-display font-light text-2xl tracking-tighter">DEALS</span>
+              <span className="text-dark font-display font-black text-xl md:text-2xl tracking-tighter">ROCK</span>
+              <span className="text-dark/40 font-display font-light text-xl md:text-2xl tracking-tighter">DEALS</span>
             </div>
+          </div>
+          
+          <div className="hidden md:flex items-center gap-8">
+            <a href="https://wa.me/971529178630" target="_blank" rel="noreferrer" className="text-[10px] font-black tracking-[0.3em] uppercase hover:text-porsche-red transition-colors">WhatsApp</a>
+            <button 
+              onClick={onEnquire}
+              className="bg-dark text-white px-6 py-2.5 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-porsche-red transition-all"
+            >
+              Enquire Now
+            </button>
           </div>
         </div>
       </header>
 
-      <main className="pt-32 pb-48 px-8 lg:px-24">
+      <main className="pt-24 md:pt-32 pb-24 md:pb-48">
         <AnimatePresence mode="wait">
-          {!selectedDeveloper ? (
+          {subView === 'list' && (
             <motion.div
               key="list"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="max-w-7xl mx-auto"
+              className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
             >
-              <div className="mb-24">
-                <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-6">Industry Leaders</p>
-                <h2 className="text-7xl md:text-9xl font-display font-black text-dark tracking-tighter leading-none">
+              <div className="mb-16 md:mb-24">
+                <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Industry Leaders</p>
+                <h2 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-dark tracking-tighter leading-none">
                   DUBAI<br />
                   <span className="text-porsche-red">DEVELOPERS.</span>
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12">
                 {DEVELOPERS.map((dev) => (
                   <motion.div
                     key={dev.id}
                     whileHover={{ y: -10 }}
-                    className="group bg-gray-50 p-12 rounded-[2rem] border border-transparent hover:border-porsche-red/20 transition-all duration-500 cursor-pointer"
-                    onClick={() => setSelectedDeveloper(dev)}
+                    className="group bg-white p-8 md:p-12 rounded-[2rem] border border-gray-100 hover:border-porsche-red/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 cursor-pointer flex flex-col"
+                    onClick={() => handleDevClick(dev.id)}
                   >
-                    <div className="w-24 h-24 rounded-2xl overflow-hidden mb-10 bg-white p-4 shadow-sm group-hover:shadow-xl transition-all duration-500 flex items-center justify-center">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden mb-8 md:mb-10 bg-white p-4 border border-gray-50 shadow-sm group-hover:shadow-md transition-all duration-500 flex items-center justify-center">
                       <img 
                         src={dev.logo} 
                         alt={dev.name} 
                         className="w-full h-full object-contain"
                         referrerPolicy="no-referrer"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          const parent = target.parentElement;
-                          if (parent && !parent.querySelector('.fallback-icon')) {
-                            const icon = document.createElement('div');
-                            icon.className = 'fallback-icon flex flex-col items-center justify-center text-center';
-                            icon.innerHTML = `
-                              <div class="text-porsche-red mb-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
-                              </div>
-                              <span class="text-[8px] font-bold uppercase tracking-tighter text-dark/40">${dev.name.split(' ')[0]}</span>
-                            `;
-                            parent.appendChild(icon);
-                          }
-                        }}
                       />
                     </div>
-                    <h3 className="text-3xl font-display font-black text-dark mb-4 uppercase tracking-tight">
+                    <h3 className="text-2xl md:text-3xl font-display font-black text-dark mb-3 md:mb-4 uppercase tracking-tight">
                       {dev.name}
                       <span className="text-porsche-red">.</span>
                     </h3>
-                    <p className="text-dark/40 text-sm font-light leading-relaxed mb-10">
+                    <p className="text-porsche-red text-[8px] md:text-[9px] font-black tracking-[0.3em] uppercase mb-4">{dev.tagline}</p>
+                    <p className="text-dark/40 text-sm font-light leading-relaxed mb-8 md:mb-10 line-clamp-3">
                       {dev.description}
                     </p>
-                    <div className="flex items-center gap-4 text-porsche-red text-[10px] font-black tracking-[0.3em] uppercase">
-                      <span>View Projects</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                    <div className="mt-auto flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-dark/30 text-[9px] font-black tracking-widest uppercase">
+                        <Layers className="w-3 h-3" />
+                        <span>{dev.projectCount} Projects</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-porsche-red text-[9px] font-black tracking-[0.3em] uppercase group-hover:gap-5 transition-all">
+                        <span>View Projects</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
                     </div>
                   </motion.div>
                 ))}
               </div>
             </motion.div>
-          ) : (
+          )}
+
+          {subView === 'projects' && (
             <motion.div
-              key="details"
+              key="projects"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="max-w-7xl mx-auto"
+              className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
             >
-              <button 
-                onClick={() => setSelectedDeveloper(null)}
-                className="group flex items-center gap-4 text-dark/40 hover:text-porsche-red transition-colors mb-16"
-              >
-                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                <span className="text-[10px] font-black tracking-[0.3em] uppercase">Back to Developers</span>
-              </button>
-
-              <div className="flex flex-col lg:flex-row gap-24 items-start mb-32">
-                <div className="lg:w-1/3">
-                  <div className="w-32 h-32 rounded-3xl overflow-hidden mb-10 bg-gray-50 p-6">
-                    <img 
-                      src={selectedDeveloper.logo} 
-                      alt={selectedDeveloper.name} 
-                      className="w-full h-full object-contain"
-                      referrerPolicy="no-referrer"
+              <div className="mb-16 md:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+                <div>
+                  <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">
+                    {selectedDeveloper ? selectedDeveloper.name : 'All Projects'}
+                  </p>
+                  <h2 className="text-5xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
+                    Featured<br />
+                    <span className="text-porsche-red">Projects.</span>
+                  </h2>
+                </div>
+                
+                <div className="flex flex-col gap-6 w-full lg:w-auto">
+                  {/* Search Bar */}
+                  <div className="relative group">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dark/20 group-focus-within:text-porsche-red transition-colors" />
+                    <input 
+                      type="text" 
+                      placeholder="Search projects or locations..."
+                      value={projectSearch}
+                      onChange={(e) => {
+                        setProjectSearch(e.target.value);
+                        setCurrentPage(1);
+                      }}
+                      className="w-full lg:w-[400px] bg-gray-50 border border-gray-100 rounded-xl py-4 pl-12 pr-6 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
                     />
                   </div>
-                  <h2 className="text-6xl font-display font-black text-dark mb-6 uppercase tracking-tighter">
-                    {selectedDeveloper.name}
-                    <span className="text-porsche-red">.</span>
-                  </h2>
-                  <p className="text-dark/50 text-lg font-light leading-relaxed">
-                    {selectedDeveloper.description}
-                  </p>
+
+                  {/* Filters */}
+                  <div className="flex flex-wrap gap-3 md:gap-4">
+                    <select 
+                      value={filterLocation}
+                      onChange={(e) => {
+                        setFilterLocation(e.target.value);
+                        setCurrentPage(1);
+                      }}
+                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                    >
+                      <option value="All">Location: All</option>
+                      {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
+                    </select>
+                    <select 
+                      value={filterType}
+                      onChange={(e) => {
+                        setFilterType(e.target.value);
+                        setCurrentPage(1);
+                      }}
+                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                    >
+                      <option value="All">Type: All</option>
+                      {propertyTypes.map(type => <option key={type} value={type}>{type}</option>)}
+                    </select>
+                    <select 
+                      value={filterPrice}
+                      onChange={(e) => {
+                        setFilterPrice(e.target.value);
+                        setCurrentPage(1);
+                      }}
+                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                    >
+                      <option value="All">Price: All</option>
+                      <option value="Under 2M">Under 2M</option>
+                      <option value="2M - 5M">2M - 5M</option>
+                      <option value="Above 5M">Above 5M</option>
+                    </select>
+                    <select 
+                      value={filterHandover}
+                      onChange={(e) => {
+                        setFilterHandover(e.target.value);
+                        setCurrentPage(1);
+                      }}
+                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                    >
+                      <option value="All">Handover: All</option>
+                      {handoverYears.map(year => <option key={year} value={year}>{year}</option>)}
+                    </select>
+                    <button 
+                      onClick={() => {
+                        resetFilters();
+                        setProjectSearch('');
+                        setCurrentPage(1);
+                      }}
+                      className="bg-dark text-white rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase hover:bg-porsche-red transition-all"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {currentProjects.length > 0 ? (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+                    {currentProjects.map((project) => (
+                    <motion.div
+                      key={project.id}
+                      whileHover={{ y: -10 }}
+                      className="group bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 hover:border-porsche-red/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all duration-700 cursor-pointer flex flex-col"
+                      onClick={() => handleProjClick(project.id)}
+                    >
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img 
+                          src={project.heroImage} 
+                          alt={project.name} 
+                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                        />
+                        <div className="absolute top-6 left-6">
+                          <span className="bg-white/90 backdrop-blur-md text-dark text-[8px] font-black px-4 py-1.5 rounded-full tracking-[0.2em] uppercase shadow-sm">
+                            {project.type}
+                          </span>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                          <div className="flex items-center gap-2 text-white text-[9px] font-black tracking-widest uppercase">
+                            <ImageIcon className="w-3 h-3" />
+                            <span>View Gallery</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="p-8 md:p-10 flex flex-col flex-1">
+                        <div className="flex items-center gap-2 text-porsche-red text-[8px] font-black tracking-widest uppercase mb-3">
+                          <MapPin className="w-3 h-3" />
+                          <span>{project.location}</span>
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-display font-black text-dark mb-6 uppercase tracking-tight group-hover:text-porsche-red transition-colors">
+                          {project.name}
+                        </h3>
+                        
+                        <div className="grid grid-cols-2 gap-6 mb-8 py-6 border-y border-gray-50">
+                          <div>
+                            <p className="text-dark/30 text-[8px] font-black tracking-widest uppercase mb-1">Starting Price</p>
+                            <p className="text-dark font-technical font-bold text-sm">{project.price}</p>
+                          </div>
+                          <div>
+                            <p className="text-dark/30 text-[8px] font-black tracking-widest uppercase mb-1">Handover</p>
+                            <p className="text-dark font-technical font-bold text-sm">{project.handover}</p>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-auto flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-dark/40 text-[9px] font-black tracking-widest uppercase">
+                            <Wallet className="w-3 h-3" />
+                            <span>{project.paymentPlan}</span>
+                          </div>
+                          <div className="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center group-hover:bg-porsche-red group-hover:border-porsche-red transition-all duration-500">
+                            <ArrowRight className="w-4 h-4 text-dark/40 group-hover:text-white transition-colors" />
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
 
-                <div className="lg:w-2/3 w-full">
-                  <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-12">Famous Projects</p>
-                  <div className="space-y-8">
-                    {selectedDeveloper.projects.map((project, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="bg-gray-50 p-12 rounded-[2.5rem] border border-gray-100 hover:border-porsche-red/20 transition-all duration-500"
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="mt-20 flex items-center justify-center gap-4">
+                    <button 
+                      onClick={() => paginate(Math.max(1, currentPage - 1))}
+                      disabled={currentPage === 1}
+                      className={`w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center transition-all ${currentPage === 1 ? 'opacity-30 cursor-not-allowed' : 'hover:border-porsche-red hover:text-porsche-red'}`}
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    
+                    <div className="flex items-center gap-2">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((number) => (
+                        <button
+                          key={number}
+                          onClick={() => paginate(number)}
+                          className={`w-12 h-12 rounded-full text-[10px] font-black transition-all ${currentPage === number ? 'bg-porsche-red text-white shadow-lg shadow-porsche-red/20' : 'hover:bg-gray-50 text-dark/40'}`}
+                        >
+                          {number}
+                        </button>
+                      ))}
+                    </div>
+
+                    <button 
+                      onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
+                      disabled={currentPage === totalPages}
+                      className={`w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center transition-all ${currentPage === totalPages ? 'opacity-30 cursor-not-allowed' : 'hover:border-porsche-red hover:text-porsche-red'}`}
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+                <div className="py-32 text-center border-2 border-dashed border-gray-100 rounded-[3rem]">
+                  <Search className="w-12 h-12 text-dark/10 mx-auto mb-6" />
+                  <p className="text-dark/30 text-xl font-light tracking-widest uppercase">No projects match your filters.</p>
+                  <button onClick={resetFilters} className="mt-8 text-porsche-red text-[10px] font-black tracking-[0.3em] uppercase hover:underline">Clear all filters</button>
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {subView === 'details' && selectedProject && (
+            <motion.div
+              key="details"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.02 }}
+              className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24"
+            >
+              {/* Hero Section */}
+              <div className="relative h-[60vh] md:h-[80vh] rounded-[3rem] overflow-hidden mb-16 md:mb-24 shadow-2xl">
+                <img 
+                  src={selectedProject.heroImage} 
+                  alt={selectedProject.name} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-12 md:bottom-24 left-8 md:left-16 right-8 md:right-16">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div>
+                      <div className="flex items-center gap-4 mb-6">
+                        <span className="bg-porsche-red text-white text-[9px] font-black px-5 py-2 rounded-full tracking-[0.3em] uppercase">
+                          {selectedProject.type}
+                        </span>
+                        <div className="flex items-center gap-2 text-white/60 text-[10px] font-black tracking-widest uppercase">
+                          <MapPin className="w-4 h-4 text-porsche-red" />
+                          <span>{selectedProject.location}</span>
+                        </div>
+                      </div>
+                      <h1 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-white tracking-tighter leading-none uppercase mb-4">
+                        {selectedProject.name}
+                        <span className="text-porsche-red">.</span>
+                      </h1>
+                      <p className="text-white/60 text-lg md:text-xl font-light tracking-widest uppercase">
+                        By {DEVELOPERS.find(d => d.id === selectedProject.developerId)?.name}
+                      </p>
+                    </div>
+                    
+                    <div className="flex gap-4">
+                      <button 
+                        onClick={onEnquire}
+                        className="bg-white text-dark px-8 md:px-12 py-4 md:py-5 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-porsche-red hover:text-white transition-all duration-500 shadow-xl"
                       >
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-                          <div>
-                            <span className="text-porsche-red text-[9px] tracking-[0.4em] uppercase font-black block mb-2">{project.type}</span>
-                            <h4 className="text-4xl font-display font-black text-dark uppercase tracking-tight">{project.name}</h4>
-                          </div>
-                          <div className="flex items-center gap-3 bg-white px-6 py-3 rounded-full shadow-sm">
-                            <MapPin className="w-4 h-4 text-porsche-red" />
-                            <span className="text-dark font-technical font-bold text-xs uppercase tracking-widest">{project.location}</span>
-                          </div>
-                        </div>
-                        <p className="text-dark/50 text-base font-light leading-relaxed">
-                          {project.details}
-                        </p>
-                        <div className="mt-10 pt-10 border-t border-gray-200 flex justify-end">
-                          <button className="bg-dark text-white px-10 py-4 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-porsche-red transition-colors">
-                            Enquire Details
-                          </button>
-                        </div>
-                      </motion.div>
+                        Enquire Now
+                      </button>
+                      <a 
+                        href="https://wa.me/971529178630" 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="bg-green-500 text-white p-4 md:p-5 rounded-full hover:bg-green-600 transition-all shadow-xl flex items-center justify-center"
+                      >
+                        <MessageSquare className="w-6 h-6" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24">
+                {/* Left Column: Info & Overview */}
+                <div className="lg:col-span-8">
+                  {/* Key Info Box */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100 border border-gray-100 rounded-[2rem] overflow-hidden mb-16 md:mb-24 shadow-sm">
+                    {[
+                      { label: 'Starting Price', value: selectedProject.price, icon: DollarSign },
+                      { label: 'Handover Date', value: selectedProject.handover, icon: Calendar },
+                      { label: 'Payment Plan', value: selectedProject.paymentPlan, icon: Wallet },
+                      { label: 'Property Type', value: selectedProject.type, icon: Home }
+                    ].map((item, i) => (
+                      <div key={i} className="bg-white p-8 md:p-10 flex flex-col items-center text-center group hover:bg-gray-50 transition-colors">
+                        <item.icon className="w-6 h-6 text-porsche-red mb-6 group-hover:scale-110 transition-transform" />
+                        <p className="text-dark/30 text-[8px] font-black tracking-widest uppercase mb-2">{item.label}</p>
+                        <p className="text-dark font-technical font-bold text-sm md:text-base">{item.value}</p>
+                      </div>
                     ))}
+                  </div>
+
+                  {/* Overview */}
+                  <div className="mb-16 md:mb-24">
+                    <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-8">Project Overview</p>
+                    <p className="text-dark/60 text-xl md:text-2xl font-light leading-relaxed mb-12">
+                      {selectedProject.description}
+                    </p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {selectedProject.highlights.map((highlight, i) => (
+                        <div key={i} className="flex items-center gap-4 p-6 bg-gray-50 rounded-2xl border border-transparent hover:border-porsche-red/10 transition-all">
+                          <CheckCircle2 className="w-5 h-5 text-porsche-red flex-shrink-0" />
+                          <span className="text-dark font-technical font-bold text-xs uppercase tracking-widest">{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Amenities */}
+                  <div className="mb-16 md:mb-24">
+                    <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-12">World-Class Amenities</p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                      {selectedProject.amenities.map((amenity, i) => (
+                        <div key={i} className="flex flex-col gap-4 group">
+                          <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-porsche-red group-hover:text-white transition-all duration-500">
+                            <Layout className="w-5 h-5" />
+                          </div>
+                          <span className="text-dark font-technical font-bold text-[10px] uppercase tracking-widest">{amenity}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Payment Plan Breakdown */}
+                  {selectedProject.paymentPlanBreakdown && (
+                    <div className="mb-16 md:mb-24">
+                      <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-12">Payment Plan Breakdown</p>
+                      <div className="space-y-4">
+                        {selectedProject.paymentPlanBreakdown.map((plan, i) => (
+                          <div key={i} className="flex items-center justify-between p-8 bg-gray-50 rounded-2xl group hover:bg-dark hover:text-white transition-all duration-500">
+                            <span className="text-dark/60 group-hover:text-white/60 font-technical font-bold text-xs uppercase tracking-widest">{plan.milestone}</span>
+                            <span className="text-dark group-hover:text-porsche-red font-display font-black text-2xl">{plan.percentage}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right Column: Gallery & CTA */}
+                <div className="lg:col-span-4">
+                  <div className="sticky top-32 space-y-12">
+                    {/* Gallery Preview */}
+                    <div>
+                      <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-8">Gallery</p>
+                      <div className="grid grid-cols-1 gap-6">
+                        {selectedProject.gallery.map((img, i) => (
+                          <div key={i} className="relative aspect-video rounded-3xl overflow-hidden group cursor-pointer shadow-lg">
+                            <img src={img} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <Maximize className="w-8 h-8 text-white" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Side CTA */}
+                    <div className="bg-dark p-10 md:p-12 rounded-[3rem] text-center shadow-2xl">
+                      <p className="text-porsche-red text-[9px] tracking-[0.5em] uppercase font-black mb-6">Interested?</p>
+                      <h3 className="text-3xl font-display font-black text-white uppercase tracking-tighter mb-8">Start Your Journey<span className="text-porsche-red">.</span></h3>
+                      <div className="space-y-4">
+                        <button 
+                          onClick={onEnquire}
+                          className="w-full bg-porsche-red text-white py-5 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-white hover:text-dark transition-all duration-500"
+                        >
+                          Enquire Now
+                        </button>
+                        <button className="w-full bg-white/10 text-white py-5 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-white/20 transition-all duration-500">
+                          Download Brochure
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1612,7 +1917,7 @@ Furnish: ${searchFurnishStatus}
   }
 
   if (view === 'developers') {
-    return <DevelopersView onBack={() => setView('home')} />;
+    return <DevelopersView onBack={() => setView('home')} onEnquire={() => setIsEnquiryModalOpen(true)} />;
   }
 
   if (view === 'pre-approval') {
@@ -1654,7 +1959,7 @@ Furnish: ${searchFurnishStatus}
                   { name: 'Developers', onClick: () => setView('developers') },
                   { name: 'ROI Calculator', onClick: () => setView('roi-calculator') },
                   { name: 'Payment Plans', onClick: () => setView('calculator') },
-                  { name: 'Enquire Now', href: 'https://forms.google.com' },
+                  { name: 'Enquire Now', onClick: () => setIsEnquiryModalOpen(true) },
                   { name: 'Contact', href: '#contact' }
                 ].map((item) => (
                   <a 
@@ -1704,7 +2009,7 @@ Furnish: ${searchFurnishStatus}
                   { name: 'Developers', onClick: () => setView('developers') },
                   { name: 'ROI Calculator', onClick: () => setView('roi-calculator') },
                   { name: 'Payment Plans', onClick: () => setView('calculator') },
-                  { name: 'Enquire Now', href: 'https://forms.google.com' },
+                  { name: 'Enquire Now', onClick: () => setIsEnquiryModalOpen(true) },
                   { name: 'Features', href: '#features' },
                   { name: 'Contact', href: '#contact' }
                 ].map((item) => (
@@ -2519,8 +2824,24 @@ Furnish: ${searchFurnishStatus}
                   >
                     Send Enquiry Now
                   </button>
+
+                  <div className="relative py-4 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-100"></div>
+                    </div>
+                    <span className="relative bg-white px-4 text-[8px] font-black tracking-widest uppercase text-dark/20">or</span>
+                  </div>
+
+                  <a 
+                    href="https://wa.me/971529178630"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full bg-[#25D366] text-white rounded-2xl py-5 text-[10px] font-black tracking-[0.4em] uppercase hover:bg-[#128C7E] transition-all shadow-xl flex items-center justify-center gap-3"
+                  >
+                    <MessageSquare className="w-4 h-4" /> Chat on WhatsApp
+                  </a>
                   
-                  <p className="text-center text-[8px] text-dark/20 uppercase tracking-widest font-bold">
+                  <p className="text-center text-[8px] text-dark/20 uppercase tracking-widest font-bold mt-4">
                     By submitting, you agree to our privacy policy.
                   </p>
                 </form>
