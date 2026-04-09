@@ -65,7 +65,7 @@ import { Developer, Project, PropertyType } from './types';
 const NavLink = ({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) => (
   <a 
     href={href} 
-    className={`text-[10px] tracking-[0.25em] uppercase font-black transition-all duration-300 cursor-pointer whitespace-nowrap relative group ${active ? 'text-dark' : 'text-dark/50 hover:text-dark'}`}
+    className={`text-[12px] tracking-[0.25em] uppercase font-black transition-all duration-300 cursor-pointer whitespace-nowrap relative group ${active ? 'text-dark' : 'text-dark/50 hover:text-dark'}`}
   >
     {children}
     <span className={`absolute -bottom-1 left-0 w-0 h-[2px] bg-porsche-red transition-all duration-300 group-hover:w-full ${active ? 'w-full' : ''}`}></span>
@@ -92,7 +92,7 @@ const FeatureCard = ({ icon: Icon, title, description, badge, onClick }: { icon:
     <p className="text-dark/50 text-sm leading-relaxed font-light">
       {description}
     </p>
-    <div className="mt-10 flex items-center gap-3 text-porsche-red text-[9px] font-black tracking-[0.3em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+    <div className="mt-10 flex items-center gap-3 text-porsche-red text-[11px] font-black tracking-[0.3em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
       {onClick ? 'Open Calculator' : 'Explore Details'} <ArrowRight className="w-3 h-3" />
     </div>
   </div>
@@ -131,7 +131,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
         </div>
         <button 
           onClick={onBack}
-          className="flex items-center gap-2 md:gap-3 text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-black hover:text-porsche-red transition-colors min-h-[44px]"
+          className="flex items-center gap-2 md:gap-3 text-[11px] md:text-[12px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-black hover:text-porsche-red transition-colors min-h-[44px]"
         >
           <X className="w-4 h-4" /> <span className="hidden sm:inline">Close Calculator</span><span className="sm:hidden">Close</span>
         </button>
@@ -139,7 +139,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
 
       <main className="max-w-5xl mx-auto px-6 md:px-8 py-12 md:py-24">
         <div className="mb-12 md:20">
-          <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Financial Intelligence</p>
+          <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Financial Intelligence</p>
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
             Payment Plan<br />
             <span className="text-porsche-red">Calculator.</span>
@@ -150,7 +150,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
           {/* Inputs */}
           <div className="space-y-12">
             <div className="space-y-4">
-              <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Property Price (AED)</label>
+              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Property Price (AED)</label>
               <div className="relative group">
                 <input 
                   type="number" 
@@ -163,7 +163,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Down Payment (%)</label>
+              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Down Payment (%)</label>
               <div className="flex gap-4">
                 {[10, 20, 25].map((pct) => (
                   <button 
@@ -181,13 +181,13 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
                     onChange={(e) => setDownPaymentPercent(Number(e.target.value))}
                     className="w-full h-full border-2 border-gray-100 bg-gray-50 px-4 text-center font-technical font-bold focus:border-porsche-red outline-none"
                   />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-black opacity-20">%</div>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[12px] font-black opacity-20">%</div>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Select Payment Plan</label>
+              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Select Payment Plan</label>
               <select 
                 value={selectedPlan}
                 onChange={(e) => setSelectedPlan(e.target.value)}
@@ -209,7 +209,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
             <div className="space-y-8">
               <div className="flex justify-between items-end border-b border-white/10 pb-6">
                 <div>
-                  <p className="text-white/40 text-[9px] tracking-[0.3em] uppercase font-black mb-2">Down Payment</p>
+                  <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase font-black mb-2">Down Payment</p>
                   <p className="text-white font-technical font-bold text-xl">{downPaymentPercent}%</p>
                 </div>
                 <p className="text-porsche-red font-technical font-bold text-2xl">{formatCurrency(dpAmount)}</p>
@@ -217,7 +217,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
 
               <div className="flex justify-between items-end border-b border-white/10 pb-6">
                 <div>
-                  <p className="text-white/40 text-[9px] tracking-[0.3em] uppercase font-black mb-2">During Construction</p>
+                  <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase font-black mb-2">During Construction</p>
                   <p className="text-white font-technical font-bold text-xl">{currentPlan.during - downPaymentPercent}%</p>
                 </div>
                 <p className="text-white font-technical font-bold text-2xl">{formatCurrency(duringAmount)}</p>
@@ -226,7 +226,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
               {currentPlan.handover > 0 && (
                 <div className="flex justify-between items-end border-b border-white/10 pb-6">
                   <div>
-                    <p className="text-white/40 text-[9px] tracking-[0.3em] uppercase font-black mb-2">On Handover</p>
+                    <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase font-black mb-2">On Handover</p>
                     <p className="text-white font-technical font-bold text-xl">{currentPlan.handover}%</p>
                   </div>
                   <p className="text-white font-technical font-bold text-2xl">{formatCurrency(handoverAmount)}</p>
@@ -236,7 +236,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
               {currentPlan.post !== undefined && currentPlan.post > 0 && (
                 <div className="flex justify-between items-end border-b border-white/10 pb-6">
                   <div>
-                    <p className="text-white/40 text-[9px] tracking-[0.3em] uppercase font-black mb-2">Post Handover</p>
+                    <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase font-black mb-2">Post Handover</p>
                     <p className="text-white font-technical font-bold text-xl">{currentPlan.post}%</p>
                   </div>
                   <div className="text-right">
@@ -247,7 +247,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
               )}
 
               <div className="pt-12 flex justify-between items-center">
-                <p className="text-white/60 text-[10px] tracking-[0.4em] uppercase font-black">Total Commitment</p>
+                <p className="text-white/60 text-[12px] tracking-[0.4em] uppercase font-black">Total Commitment</p>
                 <p className="text-white font-display font-black text-4xl tracking-tighter">{formatCurrency(price)}</p>
               </div>
             </div>
@@ -329,7 +329,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
         </div>
         <button 
           onClick={onBack}
-          className="flex items-center gap-2 md:gap-3 text-[9px] md:text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-black hover:text-[#B12B28] transition-colors min-h-[44px]"
+          className="flex items-center gap-2 md:gap-3 text-[11px] md:text-[12px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-black hover:text-[#B12B28] transition-colors min-h-[44px]"
         >
           <X className="w-4 h-4" /> <span className="hidden sm:inline">Exit Calculator</span><span className="sm:hidden">Exit</span>
         </button>
@@ -337,7 +337,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
 
       <main className="max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-24">
         <div className="max-w-3xl mb-16 md:mb-24">
-          <p className="text-[#B12B28] text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Investment Analytics</p>
+          <p className="text-[#B12B28] text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Investment Analytics</p>
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase mb-6 md:mb-8">
             Property ROI<br />
             <span className="text-[#B12B28]">Calculator.</span>
@@ -350,7 +350,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
               setShowResults(true);
               window.scrollTo({ top: 800, behavior: 'smooth' });
             }}
-            className="mt-8 md:mt-12 bg-[#B12B28] text-white px-8 md:px-12 py-5 md:py-6 text-[9px] md:text-[10px] tracking-[0.3em] md:tracking-[0.4em] uppercase font-black hover:bg-white hover:text-black transition-all duration-500 min-h-[48px]"
+            className="mt-8 md:mt-12 bg-[#B12B28] text-white px-8 md:px-12 py-5 md:py-6 text-[11px] md:text-[12px] tracking-[0.3em] md:tracking-[0.4em] uppercase font-black hover:bg-white hover:text-black transition-all duration-500 min-h-[48px]"
           >
             Calculate ROI
           </button>
@@ -360,10 +360,10 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
           {/* Inputs Section */}
           <div className="lg:col-span-5 space-y-16">
             <div className="space-y-12">
-              <h3 className="text-white/20 text-[10px] tracking-[0.4em] uppercase font-black border-b border-white/5 pb-4">Core Parameters</h3>
+              <h3 className="text-white/20 text-[12px] tracking-[0.4em] uppercase font-black border-b border-white/5 pb-4">Core Parameters</h3>
               
               <div className="space-y-6">
-                <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Property Price (AED)</label>
+                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Property Price (AED)</label>
                 <div className="relative group">
                   <input 
                     type="number" 
@@ -377,7 +377,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
 
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Down Payment</label>
+                  <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Down Payment</label>
                   <span className="text-[#B12B28] font-technical font-bold">{downPaymentPercent}%</span>
                 </div>
                 <input 
@@ -390,7 +390,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
 
               <div className="grid grid-cols-2 gap-12">
                 <div className="space-y-6">
-                  <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Monthly Rent</label>
+                  <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Monthly Rent</label>
                   <input 
                     type="number" value={monthlyRent}
                     onChange={(e) => setMonthlyRent(Number(e.target.value))}
@@ -398,7 +398,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   />
                 </div>
                 <div className="space-y-6">
-                  <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Service Charges (Annual)</label>
+                  <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Service Charges (Annual)</label>
                   <input 
                     type="number" value={serviceCharges}
                     onChange={(e) => setServiceCharges(Number(e.target.value))}
@@ -409,12 +409,12 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
             </div>
 
             <div className="space-y-12">
-              <h3 className="text-white/20 text-[10px] tracking-[0.4em] uppercase font-black border-b border-white/5 pb-4">Mortgage & Growth</h3>
+              <h3 className="text-white/20 text-[12px] tracking-[0.4em] uppercase font-black border-b border-white/5 pb-4">Mortgage & Growth</h3>
               
               <div className="grid grid-cols-2 gap-12">
                 <div className="space-y-6">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Interest Rate</label>
+                    <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Interest Rate</label>
                     <span className="text-[#B12B28] font-technical font-bold">{interestRate}%</span>
                   </div>
                   <input 
@@ -425,7 +425,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   />
                 </div>
                 <div className="space-y-6">
-                  <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Loan Tenure (Yrs)</label>
+                  <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Loan Tenure (Yrs)</label>
                   <input 
                     type="number" value={loanTenure}
                     onChange={(e) => setLoanTenure(Number(e.target.value))}
@@ -437,7 +437,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
               <div className="grid grid-cols-2 gap-12">
                 <div className="space-y-6">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Appreciation</label>
+                    <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Appreciation</label>
                     <span className="text-[#B12B28] font-technical font-bold">{appreciation}%</span>
                   </div>
                   <input 
@@ -448,7 +448,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   />
                 </div>
                 <div className="space-y-6">
-                  <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Holding Period (Yrs)</label>
+                  <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Holding Period (Yrs)</label>
                   <input 
                     type="number" value={holdingPeriod}
                     onChange={(e) => setHoldingPeriod(Number(e.target.value))}
@@ -459,10 +459,10 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
             </div>
 
             <div className="space-y-12">
-              <h3 className="text-white/20 text-[10px] tracking-[0.4em] uppercase font-black border-b border-white/5 pb-4">Optional Overheads</h3>
+              <h3 className="text-white/20 text-[12px] tracking-[0.4em] uppercase font-black border-b border-white/5 pb-4">Optional Overheads</h3>
               <div className="grid grid-cols-2 gap-12">
                 <div className="space-y-6">
-                  <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Maintenance (%)</label>
+                  <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Maintenance (%)</label>
                   <input 
                     type="range" min="0" max="5" step="0.5"
                     value={maintenance}
@@ -471,7 +471,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   />
                 </div>
                 <div className="space-y-6">
-                  <label className="text-[10px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Vacancy Rate (%)</label>
+                  <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Vacancy Rate (%)</label>
                   <input 
                     type="range" min="0" max="20" step="1"
                     value={vacancy}
@@ -497,19 +497,19 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                     {netYield > 7 && (
                       <div className="bg-[#B12B28]/10 border border-[#B12B28]/20 p-6 flex items-center gap-4">
                         <TrendingUp className="text-[#B12B28] w-6 h-6" />
-                        <p className="text-[10px] tracking-widest uppercase font-black">Strong Rental Investment</p>
+                        <p className="text-[12px] tracking-widest uppercase font-black">Strong Rental Investment</p>
                       </div>
                     )}
                     {appreciation > 5 && (
                       <div className="bg-white/5 border border-white/10 p-6 flex items-center gap-4">
                         <TrendingUp className="text-white w-6 h-6" />
-                        <p className="text-[10px] tracking-widest uppercase font-black">High Growth Potential</p>
+                        <p className="text-[12px] tracking-widest uppercase font-black">High Growth Potential</p>
                       </div>
                     )}
                     {annualCashFlow > 0 && (
                       <div className="bg-white/5 border border-white/10 p-6 flex items-center gap-4">
                         <DollarSign className="text-white w-6 h-6" />
-                        <p className="text-[10px] tracking-widest uppercase font-black">Positive Cash Flow</p>
+                        <p className="text-[12px] tracking-widest uppercase font-black">Positive Cash Flow</p>
                       </div>
                     )}
                   </div>
@@ -527,7 +527,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                       { label: 'Total Profit', value: formatCurrency(totalProfit), color: 'text-white' }
                     ].map((item, i) => (
                       <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 p-10 group hover:bg-white/10 transition-all duration-500">
-                        <p className="text-white/40 text-[9px] tracking-[0.4em] uppercase font-black mb-4">{item.label}</p>
+                        <p className="text-white/40 text-[11px] tracking-[0.4em] uppercase font-black mb-4">{item.label}</p>
                         <p className={`text-4xl font-display font-black tracking-tighter ${item.color}`}>{item.value}</p>
                       </div>
                     ))}
@@ -536,10 +536,10 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   {/* ROI Highlight */}
                   <div className="bg-[#B12B28] p-12 flex flex-col md:flex-row justify-between items-center gap-8">
                     <div>
-                      <p className="text-white/60 text-[10px] tracking-[0.4em] uppercase font-black mb-2">Total ROI over {holdingPeriod} years</p>
+                      <p className="text-white/60 text-[12px] tracking-[0.4em] uppercase font-black mb-2">Total ROI over {holdingPeriod} years</p>
                       <h2 className="text-7xl font-display font-black text-white tracking-tighter">{totalROI.toFixed(1)}%</h2>
                     </div>
-                    <button className="bg-white text-black px-10 py-5 text-[10px] tracking-[0.4em] uppercase font-black hover:bg-black hover:text-white transition-all duration-500 flex items-center gap-3">
+                    <button className="bg-white text-black px-10 py-5 text-[12px] tracking-[0.4em] uppercase font-black hover:bg-black hover:text-white transition-all duration-500 flex items-center gap-3">
                       <Download className="w-4 h-4" /> Export Report
                     </button>
                   </div>
@@ -547,7 +547,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   {/* Charts */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12">
                     <div className="bg-white/5 p-8 border border-white/10">
-                      <h4 className="text-[10px] tracking-[0.4em] uppercase font-black text-white/40 mb-10">Future Value Growth</h4>
+                      <h4 className="text-[12px] tracking-[0.4em] uppercase font-black text-white/40 mb-10">Future Value Growth</h4>
                       <div className="h-64">
                         <ResponsiveContainer width="100%" height="100%">
                           <AreaChart data={chartData}>
@@ -571,7 +571,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                     </div>
 
                     <div className="bg-white/5 p-8 border border-white/10">
-                      <h4 className="text-[10px] tracking-[0.4em] uppercase font-black text-white/40 mb-10">Profit Breakdown</h4>
+                      <h4 className="text-[12px] tracking-[0.4em] uppercase font-black text-white/40 mb-10">Profit Breakdown</h4>
                       <div className="h-64">
                         <ResponsiveContainer width="100%" height="100%">
                           <PieChart>
@@ -635,7 +635,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                           <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-black/20" />
                           <input required type="email" placeholder="Email Address" className="w-full bg-gray-50 border border-gray-100 py-4 pl-12 pr-4 text-black outline-none focus:border-[#B12B28]" />
                         </div>
-                        <button type="submit" className="w-full bg-[#B12B28] text-white py-6 text-[10px] tracking-[0.4em] uppercase font-black hover:bg-black transition-all duration-500">
+                        <button type="submit" className="w-full bg-[#B12B28] text-white py-6 text-[12px] tracking-[0.4em] uppercase font-black hover:bg-black transition-all duration-500">
                           Get Investment Deals
                         </button>
                       </form>
@@ -667,7 +667,7 @@ const JourneyStep = ({ number, title, description, index }: { number: string; ti
   >
     {/* Phase Label */}
     <div className="h-12 flex items-center justify-center mb-6">
-      <span className="text-porsche-red text-[10px] tracking-[0.6em] font-black uppercase opacity-60 group-hover:opacity-100 transition-opacity duration-500">Phase {number}</span>
+      <span className="text-porsche-red text-[12px] tracking-[0.6em] font-black uppercase opacity-60 group-hover:opacity-100 transition-opacity duration-500">Phase {number}</span>
     </div>
     
     {/* Node Container */}
@@ -978,11 +978,11 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
             <span className="text-[6px] font-mono text-white/20 tracking-[0.6em] uppercase mb-2">Telemetry_Stream</span>
             <div className="flex items-center gap-3">
               <div className="w-1.5 h-1.5 bg-porsche-red animate-pulse"></div>
-              <span className="text-[10px] font-mono text-white/50 tracking-[0.2em] uppercase">LAT: 25.2048° N</span>
+              <span className="text-[12px] font-mono text-white/50 tracking-[0.2em] uppercase">LAT: 25.2048° N</span>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-1.5 h-1.5 bg-porsche-red animate-pulse delay-75"></div>
-              <span className="text-[10px] font-mono text-white/50 tracking-[0.2em] uppercase">LNG: 55.2708° E</span>
+              <span className="text-[12px] font-mono text-white/50 tracking-[0.2em] uppercase">LNG: 55.2708° E</span>
             </div>
           </div>
         </div>
@@ -1006,7 +1006,7 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
           >
             <div className="flex items-center gap-4 mb-10">
               <div className="w-3 h-3 bg-porsche-red"></div>
-              <span className="text-white/30 text-[9px] tracking-[0.6em] font-black uppercase">Zone_Intelligence_Report</span>
+              <span className="text-white/30 text-[11px] tracking-[0.6em] font-black uppercase">Zone_Intelligence_Report</span>
             </div>
 
             <h3 className="text-6xl md:text-8xl font-display font-black text-white mb-10 tracking-tighter leading-[0.85] uppercase">
@@ -1039,7 +1039,7 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
                 href="#property-types"
                 onClick={() => onSearch?.('All Properties')}
                 whileHover={{ x: 20 }}
-                className="group flex items-center gap-8 text-white text-[10px] tracking-[0.5em] font-technical font-bold uppercase"
+                className="group flex items-center gap-8 text-white text-[12px] tracking-[0.5em] font-technical font-bold uppercase"
               >
                 <span className="group-hover:text-porsche-red transition-colors">Initialize Search</span>
                 <div className="w-16 h-[1px] bg-white/10 group-hover:bg-porsche-red group-hover:w-24 transition-all duration-700"></div>
@@ -1051,7 +1051,7 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ x: 20 }}
-                className="group flex items-center gap-8 text-white/40 text-[10px] tracking-[0.5em] font-technical font-bold uppercase"
+                className="group flex items-center gap-8 text-white/40 text-[12px] tracking-[0.5em] font-technical font-bold uppercase"
               >
                 <span className="group-hover:text-white transition-colors">Market Report</span>
                 <div className="w-16 h-[1px] bg-white/5 group-hover:bg-white/20 group-hover:w-24 transition-all duration-700"></div>
@@ -1168,7 +1168,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               className="group flex items-center gap-2 md:gap-3 text-dark/40 hover:text-porsche-red transition-colors"
             >
               <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
-              <span className="text-[9px] md:text-[10px] font-black tracking-[0.2em] md:tracking-[0.3em] uppercase">
+              <span className="text-[11px] md:text-[12px] font-black tracking-[0.2em] md:tracking-[0.3em] uppercase">
                 {subView === 'list' ? 'Return Home' : subView === 'projects' ? 'Back to Developers' : 'Back to Projects'}
               </span>
             </button>
@@ -1179,10 +1179,10 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
           </div>
           
           <div className="hidden md:flex items-center gap-8">
-            <a href="https://wa.me/971529178630" target="_blank" rel="noreferrer" className="text-[10px] font-black tracking-[0.3em] uppercase hover:text-porsche-red transition-colors">WhatsApp</a>
+            <a href="https://wa.me/971529178630" target="_blank" rel="noreferrer" className="text-[12px] font-black tracking-[0.3em] uppercase hover:text-porsche-red transition-colors">WhatsApp</a>
             <button 
               onClick={onEnquire}
-              className="bg-dark text-white px-6 py-2.5 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-porsche-red transition-all"
+              className="bg-dark text-white px-6 py-2.5 text-[12px] font-black tracking-[0.3em] uppercase hover:bg-porsche-red transition-all"
             >
               Enquire Now
             </button>
@@ -1201,7 +1201,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
             >
               <div className="mb-16 md:mb-24">
-                <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Industry Leaders</p>
+                <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Industry Leaders</p>
                 <h2 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-dark tracking-tighter leading-none">
                   DUBAI<br />
                   <span className="text-porsche-red">DEVELOPERS.</span>
@@ -1228,16 +1228,16 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                       {dev.name}
                       <span className="text-porsche-red">.</span>
                     </h3>
-                    <p className="text-porsche-red text-[8px] md:text-[9px] font-black tracking-[0.3em] uppercase mb-4">{dev.tagline}</p>
+                    <p className="text-porsche-red text-[10px] md:text-[11px] font-black tracking-[0.3em] uppercase mb-4">{dev.tagline}</p>
                     <p className="text-dark/40 text-sm font-light leading-relaxed mb-8 md:mb-10 line-clamp-3">
                       {dev.description}
                     </p>
                     <div className="mt-auto flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-dark/30 text-[9px] font-black tracking-widest uppercase">
+                      <div className="flex items-center gap-2 text-dark/30 text-[11px] font-black tracking-widest uppercase">
                         <Layers className="w-3 h-3" />
                         <span>{dev.projectCount} Projects</span>
                       </div>
-                      <div className="flex items-center gap-3 text-porsche-red text-[9px] font-black tracking-[0.3em] uppercase group-hover:gap-5 transition-all">
+                      <div className="flex items-center gap-3 text-porsche-red text-[11px] font-black tracking-[0.3em] uppercase group-hover:gap-5 transition-all">
                         <span>View Projects</span>
                         <ArrowRight className="w-4 h-4" />
                       </div>
@@ -1258,7 +1258,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
             >
               <div className="mb-16 md:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
                 <div>
-                  <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">
+                  <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">
                     {selectedDeveloper ? selectedDeveloper.name : 'All Projects'}
                   </p>
                   <h2 className="text-5xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
@@ -1279,7 +1279,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         setProjectSearch(e.target.value);
                         setCurrentPage(1);
                       }}
-                      className="w-full lg:w-[400px] bg-gray-50 border border-gray-100 rounded-xl py-4 pl-12 pr-6 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                      className="w-full lg:w-[400px] bg-gray-50 border border-gray-100 rounded-xl py-4 pl-12 pr-6 text-[12px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
                     />
                   </div>
 
@@ -1291,7 +1291,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         setFilterLocation(e.target.value);
                         setCurrentPage(1);
                       }}
-                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[12px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
                     >
                       <option value="All">Location: All</option>
                       {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
@@ -1302,7 +1302,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         setFilterType(e.target.value);
                         setCurrentPage(1);
                       }}
-                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[12px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
                     >
                       <option value="All">Type: All</option>
                       {propertyTypes.map(type => <option key={type} value={type}>{type}</option>)}
@@ -1313,7 +1313,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         setFilterPrice(e.target.value);
                         setCurrentPage(1);
                       }}
-                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[12px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
                     >
                       <option value="All">Price: All</option>
                       <option value="Under 2M">Under 2M</option>
@@ -1326,7 +1326,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         setFilterHandover(e.target.value);
                         setCurrentPage(1);
                       }}
-                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
+                      className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-2.5 text-[12px] font-black tracking-widest uppercase outline-none focus:border-porsche-red/30 transition-all"
                     >
                       <option value="All">Handover: All</option>
                       {handoverYears.map(year => <option key={year} value={year}>{year}</option>)}
@@ -1337,7 +1337,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         setProjectSearch('');
                         setCurrentPage(1);
                       }}
-                      className="bg-dark text-white rounded-lg px-4 py-2.5 text-[10px] font-black tracking-widest uppercase hover:bg-porsche-red transition-all"
+                      className="bg-dark text-white rounded-lg px-4 py-2.5 text-[12px] font-black tracking-widest uppercase hover:bg-porsche-red transition-all"
                     >
                       Reset
                     </button>
@@ -1367,7 +1367,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                           </span>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <div className="flex items-center gap-2 text-white text-[9px] font-black tracking-widest uppercase">
+                          <div className="flex items-center gap-2 text-white text-[11px] font-black tracking-widest uppercase">
                             <ImageIcon className="w-3 h-3" />
                             <span>View Gallery</span>
                           </div>
@@ -1395,7 +1395,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         </div>
                         
                         <div className="mt-auto flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-dark/40 text-[9px] font-black tracking-widest uppercase">
+                          <div className="flex items-center gap-2 text-dark/40 text-[11px] font-black tracking-widest uppercase">
                             <Wallet className="w-3 h-3" />
                             <span>{project.paymentPlan}</span>
                           </div>
@@ -1424,7 +1424,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         <button
                           key={number}
                           onClick={() => paginate(number)}
-                          className={`w-12 h-12 rounded-full text-[10px] font-black transition-all ${currentPage === number ? 'bg-porsche-red text-white shadow-lg shadow-porsche-red/20' : 'hover:bg-gray-50 text-dark/40'}`}
+                          className={`w-12 h-12 rounded-full text-[12px] font-black transition-all ${currentPage === number ? 'bg-porsche-red text-white shadow-lg shadow-porsche-red/20' : 'hover:bg-gray-50 text-dark/40'}`}
                         >
                           {number}
                         </button>
@@ -1445,7 +1445,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                 <div className="py-32 text-center border-2 border-dashed border-gray-100 rounded-[3rem]">
                   <Search className="w-12 h-12 text-dark/10 mx-auto mb-6" />
                   <p className="text-dark/30 text-xl font-light tracking-widest uppercase">No projects match your filters.</p>
-                  <button onClick={resetFilters} className="mt-8 text-porsche-red text-[10px] font-black tracking-[0.3em] uppercase hover:underline">Clear all filters</button>
+                  <button onClick={resetFilters} className="mt-8 text-porsche-red text-[12px] font-black tracking-[0.3em] uppercase hover:underline">Clear all filters</button>
                 </div>
               )}
             </motion.div>
@@ -1471,10 +1471,10 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                   <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div>
                       <div className="flex items-center gap-4 mb-6">
-                        <span className="bg-porsche-red text-white text-[9px] font-black px-5 py-2 rounded-full tracking-[0.3em] uppercase">
+                        <span className="bg-porsche-red text-white text-[11px] font-black px-5 py-2 rounded-full tracking-[0.3em] uppercase">
                           {selectedProject.type}
                         </span>
-                        <div className="flex items-center gap-2 text-white/60 text-[10px] font-black tracking-widest uppercase">
+                        <div className="flex items-center gap-2 text-white/60 text-[12px] font-black tracking-widest uppercase">
                           <MapPin className="w-4 h-4 text-porsche-red" />
                           <span>{selectedProject.location}</span>
                         </div>
@@ -1491,7 +1491,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                     <div className="flex gap-4">
                       <button 
                         onClick={onEnquire}
-                        className="bg-white text-dark px-8 md:px-12 py-4 md:py-5 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-porsche-red hover:text-white transition-all duration-500 shadow-xl"
+                        className="bg-white text-dark px-8 md:px-12 py-4 md:py-5 text-[12px] font-black tracking-[0.3em] uppercase hover:bg-porsche-red hover:text-white transition-all duration-500 shadow-xl"
                       >
                         Enquire Now
                       </button>
@@ -1529,7 +1529,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
 
                   {/* Overview */}
                   <div className="mb-16 md:mb-24">
-                    <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-8">Project Overview</p>
+                    <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-8">Project Overview</p>
                     <p className="text-dark/60 text-xl md:text-2xl font-light leading-relaxed mb-12">
                       {selectedProject.description}
                     </p>
@@ -1546,14 +1546,14 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
 
                   {/* Amenities */}
                   <div className="mb-16 md:mb-24">
-                    <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-12">World-Class Amenities</p>
+                    <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-12">World-Class Amenities</p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
                       {selectedProject.amenities.map((amenity, i) => (
                         <div key={i} className="flex flex-col gap-4 group">
                           <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-porsche-red group-hover:text-white transition-all duration-500">
                             <Layout className="w-5 h-5" />
                           </div>
-                          <span className="text-dark font-technical font-bold text-[10px] uppercase tracking-widest">{amenity}</span>
+                          <span className="text-dark font-technical font-bold text-[12px] uppercase tracking-widest">{amenity}</span>
                         </div>
                       ))}
                     </div>
@@ -1562,7 +1562,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                   {/* Payment Plan Breakdown */}
                   {selectedProject.paymentPlanBreakdown && (
                     <div className="mb-16 md:mb-24">
-                      <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-12">Payment Plan Breakdown</p>
+                      <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-12">Payment Plan Breakdown</p>
                       <div className="space-y-4">
                         {selectedProject.paymentPlanBreakdown.map((plan, i) => (
                           <div key={i} className="flex items-center justify-between p-8 bg-gray-50 rounded-2xl group hover:bg-dark hover:text-white transition-all duration-500">
@@ -1580,7 +1580,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                   <div className="sticky top-32 space-y-12">
                     {/* Gallery Preview */}
                     <div>
-                      <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-8">Gallery</p>
+                      <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-8">Gallery</p>
                       <div className="grid grid-cols-1 gap-6">
                         {selectedProject.gallery.map((img, i) => (
                           <div key={i} className="relative aspect-video rounded-3xl overflow-hidden group cursor-pointer shadow-lg">
@@ -1595,16 +1595,16 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
 
                     {/* Side CTA */}
                     <div className="bg-dark p-10 md:p-12 rounded-[3rem] text-center shadow-2xl">
-                      <p className="text-porsche-red text-[9px] tracking-[0.5em] uppercase font-black mb-6">Interested?</p>
+                      <p className="text-porsche-red text-[11px] tracking-[0.5em] uppercase font-black mb-6">Interested?</p>
                       <h3 className="text-3xl font-display font-black text-white uppercase tracking-tighter mb-8">Start Your Journey<span className="text-porsche-red">.</span></h3>
                       <div className="space-y-4">
                         <button 
                           onClick={onEnquire}
-                          className="w-full bg-porsche-red text-white py-5 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-white hover:text-dark transition-all duration-500"
+                          className="w-full bg-porsche-red text-white py-5 text-[12px] font-black tracking-[0.3em] uppercase hover:bg-white hover:text-dark transition-all duration-500"
                         >
                           Enquire Now
                         </button>
-                        <button className="w-full bg-white/10 text-white py-5 text-[10px] font-black tracking-[0.3em] uppercase hover:bg-white/20 transition-all duration-500">
+                        <button className="w-full bg-white/10 text-white py-5 text-[12px] font-black tracking-[0.3em] uppercase hover:bg-white/20 transition-all duration-500">
                           Download Brochure
                         </button>
                       </div>
@@ -1674,7 +1674,7 @@ This request was generated from the Rock Deals Smart Hub.
           </p>
           <button 
             onClick={onBack}
-            className="bg-dark text-white px-12 py-6 text-[10px] tracking-[0.4em] uppercase font-black hover:bg-porsche-red transition-all duration-500"
+            className="bg-dark text-white px-12 py-6 text-[12px] tracking-[0.4em] uppercase font-black hover:bg-porsche-red transition-all duration-500"
           >
             Return to Hub
           </button>
@@ -1693,7 +1693,7 @@ This request was generated from the Rock Deals Smart Hub.
         </div>
         <button 
           onClick={onBack}
-          className="flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase font-black hover:text-porsche-red transition-colors"
+          className="flex items-center gap-3 text-[12px] tracking-[0.3em] uppercase font-black hover:text-porsche-red transition-colors"
         >
           <X className="w-4 h-4" /> Cancel Application
         </button>
@@ -1701,7 +1701,7 @@ This request was generated from the Rock Deals Smart Hub.
 
       <main className="max-w-5xl mx-auto px-8 py-24">
         <div className="mb-20">
-          <p className="text-porsche-red text-[10px] tracking-[0.5em] uppercase font-black mb-6">Mortgage Intelligence</p>
+          <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-6">Mortgage Intelligence</p>
           <h1 className="text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
             Free Pre-<br />
             <span className="text-porsche-red">Approval.</span>
@@ -1714,10 +1714,10 @@ This request was generated from the Rock Deals Smart Hub.
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
           {/* Personal Info */}
           <div className="space-y-12">
-            <h3 className="text-[10px] tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Personal Information</h3>
+            <h3 className="text-[12px] tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Personal Information</h3>
             
             <div className="space-y-4">
-              <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Full Name (As per Passport)</label>
+              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Full Name (As per Passport)</label>
               <input 
                 required
                 type="text" 
@@ -1729,7 +1729,7 @@ This request was generated from the Rock Deals Smart Hub.
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Email Address</label>
+                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Email Address</label>
                 <input 
                   required
                   type="email" 
@@ -1739,7 +1739,7 @@ This request was generated from the Rock Deals Smart Hub.
                 />
               </div>
               <div className="space-y-4">
-                <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Mobile Number</label>
+                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Mobile Number</label>
                 <input 
                   required
                   type="tel" 
@@ -1751,7 +1751,7 @@ This request was generated from the Rock Deals Smart Hub.
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">UAE Residency Status</label>
+              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">UAE Residency Status</label>
               <div className="flex gap-4">
                 {['Resident', 'Non-Resident'].map((status) => (
                   <button 
@@ -1769,10 +1769,10 @@ This request was generated from the Rock Deals Smart Hub.
 
           {/* Income Info */}
           <div className="space-y-12">
-            <h3 className="text-[10px] tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Income Details</h3>
+            <h3 className="text-[12px] tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Income Details</h3>
             
             <div className="space-y-4">
-              <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Employment Type</label>
+              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Employment Type</label>
               <div className="flex gap-4">
                 {['Salaried', 'Self-Employed'].map((type) => (
                   <button 
@@ -1788,7 +1788,7 @@ This request was generated from the Rock Deals Smart Hub.
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Monthly Salary / Income (AED)</label>
+              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Monthly Salary / Income (AED)</label>
               <div className="relative">
                 <input 
                   required
@@ -1803,7 +1803,7 @@ This request was generated from the Rock Deals Smart Hub.
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Company Name</label>
+                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Company Name</label>
                 <input 
                   required
                   type="text" 
@@ -1813,7 +1813,7 @@ This request was generated from the Rock Deals Smart Hub.
                 />
               </div>
               <div className="space-y-4">
-                <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Primary Bank</label>
+                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Primary Bank</label>
                 <input 
                   required
                   type="text" 
@@ -1825,7 +1825,7 @@ This request was generated from the Rock Deals Smart Hub.
             </div>
 
             <div className="space-y-4">
-              <label className="text-[10px] tracking-[0.3em] uppercase font-black text-dark/40">Other Monthly Income (Optional)</label>
+              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Other Monthly Income (Optional)</label>
               <div className="relative">
                 <input 
                   type="number" 
@@ -1841,11 +1841,11 @@ This request was generated from the Rock Deals Smart Hub.
           <div className="md:col-span-2 pt-12 flex flex-col items-center">
             <button 
               type="submit"
-              className="w-full max-w-md bg-porsche-red text-white py-5 font-black tracking-[0.3em] uppercase text-[10px] hover:bg-dark transition-all duration-500 shadow-[0_15px_30px_rgba(213,0,28,0.2)]"
+              className="w-full max-w-md bg-porsche-red text-white py-5 font-black tracking-[0.3em] uppercase text-[12px] hover:bg-dark transition-all duration-500 shadow-[0_15px_30px_rgba(213,0,28,0.2)]"
             >
               Request Pre-Approval Assessment
             </button>
-            <p className="mt-8 text-center text-[9px] text-dark/30 tracking-widest uppercase font-black">
+            <p className="mt-8 text-center text-[11px] text-dark/30 tracking-widest uppercase font-black">
               By submitting, you agree to our financial privacy terms and banking data protocols.
             </p>
           </div>
@@ -1973,7 +1973,7 @@ Furnish: ${searchFurnishStatus}
                         item.onClick();
                       }
                     }}
-                    className={`tracking-[0.25em] uppercase font-black transition-all duration-300 cursor-pointer whitespace-nowrap border-b-2 border-transparent hover:text-porsche-red py-2 ${isScrolled ? 'text-dark text-[9px]' : 'text-white text-[10px]'}`}
+                    className={`tracking-[0.25em] uppercase font-black transition-all duration-300 cursor-pointer whitespace-nowrap border-b-2 border-transparent hover:text-porsche-red py-2 ${isScrolled ? 'text-dark text-[11px]' : 'text-white text-[12px]'}`}
                   >
                     {item.name}
                   </a>
@@ -2069,7 +2069,7 @@ Furnish: ${searchFurnishStatus}
               className="flex items-center justify-center gap-3 md:gap-4 mb-4 md:mb-6"
             >
               <div className="w-8 md:w-12 h-[2px] bg-porsche-red"></div>
-              <p className="text-white text-[8px] md:text-[10px] tracking-[0.3em] uppercase font-technical font-bold opacity-60">
+              <p className="text-white text-[10px] md:text-[12px] tracking-[0.3em] uppercase font-technical font-bold opacity-60">
                 The New Standard of Luxury
               </p>
               <div className="w-8 md:w-12 h-[2px] bg-porsche-red"></div>
@@ -2110,7 +2110,7 @@ Furnish: ${searchFurnishStatus}
                 <button
                   key={tab}
                   onClick={() => setSearchTab(tab)}
-                  className={`px-3 md:px-4 py-2 md:py-1.5 rounded-lg text-[10px] md:text-[12px] font-technical font-bold tracking-[0.2em] md:tracking-[0.25em] transition-all duration-500 min-h-[40px] md:min-h-0 ${
+                  className={`px-3 md:px-4 py-2 md:py-1.5 rounded-lg text-[12px] md:text-[14px] font-technical font-bold tracking-[0.2em] md:tracking-[0.25em] transition-all duration-500 min-h-[40px] md:min-h-0 ${
                     searchTab === tab 
                       ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.5)]' 
                       : 'bg-white/1 text-white/30 hover:bg-white/10 hover:text-white'
@@ -2152,7 +2152,7 @@ Furnish: ${searchFurnishStatus}
                       exit={{ opacity: 0, y: 10 }}
                       className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 z-50 shadow-2xl"
                     >
-                      <p className="text-white/40 text-[10px] font-technical font-bold tracking-widest uppercase mb-4">Price Range (AED)</p>
+                      <p className="text-white/40 text-[12px] font-technical font-bold tracking-widest uppercase mb-4">Price Range (AED)</p>
                       <div className="flex gap-3 mb-4">
                         <input 
                           type="number" 
@@ -2171,7 +2171,7 @@ Furnish: ${searchFurnishStatus}
                       </div>
                       <button 
                         onClick={() => { setSearchPrice({min: '', max: ''}); setActivePopover(null); }}
-                        className="w-full py-2 text-[10px] font-technical font-bold text-white/40 uppercase tracking-widest hover:text-white transition-colors"
+                        className="w-full py-2 text-[12px] font-technical font-bold text-white/40 uppercase tracking-widest hover:text-white transition-colors"
                       >
                         Reset
                       </button>
@@ -2199,7 +2199,7 @@ Furnish: ${searchFurnishStatus}
                     >
                       <div className="space-y-6">
                         <div>
-                          <p className="text-white/40 text-[10px] font-technical font-bold tracking-widest uppercase mb-3">Bedrooms</p>
+                          <p className="text-white/40 text-[12px] font-technical font-bold tracking-widest uppercase mb-3">Bedrooms</p>
                           <div className="flex flex-wrap gap-1.5">
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
                               <button 
@@ -2213,7 +2213,7 @@ Furnish: ${searchFurnishStatus}
                           </div>
                         </div>
                         <div>
-                          <p className="text-white/40 text-[10px] font-technical font-bold tracking-widest uppercase mb-3">Bathrooms</p>
+                          <p className="text-white/40 text-[12px] font-technical font-bold tracking-widest uppercase mb-3">Bathrooms</p>
                           <div className="flex flex-wrap gap-1.5">
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
                               <button 
@@ -2229,13 +2229,13 @@ Furnish: ${searchFurnishStatus}
                         <div className="flex items-center gap-2 pt-2">
                           <button 
                             onClick={() => { setSearchBeds({beds: 0, baths: 0}); setActivePopover(null); }}
-                            className="flex-1 py-3 bg-white/1 text-[10px] font-technical font-bold text-white/40 uppercase tracking-widest hover:bg-white/10 transition-all rounded-xl"
+                            className="flex-1 py-3 bg-white/1 text-[12px] font-technical font-bold text-white/40 uppercase tracking-widest hover:bg-white/10 transition-all rounded-xl"
                           >
                             Reset
                           </button>
                           <button 
                             onClick={() => setActivePopover(null)}
-                            className="flex-1 py-3 bg-porsche-red text-[10px] font-technical font-bold text-white uppercase tracking-widest hover:bg-porsche-red/80 transition-all rounded-xl shadow-[0_0_15px_rgba(213,0,28,0.4)]"
+                            className="flex-1 py-3 bg-porsche-red text-[12px] font-technical font-bold text-white uppercase tracking-widest hover:bg-porsche-red/80 transition-all rounded-xl shadow-[0_0_15px_rgba(213,0,28,0.4)]"
                           >
                             Done
                           </button>
@@ -2343,7 +2343,7 @@ Furnish: ${searchFurnishStatus}
                       ? 'bg-dark text-white border-dark' 
                       : 'bg-white text-dark border-gray-100 hover:bg-gray-50'
                   } 
-                  ${isScrolled ? 'px-4 py-2 md:py-1.5 text-[8px] md:text-[7px]' : 'px-5 py-2.5 md:py-2 text-[9px] md:text-[8px]'}`}
+                  ${isScrolled ? 'px-4 py-2 md:py-1.5 text-[10px] md:text-[9px]' : 'px-5 py-2.5 md:py-2 text-[11px] md:text-[10px]'}`}
               >
                 <span className={`rounded-full transition-all duration-300 
                   ${filter === 'Developers' 
@@ -2372,7 +2372,7 @@ Furnish: ${searchFurnishStatus}
               className="flex items-center gap-4 mb-6 md:mb-8"
             >
               <div className="w-10 md:w-12 h-[1px] bg-porsche-red"></div>
-              <span className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-black">Philosophy</span>
+              <span className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] uppercase font-black">Philosophy</span>
             </motion.div>
             <h2 className="text-4xl sm:text-5xl md:text-8xl font-display font-black text-dark leading-[0.9] mb-8 md:mb-12 tracking-tighter">
               DUBAI<br />
@@ -2384,7 +2384,7 @@ Furnish: ${searchFurnishStatus}
             </p>
             <motion.button
               whileHover={{ x: 10 }}
-              className="flex items-center gap-4 text-dark text-[10px] font-black tracking-[0.4em] uppercase group min-h-[44px]"
+              className="flex items-center gap-4 text-dark text-[12px] font-black tracking-[0.4em] uppercase group min-h-[44px]"
             >
               Learn Our Method <ArrowRight className="w-4 h-4 text-porsche-red group-hover:translate-x-2 transition-transform" />
             </motion.button>
@@ -2398,7 +2398,7 @@ Furnish: ${searchFurnishStatus}
             ].map((stat, i) => (
               <div key={i} className="bg-white p-6 md:p-12 hover:bg-gray-50 transition-colors group">
                 <div className="text-3xl md:text-5xl font-display font-black text-dark mb-2 md:mb-4 group-hover:text-porsche-red transition-colors">{stat.value}</div>
-                <div className="text-dark/30 text-[9px] md:text-[9px] tracking-[0.3em] uppercase font-black">{stat.label}</div>
+                <div className="text-dark/30 text-[11px] md:text-[11px] tracking-[0.3em] uppercase font-black">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -2409,7 +2409,7 @@ Furnish: ${searchFurnishStatus}
       <section id="property-types" className="px-6 md:px-8 lg:px-24 py-24 md:py-48 bg-white">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-32 gap-8 md:gap-12">
           <div className="max-w-3xl">
-            <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Portfolio</p>
+            <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Portfolio</p>
             <h2 className="text-5xl sm:text-7xl md:text-[10rem] font-display font-black text-dark tracking-tighter leading-[0.8]">
               FEATURED<br />
               <span className="text-porsche-red">LISTINGS.</span>
@@ -2444,7 +2444,7 @@ Furnish: ${searchFurnishStatus}
                 
                 {/* Category Badge (Optional, kept subtle) */}
                 <div className="absolute top-6 left-8">
-                  <span className="text-white/60 text-[9px] md:text-[8px] font-black tracking-[0.3em] uppercase">
+                  <span className="text-white/60 text-[13px] md:text-[12px] font-black tracking-[0.3em] uppercase">
                     {prop.category}
                   </span>
                 </div>
@@ -2456,7 +2456,7 @@ Furnish: ${searchFurnishStatus}
                       {prop.title}
                       <span className="text-porsche-red ml-1">.</span>
                     </h3>
-                    <p className="text-white/60 text-[11px] md:text-[10px] tracking-[0.2em] uppercase font-medium mt-1">{prop.location} — {prop.price}</p>
+                    <p className="text-white/60 text-[13px] md:text-[12px] tracking-[0.2em] uppercase font-medium mt-1">{prop.location} — {prop.price}</p>
                   </div>
                   
                   <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500">
@@ -2481,7 +2481,7 @@ Furnish: ${searchFurnishStatus}
       <section id="features" className="px-6 md:px-8 lg:px-24 py-24 md:py-40 bg-gray-50/50">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8 md:gap-12">
           <div className="max-w-2xl">
-            <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Innovation</p>
+            <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Innovation</p>
             <h2 className="text-5xl md:text-9xl font-display font-black text-dark tracking-tighter leading-[0.8]">
               THE<br />SMART HUB.
             </h2>
@@ -2531,7 +2531,7 @@ Furnish: ${searchFurnishStatus}
               viewport={{ once: true }}
               className="inline-block border border-dark/10 px-6 md:px-10 py-3 md:py-4 mb-8 md:mb-12"
             >
-              <span className="text-dark text-[9px] md:text-[11px] tracking-[0.5em] md:tracking-[0.8em] uppercase font-black">Technical_Process_Flow</span>
+              <span className="text-dark text-[11px] md:text-[13px] tracking-[0.5em] md:tracking-[0.8em] uppercase font-black">Technical_Process_Flow</span>
             </motion.div>
             <h2 className="text-6xl md:text-[12rem] font-display font-black text-dark tracking-tighter leading-none">
               THE<br />
@@ -2614,7 +2614,7 @@ Furnish: ${searchFurnishStatus}
       <section id="explore" className="px-6 md:px-8 lg:px-24 py-24 md:py-48 bg-dark">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12 mb-16 md:mb-32">
           <div className="max-w-3xl">
-            <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Location Intelligence</p>
+            <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Location Intelligence</p>
             <h2 className="text-5xl sm:text-7xl md:text-[10rem] font-display font-black text-white tracking-tighter leading-[0.8]">
               ZONE<br />
               <span className="text-porsche-red">EXPLORER.</span>
@@ -2637,7 +2637,7 @@ Furnish: ${searchFurnishStatus}
                 <span className="text-dark font-display font-black text-3xl md:text-4xl tracking-tighter">ROCK</span>
                 <span className="text-dark/40 font-display font-light text-3xl md:text-4xl tracking-tighter">DEALS</span>
               </div>
-              <p className="text-porsche-red text-[9px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-8 md:mb-12">
+              <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-8 md:mb-12">
                 A DEAL FOR EVERYONE
               </p>
               <p className="text-dark/50 text-sm md:text-base leading-relaxed mb-8 max-w-xs font-light">
@@ -2673,7 +2673,7 @@ Furnish: ${searchFurnishStatus}
             </div>
 
             <div className="md:col-span-2">
-              <h4 className="text-dark text-[10px] tracking-[0.4em] uppercase font-black mb-10">Explore</h4>
+              <h4 className="text-dark text-[12px] tracking-[0.4em] uppercase font-black mb-10">Explore</h4>
               <ul className="space-y-5">
                 {[
                   { name: 'Properties', href: '#property-types' },
@@ -2701,7 +2701,7 @@ Furnish: ${searchFurnishStatus}
             </div>
 
             <div className="md:col-span-3">
-              <h4 className="text-dark text-[10px] tracking-[0.4em] uppercase font-black mb-10">Property Types</h4>
+              <h4 className="text-dark text-[12px] tracking-[0.4em] uppercase font-black mb-10">Property Types</h4>
               <ul className="space-y-5">
                 {['Luxury Villas', 'Penthouses', 'Apartments', 'Townhouses', 'Off-Plan'].map((item) => (
                   <li key={item}>
@@ -2718,7 +2718,7 @@ Furnish: ${searchFurnishStatus}
             </div>
 
             <div className="md:col-span-3">
-              <h4 className="text-dark text-[10px] tracking-[0.4em] uppercase font-black mb-10">Newsletter</h4>
+              <h4 className="text-dark text-[12px] tracking-[0.4em] uppercase font-black mb-10">Newsletter</h4>
               <p className="text-dark/40 text-sm mb-8 font-light leading-relaxed">Stay updated with exclusive property launches and market intelligence.</p>
               <div className="flex border-b border-dark/10 pb-4 group focus-within:border-porsche-red transition-colors">
                 <input type="email" placeholder="Email Address" className="bg-transparent border-none outline-none text-sm w-full placeholder:text-dark/20" />
@@ -2728,10 +2728,10 @@ Furnish: ${searchFurnishStatus}
           </div>
 
           <div className="mt-32 pt-12 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-8">
-            <p className="text-dark/20 text-[10px] tracking-widest uppercase font-black">© 2026 Rock Deals Real Estate. All Rights Reserved.</p>
+            <p className="text-dark/20 text-[12px] tracking-widest uppercase font-black">© 2026 Rock Deals Real Estate. All Rights Reserved.</p>
             <div className="flex items-center gap-12">
               {['Privacy Policy', 'Terms', 'Cookies'].map((item) => (
-                <a key={item} className="text-dark/20 text-[10px] tracking-widest uppercase font-black hover:text-dark transition-colors cursor-pointer">{item}</a>
+                <a key={item} className="text-dark/20 text-[12px] tracking-widest uppercase font-black hover:text-dark transition-colors cursor-pointer">{item}</a>
               ))}
             </div>
           </div>
@@ -2761,7 +2761,7 @@ Furnish: ${searchFurnishStatus}
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-8">
                   <div>
-                    <p className="text-porsche-red text-[9px] tracking-[0.4em] uppercase font-black mb-2">Enquiry Form</p>
+                    <p className="text-porsche-red text-[11px] tracking-[0.4em] uppercase font-black mb-2">Enquiry Form</p>
                     <h3 className="text-3xl font-display font-black text-dark uppercase tracking-tight">Submit Details<span className="text-porsche-red">.</span></h3>
                   </div>
                   <button 
@@ -2820,7 +2820,7 @@ Furnish: ${searchFurnishStatus}
 
                   <button 
                     type="submit"
-                    className="w-full bg-dark text-white rounded-2xl py-5 text-[10px] font-black tracking-[0.4em] uppercase hover:bg-porsche-red transition-all shadow-xl hover:shadow-porsche-red/20 active:scale-95 mt-4"
+                    className="w-full bg-dark text-white rounded-2xl py-5 text-[12px] font-black tracking-[0.4em] uppercase hover:bg-porsche-red transition-all shadow-xl hover:shadow-porsche-red/20 active:scale-95 mt-4"
                   >
                     Send Enquiry Now
                   </button>
@@ -2836,7 +2836,7 @@ Furnish: ${searchFurnishStatus}
                     href="https://wa.me/971529178630"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full bg-[#25D366] text-white rounded-2xl py-5 text-[10px] font-black tracking-[0.4em] uppercase hover:bg-[#128C7E] transition-all shadow-xl flex items-center justify-center gap-3"
+                    className="w-full bg-[#25D366] text-white rounded-2xl py-5 text-[12px] font-black tracking-[0.4em] uppercase hover:bg-[#128C7E] transition-all shadow-xl flex items-center justify-center gap-3"
                   >
                     <MessageSquare className="w-4 h-4" /> Chat on WhatsApp
                   </a>
