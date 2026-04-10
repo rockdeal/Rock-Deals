@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Menu, 
   X, 
@@ -1869,6 +1869,17 @@ export default function App() {
   const [searchPropertyType, setSearchPropertyType] = useState('Property Type');
   const [searchFurnishStatus, setSearchFurnishStatus] = useState('Furnish Status');
   const [activePopover, setActivePopover] = useState<string | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+        setActivePopover(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Enquiry Modal State
   const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
@@ -2096,10 +2107,11 @@ Furnish: ${searchFurnishStatus}
 
           {/* Advanced Search Bar */}
           <motion.div
+            ref={popoverRef}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="w-full max-w-4xl bg-black/10 backdrop-blur-3xl border border-white/10 rounded-xl p-3 md:p-3.5 shadow-[0_0_80px_rgba(0,0,0,0.4)] relative z-[45] group"
+            className="w-full max-w-4xl bg-black/20 backdrop-blur-3xl border border-white/10 rounded-2xl p-4 md:p-5 shadow-[0_0_100px_rgba(0,0,0,0.6)] relative z-[100] group"
           >
             {/* Animated Border Glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
@@ -2168,7 +2180,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 z-50 shadow-2xl min-w-[280px]"
+                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-6 z-[110] shadow-2xl min-w-[280px] md:min-w-[320px]"
                     >
                       <div className="space-y-6">
                         <div>
@@ -2234,7 +2246,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 z-50 shadow-2xl"
+                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[110] shadow-2xl min-w-[200px]"
                     >
                       {['Studio', 'Apartment', 'Townhouse', 'Villa', 'Hotel Apartments'].map(type => (
                         <button 
@@ -2265,7 +2277,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 z-50 shadow-2xl"
+                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[110] shadow-2xl min-w-[200px]"
                     >
                       {['Furnished', 'Fully Furnished', 'Semi Furnished', 'Vacant'].map(status => (
                         <button 
