@@ -2009,7 +2009,7 @@ Furnish: ${searchFurnishStatus}
               initial={{ opacity: 0, x: '100%' }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
-              className="fixed inset-0 bg-white z-[100] p-10 flex flex-col"
+            className="fixed inset-0 bg-white z-[200] p-6 md:p-10 flex flex-col"
             >
               <div className="flex justify-end mb-12">
                 <button onClick={() => setIsMobileMenuOpen(false)} className="text-dark"><X className="w-8 h-8" /></button>
@@ -2041,7 +2041,11 @@ Furnish: ${searchFurnishStatus}
                     {item.name}
                   </a>
                 ))}
-                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="mt-8 bg-dark text-white px-8 py-5 text-sm font-black tracking-[0.2em] uppercase text-center">
+                <a 
+                  href="#contact" 
+                  onClick={() => setIsMobileMenuOpen(false)} 
+                  className="mt-12 bg-porsche-red text-white px-8 py-5 text-[12px] font-black tracking-[0.3em] uppercase text-center shadow-[0_15px_30px_rgba(213,0,28,0.2)] active:scale-95 transition-all"
+                >
                   Book Viewing
                 </a>
               </div>
@@ -2111,13 +2115,13 @@ Furnish: ${searchFurnishStatus}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="w-full max-w-4xl bg-black/20 backdrop-blur-3xl border border-white/10 rounded-2xl p-3 md:p-5 shadow-[0_0_100px_rgba(0,0,0,0.6)] relative z-[100] group"
+            className="w-full max-w-4xl bg-black/20 backdrop-blur-3xl border border-white/10 rounded-2xl p-3 md:p-5 shadow-[0_0_100px_rgba(0,0,0,0.6)] relative z-[45] group"
           >
             {/* Animated Border Glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
             
             {/* Tabs */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 mb-4 relative z-10">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-1.5 mb-4 relative z-10">
               {['RENT', 'BUY', 'OFF PLAN', 'COMMERCIAL'].map((tab) => (
                 <button
                   key={tab}
@@ -2180,7 +2184,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-6 z-[110] shadow-2xl min-w-[280px] md:min-w-[320px]"
+                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-6 z-[60] shadow-2xl min-w-[280px] md:min-w-[320px]"
                     >
                       <div className="space-y-6">
                         <div>
@@ -2246,7 +2250,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[110] shadow-2xl min-w-[200px]"
+                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
                     >
                       {['Studio', 'Apartment', 'Townhouse', 'Villa', 'Hotel Apartments'].map(type => (
                         <button 
@@ -2277,7 +2281,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[110] shadow-2xl min-w-[200px]"
+                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
                     >
                       {['Furnished', 'Fully Furnished', 'Semi Furnished', 'Vacant'].map(status => (
                         <button 
@@ -2732,7 +2736,7 @@ Furnish: ${searchFurnishStatus}
       {/* Enquiry Modal */}
       <AnimatePresence>
         {isEnquiryModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-6">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
