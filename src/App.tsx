@@ -619,7 +619,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                         const email = target[2].value;
                         const subject = `Investment Deal Request from ${name}`;
                         const body = `Investment Deal Request:\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nROI Parameters:\nPrice: ${price}\nYield: ${netYield.toFixed(2)}%`;
-                        window.location.href = `mailto:Rockdeals.ae@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                        window.location.href = `mailto:info@rock-deals.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                       }}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="relative">
@@ -1654,7 +1654,7 @@ Residency Status: ${formData.residencyStatus}
 This request was generated from the Rock Deals Smart Hub.
     `;
     
-    window.location.href = `mailto:Rockdeals.ae@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:info@rock-deals.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setIsSubmitted(true);
   };
 
@@ -1895,7 +1895,7 @@ Property Type: ${searchPropertyType}
 Furnish: ${searchFurnishStatus}
     `;
     
-    window.location.href = `mailto:Rockdeals.ae@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:info@rock-deals.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setIsEnquiryModalOpen(false);
     setEnquiryForm({ name: '', email: '', mobile: '' });
   };
@@ -2643,12 +2643,18 @@ Furnish: ${searchFurnishStatus}
               <p className="text-dark/50 text-sm md:text-base leading-relaxed mb-8 max-w-xs font-light">
                 Redefining luxury real estate in the UAE. Find Dubai real estate deals, luxury properties in Dubai, and apartments for sale in Dubai with zero commission.
               </p>
-              <div className="mb-8 md:mb-12">
+              <div className="mb-8 md:mb-12 space-y-4">
                 <a href="tel:+971529178630" className="flex items-center gap-4 group min-h-[44px]">
                   <div className="w-10 h-10 rounded-full border border-dark/5 flex items-center justify-center group-hover:bg-porsche-red group-hover:border-porsche-red transition-all duration-500">
                     <Phone className="w-4 h-4 text-dark/40 group-hover:text-white transition-colors" />
                   </div>
-                  <span className="text-dark font-technical font-bold text-base md:text-lg tracking-tight group-hover:text-porsche-red transition-colors">+971 529178630</span>
+                  <span className="text-dark font-technical font-bold text-[16px] tracking-tight group-hover:text-porsche-red transition-colors">+971 529178630</span>
+                </a>
+                <a href="mailto:info@rock-deals.com" className="flex items-center gap-4 group min-h-[44px]">
+                  <div className="w-10 h-10 rounded-full border border-dark/5 flex items-center justify-center group-hover:bg-porsche-red group-hover:border-porsche-red transition-all duration-500">
+                    <Mail className="w-4 h-4 text-dark/40 group-hover:text-white transition-colors" />
+                  </div>
+                  <span className="text-dark font-[Arial] font-bold text-[14px] tracking-tight group-hover:text-porsche-red transition-colors uppercase">info@rock-deals.com</span>
                 </a>
               </div>
               <div className="flex items-center gap-6 md:gap-8">
