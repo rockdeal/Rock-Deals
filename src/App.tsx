@@ -2189,7 +2189,7 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-2">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'beds' ? null : 'beds')}
-                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
+                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-mono tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
                 >
                   <span className="truncate">
                     {searchBeds.beds === 0 && searchBeds.baths === 0 ? 'Beds & Baths' : 
@@ -2259,7 +2259,7 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-2">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'type' ? null : 'type')}
-                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
+                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-mono tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
                 >
                   <span className="truncate">{searchPropertyType}</span>
                   <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'type' ? 'rotate-180' : ''}`} />
