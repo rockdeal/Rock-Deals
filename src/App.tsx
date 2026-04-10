@@ -395,7 +395,7 @@ Total ROI: ${totalROI.toFixed(1)}%
       
       // 3. Trigger WhatsApp
       const waMessage = `Hello Rock Deals, I just generated an ROI report.\n\nName: ${exportForm.name}\nEmail: ${exportForm.email}\nProperty Price: ${formatCurrency(numPrice)}\nTotal ROI: ${totalROI.toFixed(1)}%`;
-      const waLink = `https://wa.me/971500000000?text=${encodeURIComponent(waMessage)}`; // Replace with actual WhatsApp number
+      const waLink = `https://wa.me/971529178630?text=${encodeURIComponent(waMessage)}`;
 
       // Execute triggers
       window.open(waLink, '_blank');
@@ -811,13 +811,13 @@ Total ROI: ${totalROI.toFixed(1)}%
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsExportModalOpen(false)}
-              className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+              className="absolute inset-0 bg-dark/80 backdrop-blur-md"
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-xl bg-white p-8 md:p-12 shadow-2xl overflow-hidden"
+              className="relative w-full max-w-md bg-white rounded-[2.5rem] p-10 md:p-12 shadow-2xl overflow-hidden"
             >
               <div className="absolute top-0 left-0 w-full h-2 bg-porsche-red" />
               <button 
