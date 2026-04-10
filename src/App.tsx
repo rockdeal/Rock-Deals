@@ -124,7 +124,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
   return (
     <div className="min-h-screen bg-white font-sans text-dark">
       {/* Header */}
-      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-50">
+      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-[100]">
         <div className="flex items-baseline gap-1">
           <span className="text-dark font-display font-black text-xl md:text-2xl tracking-tighter">ROCK</span>
           <span className="text-dark/40 font-display font-light text-xl md:text-2xl tracking-tighter">DEALS</span>
@@ -322,7 +322,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-[#B12B28] selection:text-white">
       {/* Header */}
-      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#0A0A0A]/80 backdrop-blur-xl z-50">
+      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#0A0A0A]/80 backdrop-blur-xl z-[100]">
         <div className="flex items-baseline gap-1">
           <span className="text-white font-display font-black text-xl md:text-2xl tracking-tighter">ROCK</span>
           <span className="text-white/40 font-display font-light text-xl md:text-2xl tracking-tighter">DEALS</span>
@@ -1686,7 +1686,7 @@ This request was generated from the Rock Deals Smart Hub.
   return (
     <div className="min-h-screen bg-white font-sans text-dark">
       {/* Header */}
-      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-50">
+      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-[100]">
         <div className="flex items-baseline gap-1">
           <span className="text-dark font-display font-black text-2xl tracking-tighter">ROCK</span>
           <span className="text-dark/40 font-display font-light text-2xl tracking-tighter">DEALS</span>
@@ -1938,7 +1938,7 @@ Furnish: ${searchFurnishStatus}
   return (
     <div className="min-h-screen bg-white selection:bg-dark selection:text-white">
       {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${isScrolled ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
         {/* Scroll Progress Bar */}
         <motion.div 
           className="absolute top-0 left-0 h-[3px] bg-porsche-red z-[60]"
@@ -2014,7 +2014,7 @@ Furnish: ${searchFurnishStatus}
               <div className="flex justify-end mb-12">
                 <button onClick={() => setIsMobileMenuOpen(false)} className="text-dark"><X className="w-8 h-8" /></button>
               </div>
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-6 md:gap-8">
                 {[
                   { name: 'Properties', href: '#property-types' },
                   { name: 'Developers', onClick: () => setView('developers') },
@@ -2023,10 +2023,13 @@ Furnish: ${searchFurnishStatus}
                   { name: 'Enquire Now', onClick: () => setIsEnquiryModalOpen(true) },
                   { name: 'Features', href: '#features' },
                   { name: 'Contact', href: '#contact' }
-                ].map((item) => (
-                  <a 
+                ].map((item, index) => (
+                  <motion.a 
                     key={item.name} 
                     href={item.href} 
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
                     target={item.href?.startsWith('http') ? '_blank' : undefined}
                     rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
                     onClick={(e) => {
@@ -2036,18 +2039,21 @@ Furnish: ${searchFurnishStatus}
                         item.onClick();
                       }
                     }} 
-                    className="text-3xl font-display font-black tracking-tight text-dark uppercase"
+                    className="text-2xl md:text-3xl font-display font-black tracking-tight text-dark uppercase hover:text-porsche-red transition-colors"
                   >
                     {item.name}
-                  </a>
+                  </motion.a>
                 ))}
-                <a 
+                <motion.a 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
                   href="#contact" 
                   onClick={() => setIsMobileMenuOpen(false)} 
-                  className="mt-12 bg-porsche-red text-white px-8 py-5 text-[12px] font-black tracking-[0.3em] uppercase text-center shadow-[0_15px_30px_rgba(213,0,28,0.2)] active:scale-95 transition-all"
+                  className="mt-8 md:mt-12 bg-porsche-red text-white px-8 py-5 text-[12px] font-black tracking-[0.3em] uppercase text-center shadow-[0_15px_30px_rgba(213,0,28,0.2)] active:scale-95 transition-all"
                 >
                   Book Viewing
-                </a>
+                </motion.a>
               </div>
             </motion.div>
           )}
@@ -2115,7 +2121,7 @@ Furnish: ${searchFurnishStatus}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="w-full max-w-4xl bg-black/20 backdrop-blur-3xl border border-white/10 rounded-2xl p-3 md:p-5 shadow-[0_0_100px_rgba(0,0,0,0.6)] relative z-[45] group"
+            className="w-full max-w-4xl bg-black/20 backdrop-blur-3xl border border-white/10 rounded-2xl p-3 md:p-5 shadow-[0_0_100px_rgba(0,0,0,0.6)] relative z-10 group"
           >
             {/* Animated Border Glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
@@ -2769,7 +2775,7 @@ Furnish: ${searchFurnishStatus}
 
                 <form onSubmit={handleEnquirySubmit} className="space-y-6">
                   <div>
-                    <label className="block text-[8px] font-black tracking-widest uppercase text-dark/40 mb-3 ml-1">Full Name</label>
+                    <label className="block text-[10px] font-black tracking-widest uppercase text-dark/40 mb-3 ml-1">Full Name</label>
                     <div className="relative">
                       <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-porsche-red" />
                       <input 
@@ -2784,7 +2790,7 @@ Furnish: ${searchFurnishStatus}
                   </div>
 
                   <div>
-                    <label className="block text-[8px] font-black tracking-widest uppercase text-dark/40 mb-3 ml-1">Email Address</label>
+                    <label className="block text-[10px] font-black tracking-widest uppercase text-dark/40 mb-3 ml-1">Email Address</label>
                     <div className="relative">
                       <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-porsche-red" />
                       <input 
@@ -2799,7 +2805,7 @@ Furnish: ${searchFurnishStatus}
                   </div>
 
                   <div>
-                    <label className="block text-[8px] font-black tracking-widest uppercase text-dark/40 mb-3 ml-1">Mobile Number</label>
+                    <label className="block text-[10px] font-black tracking-widest uppercase text-dark/40 mb-3 ml-1">Mobile Number</label>
                     <div className="relative">
                       <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-porsche-red" />
                       <input 
