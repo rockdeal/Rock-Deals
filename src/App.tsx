@@ -99,8 +99,8 @@ const FeatureCard = ({ icon: Icon, title, description, badge, onClick }: { icon:
 );
 
 const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
-  const [price, setPrice] = useState<number>(1000000);
-  const [downPaymentPercent, setDownPaymentPercent] = useState<number>(10);
+  const [price, setPrice] = useState<number | string>(1000000);
+  const [downPaymentPercent, setDownPaymentPercent] = useState<number | string>(10);
   const [selectedPlan, setSelectedPlan] = useState('60/40');
 
   const plans: Record<string, { during: number; handover: number; post?: number }> = {
@@ -113,10 +113,13 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
 
   const currentPlan = plans[selectedPlan] || plans['60/40'];
   
-  const dpAmount = (price * downPaymentPercent) / 100;
-  const duringAmount = (price * (currentPlan.during - downPaymentPercent)) / 100;
-  const handoverAmount = (price * currentPlan.handover) / 100;
-  const postAmount = currentPlan.post ? (price * currentPlan.post) / 100 : 0;
+  const numPrice = Number(price) || 0;
+  const numDPPercent = Number(downPaymentPercent) || 0;
+
+  const dpAmount = (numPrice * numDPPercent) / 100;
+  const duringAmount = (numPrice * (currentPlan.during - numDPPercent)) / 100;
+  const handoverAmount = (numPrice * currentPlan.handover) / 100;
+  const postAmount = currentPlan.post ? (numPrice * currentPlan.post) / 100 : 0;
 
   const formatCurrency = (val: number) => 
     new Intl.NumberFormat('en-AE', { style: 'currency', currency: 'AED', maximumFractionDigits: 0 }).format(val);
@@ -155,7 +158,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
                 <input 
                   type="number" 
                   value={price}
-                  onChange={(e) => setPrice(Number(e.target.value))}
+                  onChange={(e) => setPrice(e.target.value === '' ? '' : Number(e.target.value))}
                   className="w-full bg-gray-50 border-b-2 border-gray-100 py-6 px-0 text-3xl font-technical font-bold focus:border-porsche-red outline-none transition-all"
                 />
                 <div className="absolute right-0 bottom-6 text-dark/20 font-technical font-bold">AED</div>
@@ -178,7 +181,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
                   <input 
                     type="number" 
                     value={downPaymentPercent}
-                    onChange={(e) => setDownPaymentPercent(Number(e.target.value))}
+                    onChange={(e) => setDownPaymentPercent(e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full h-full border-2 border-gray-100 bg-gray-50 px-4 text-center font-technical font-bold focus:border-porsche-red outline-none"
                   />
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[12px] font-black opacity-20">%</div>
@@ -263,52 +266,63 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
 };
 
 const ROICalculator = ({ onBack }: { onBack: () => void }) => {
-  const [price, setPrice] = useState<number>(2000000);
-  const [downPaymentPercent, setDownPaymentPercent] = useState<number>(25);
-  const [monthlyRent, setMonthlyRent] = useState<number>(15000);
-  const [serviceCharges, setServiceCharges] = useState<number>(15000);
-  const [interestRate, setInterestRate] = useState<number>(4.5);
-  const [loanTenure, setLoanTenure] = useState<number>(25);
-  const [appreciation, setAppreciation] = useState<number>(5);
-  const [holdingPeriod, setHoldingPeriod] = useState<number>(5);
-  const [maintenance, setMaintenance] = useState<number>(1);
-  const [vacancy, setVacancy] = useState<number>(5);
+  const [price, setPrice] = useState<number | string>(2000000);
+  const [downPaymentPercent, setDownPaymentPercent] = useState<number | string>(25);
+  const [monthlyRent, setMonthlyRent] = useState<number | string>(15000);
+  const [serviceCharges, setServiceCharges] = useState<number | string>(15000);
+  const [interestRate, setInterestRate] = useState<number | string>(4.5);
+  const [loanTenure, setLoanTenure] = useState<number | string>(25);
+  const [appreciation, setAppreciation] = useState<number | string>(5);
+  const [holdingPeriod, setHoldingPeriod] = useState<number | string>(5);
+  const [maintenance, setMaintenance] = useState<number | string>(1);
+  const [vacancy, setVacancy] = useState<number | string>(5);
 
   const [showResults, setShowResults] = useState(false);
 
   // Calculations
-  const annualRent = monthlyRent * 12;
-  const grossYield = (annualRent / price) * 100;
-  const effectiveRent = annualRent * (1 - vacancy / 100);
-  const maintenanceCost = (price * maintenance) / 100;
-  const netRentalIncome = effectiveRent - serviceCharges - maintenanceCost;
-  const netYield = (netRentalIncome / price) * 100;
+  const numPrice = Number(price) || 0;
+  const numDPPercent = Number(downPaymentPercent) || 0;
+  const numMonthlyRent = Number(monthlyRent) || 0;
+  const numServiceCharges = Number(serviceCharges) || 0;
+  const numInterestRate = Number(interestRate) || 0;
+  const numLoanTenure = Number(loanTenure) || 0;
+  const numAppreciation = Number(appreciation) || 0;
+  const numHoldingPeriod = Number(holdingPeriod) || 0;
+  const numMaintenance = Number(maintenance) || 0;
+  const numVacancy = Number(vacancy) || 0;
+
+  const annualRent = numMonthlyRent * 12;
+  const grossYield = numPrice > 0 ? (annualRent / numPrice) * 100 : 0;
+  const effectiveRent = annualRent * (1 - numVacancy / 100);
+  const maintenanceCost = (numPrice * numMaintenance) / 100;
+  const netRentalIncome = effectiveRent - numServiceCharges - maintenanceCost;
+  const netYield = numPrice > 0 ? (netRentalIncome / numPrice) * 100 : 0;
   
-  const loanAmount = price * (1 - downPaymentPercent / 100);
-  const monthlyInterestRate = (interestRate / 100) / 12;
-  const numberOfPayments = loanTenure * 12;
-  const monthlyMortgage = loanAmount > 0 
+  const loanAmount = numPrice * (1 - numDPPercent / 100);
+  const monthlyInterestRate = (numInterestRate / 100) / 12;
+  const numberOfPayments = numLoanTenure * 12;
+  const monthlyMortgage = loanAmount > 0 && monthlyInterestRate > 0
     ? (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1)
     : 0;
   
   const annualMortgage = monthlyMortgage * 12;
   const annualCashFlow = netRentalIncome - annualMortgage;
   
-  const futureValue = price * Math.pow(1 + appreciation / 100, holdingPeriod);
-  const capitalGain = futureValue - price;
-  const totalRentalIncome = netRentalIncome * holdingPeriod;
+  const futureValue = numPrice * Math.pow(1 + numAppreciation / 100, numHoldingPeriod);
+  const capitalGain = futureValue - numPrice;
+  const totalRentalIncome = netRentalIncome * numHoldingPeriod;
   const totalProfit = totalRentalIncome + capitalGain;
-  const initialInvestment = (price * downPaymentPercent / 100) + (price * 0.04); // Including 4% DLD fee
-  const totalROI = (totalProfit / initialInvestment) * 100;
+  const initialInvestment = (numPrice * numDPPercent / 100) + (numPrice * 0.04); // Including 4% DLD fee
+  const totalROI = initialInvestment > 0 ? (totalProfit / initialInvestment) * 100 : 0;
 
   const formatCurrency = (val: number) => 
     new Intl.NumberFormat('en-AE', { style: 'currency', currency: 'AED', maximumFractionDigits: 0 }).format(val);
 
   const chartData = [
-    { name: 'Year 0', value: price },
-    ...Array.from({ length: holdingPeriod }, (_, i) => ({
+    { name: 'Year 0', value: numPrice },
+    ...Array.from({ length: Math.floor(numHoldingPeriod) }, (_, i) => ({
       name: `Year ${i + 1}`,
-      value: price * Math.pow(1 + appreciation / 100, i + 1)
+      value: numPrice * Math.pow(1 + numAppreciation / 100, i + 1)
     }))
   ];
 
@@ -368,7 +382,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   <input 
                     type="number" 
                     value={price}
-                    onChange={(e) => setPrice(Number(e.target.value))}
+                    onChange={(e) => setPrice(e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full bg-transparent border-b border-white/10 py-4 text-3xl font-technical font-bold focus:border-[#B12B28] outline-none transition-all"
                   />
                   <div className="absolute right-0 bottom-4 text-white/20 font-technical font-bold">AED</div>
@@ -393,7 +407,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Monthly Rent</label>
                   <input 
                     type="number" value={monthlyRent}
-                    onChange={(e) => setMonthlyRent(Number(e.target.value))}
+                    onChange={(e) => setMonthlyRent(e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full bg-transparent border-b border-white/10 py-4 text-xl font-technical font-bold focus:border-[#B12B28] outline-none"
                   />
                 </div>
@@ -401,7 +415,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Service Charges (Annual)</label>
                   <input 
                     type="number" value={serviceCharges}
-                    onChange={(e) => setServiceCharges(Number(e.target.value))}
+                    onChange={(e) => setServiceCharges(e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full bg-transparent border-b border-white/10 py-4 text-xl font-technical font-bold focus:border-[#B12B28] outline-none"
                   />
                 </div>
@@ -428,7 +442,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Loan Tenure (Yrs)</label>
                   <input 
                     type="number" value={loanTenure}
-                    onChange={(e) => setLoanTenure(Number(e.target.value))}
+                    onChange={(e) => setLoanTenure(e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full bg-transparent border-b border-white/10 py-4 text-xl font-technical font-bold focus:border-[#B12B28] outline-none"
                   />
                 </div>
@@ -451,7 +465,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
                   <label className="text-[12px] tracking-[0.3em] uppercase font-black text-[#BFBFBF]">Holding Period (Yrs)</label>
                   <input 
                     type="number" value={holdingPeriod}
-                    onChange={(e) => setHoldingPeriod(Number(e.target.value))}
+                    onChange={(e) => setHoldingPeriod(e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full bg-transparent border-b border-white/10 py-4 text-xl font-technical font-bold focus:border-[#B12B28] outline-none"
                   />
                 </div>
