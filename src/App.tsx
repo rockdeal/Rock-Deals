@@ -124,7 +124,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
   return (
     <div className="min-h-screen bg-white font-sans text-dark">
       {/* Header */}
-      <header className="px-6 md:px-8 lg:px-24 py-6 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-50">
+      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-50">
         <div className="flex items-baseline gap-1">
           <span className="text-dark font-display font-black text-xl md:text-2xl tracking-tighter">ROCK</span>
           <span className="text-dark/40 font-display font-light text-xl md:text-2xl tracking-tighter">DEALS</span>
@@ -137,7 +137,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
         </button>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 md:px-8 py-12 md:py-24">
+      <main className="max-w-5xl mx-auto px-6 md:px-8 py-8 md:py-24">
         <div className="mb-12 md:20">
           <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Financial Intelligence</p>
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
@@ -322,7 +322,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-[#B12B28] selection:text-white">
       {/* Header */}
-      <header className="px-6 md:px-8 lg:px-24 py-6 md:py-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#0A0A0A]/80 backdrop-blur-xl z-50">
+      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#0A0A0A]/80 backdrop-blur-xl z-50">
         <div className="flex items-baseline gap-1">
           <span className="text-white font-display font-black text-xl md:text-2xl tracking-tighter">ROCK</span>
           <span className="text-white/40 font-display font-light text-xl md:text-2xl tracking-tighter">DEALS</span>
@@ -335,7 +335,7 @@ const ROICalculator = ({ onBack }: { onBack: () => void }) => {
         </button>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-24">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-24">
         <div className="max-w-3xl mb-16 md:mb-24">
           <p className="text-[#B12B28] text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Investment Analytics</p>
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase mb-6 md:mb-8">
@@ -1004,37 +1004,37 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="flex flex-col"
           >
-            <div className="flex items-center gap-4 mb-10">
+            <div className="flex items-center gap-4 mb-6 md:mb-10">
               <div className="w-3 h-3 bg-porsche-red"></div>
               <span className="text-white/30 text-[11px] tracking-[0.6em] font-black uppercase">Zone_Intelligence_Report</span>
             </div>
 
-            <h3 className="text-6xl md:text-8xl font-display font-black text-white mb-10 tracking-tighter leading-[0.85] uppercase">
+            <h3 className="text-6xl md:text-8xl font-display font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.85] uppercase">
               {activeZone.name.split(' ').map((word, i) => (
                 <span key={i} className={i === 0 ? 'block' : 'block text-porsche-red'}>{word}</span>
               ))}
             </h3>
 
-            <p className="text-white/50 text-lg leading-relaxed font-light mb-16 max-w-lg">
+            <p className="text-white/50 text-lg leading-relaxed font-light mb-10 md:mb-16 max-w-lg">
               {activeZone.description}
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/5 mb-16 border border-white/5">
-              <div className="bg-dark p-10">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/5 mb-10 md:mb-16 border border-white/5">
+              <div className="bg-dark p-6 md:p-10">
                 <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">Yield_Index</span>
                 <span className="text-white font-display font-black text-5xl tracking-tighter">{activeZone.yield}</span>
               </div>
-              <div className="bg-dark p-10">
+              <div className="bg-dark p-6 md:p-10">
                 <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">Price_Per_Sqft</span>
                 <span className="text-white font-display font-black text-4xl tracking-tighter">{activeZone.pricePerSqft}</span>
               </div>
-              <div className="bg-dark p-10 col-span-2 md:col-span-1">
+              <div className="bg-dark p-6 md:p-10 col-span-2 md:col-span-1">
                 <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">District_Count</span>
                 <span className="text-white font-display font-black text-5xl tracking-tighter">{activeZone.areas.length}</span>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-8 mb-16">
+            <div className="flex flex-col sm:flex-row items-center gap-8 mb-10 md:mb-16">
               <motion.a 
                 href="#property-types"
                 onClick={() => onSearch?.('All Properties')}
@@ -1154,7 +1154,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
     <div className="min-h-screen bg-white selection:bg-dark selection:text-white font-sans">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100">
-        <div className="px-6 md:px-12 lg:px-16 py-4 md:py-6 flex items-center justify-between">
+        <div className="px-6 md:px-12 lg:px-16 py-3 md:py-6 flex items-center justify-between">
           <div className="flex items-center gap-6 md:gap-12">
             <button 
               onClick={() => {
@@ -1190,7 +1190,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
         </div>
       </header>
 
-      <main className="pt-24 md:pt-32 pb-24 md:pb-48">
+      <main className="pt-20 md:pt-32 pb-16 md:pb-48">
         <AnimatePresence mode="wait">
           {subView === 'list' && (
             <motion.div
@@ -1200,7 +1200,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               exit={{ opacity: 0, y: -20 }}
               className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
             >
-              <div className="mb-16 md:mb-24">
+              <div className="mb-10 md:mb-24">
                 <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Industry Leaders</p>
                 <h2 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-dark tracking-tighter leading-none">
                   DUBAI<br />
@@ -1213,10 +1213,10 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                   <motion.div
                     key={dev.id}
                     whileHover={{ y: -10 }}
-                    className="group bg-white p-8 md:p-12 rounded-[2rem] border border-gray-100 hover:border-porsche-red/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 cursor-pointer flex flex-col"
+                    className="group bg-white p-6 md:p-12 rounded-[2rem] border border-gray-100 hover:border-porsche-red/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 cursor-pointer flex flex-col"
                     onClick={() => handleDevClick(dev.id)}
                   >
-                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden mb-8 md:mb-10 bg-white p-4 border border-gray-50 shadow-sm group-hover:shadow-md transition-all duration-500 flex items-center justify-center">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden mb-6 md:mb-10 bg-white p-4 border border-gray-50 shadow-sm group-hover:shadow-md transition-all duration-500 flex items-center justify-center">
                       <img 
                         src={dev.logo} 
                         alt={dev.name} 
@@ -1256,7 +1256,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               exit={{ opacity: 0, x: -20 }}
               className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
             >
-              <div className="mb-16 md:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+              <div className="mb-10 md:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
                 <div>
                   <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">
                     {selectedDeveloper ? selectedDeveloper.name : 'All Projects'}
@@ -1686,7 +1686,7 @@ This request was generated from the Rock Deals Smart Hub.
   return (
     <div className="min-h-screen bg-white font-sans text-dark">
       {/* Header */}
-      <header className="px-8 lg:px-24 py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-50">
+      <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-50">
         <div className="flex items-baseline gap-1">
           <span className="text-dark font-display font-black text-2xl tracking-tighter">ROCK</span>
           <span className="text-dark/40 font-display font-light text-2xl tracking-tighter">DEALS</span>
@@ -1699,7 +1699,7 @@ This request was generated from the Rock Deals Smart Hub.
         </button>
       </header>
 
-      <main className="max-w-5xl mx-auto px-8 py-24">
+      <main className="max-w-5xl mx-auto px-6 md:px-8 py-12 md:py-24">
         <div className="mb-20">
           <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-6">Mortgage Intelligence</p>
           <h1 className="text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
@@ -1953,7 +1953,7 @@ Furnish: ${searchFurnishStatus}
         />
         
         <div className="px-6 lg:px-12">
-          <div className={`flex items-center justify-between transition-all duration-500 gap-4 ${isScrolled ? 'h-[60px]' : 'h-[80px]'}`}>
+          <div className={`flex items-center justify-between transition-all duration-500 gap-4 ${isScrolled ? 'h-[50px] md:h-[60px]' : 'h-[60px] md:h-[80px]'}`}>
             <a className="cursor-pointer group flex-shrink-0" href="/">
               <div className="flex flex-col leading-none">
                 <div className="flex items-baseline gap-1">
@@ -2072,8 +2072,8 @@ Furnish: ${searchFurnishStatus}
           </div>
         </div>
 
-        <div className="relative w-full px-6 md:px-8 lg:px-16 pt-24 md:pt-20 flex flex-col items-center text-center">
-          <div className="max-w-5xl mb-8 md:mb-12">
+        <div className="relative w-full px-6 md:px-8 lg:px-16 pt-16 md:pt-20 flex flex-col items-center text-center">
+          <div className="max-w-5xl mb-6 md:mb-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -2111,7 +2111,7 @@ Furnish: ${searchFurnishStatus}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="w-full max-w-4xl bg-black/20 backdrop-blur-3xl border border-white/10 rounded-2xl p-4 md:p-5 shadow-[0_0_100px_rgba(0,0,0,0.6)] relative z-[100] group"
+            className="w-full max-w-4xl bg-black/20 backdrop-blur-3xl border border-white/10 rounded-2xl p-3 md:p-5 shadow-[0_0_100px_rgba(0,0,0,0.6)] relative z-[100] group"
           >
             {/* Animated Border Glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
@@ -2134,7 +2134,7 @@ Furnish: ${searchFurnishStatus}
             </div>
 
             {/* Inputs Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-2 md:gap-1.5 relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-1.5 md:gap-1.5 relative z-10">
               {/* Location Input */}
               <div className="relative lg:col-span-3">
                 <Search className="absolute left-4 md:left-3 top-1/2 -translate-y-1/2 w-3 h-3 md:w-2.5 md:h-2.5 text-porsche-red" />
@@ -2347,7 +2347,7 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Intro Section */}
-      <section className="px-6 md:px-8 lg:px-24 py-24 md:py-40 bg-white">
+      <section className="px-6 md:px-8 lg:px-24 py-16 md:py-40 bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <div>
             <motion.div
@@ -2391,7 +2391,7 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Property Types Section (Filtered Grid) */}
-      <section id="property-types" className="px-6 md:px-8 lg:px-24 py-24 md:py-48 bg-white">
+      <section id="property-types" className="px-6 md:px-8 lg:px-24 py-16 md:py-48 bg-white">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-32 gap-8 md:gap-12">
           <div className="max-w-3xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Portfolio</p>
@@ -2463,7 +2463,7 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="px-6 md:px-8 lg:px-24 py-24 md:py-40 bg-gray-50/50">
+      <section id="features" className="px-6 md:px-8 lg:px-24 py-16 md:py-40 bg-gray-50/50">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8 md:gap-12">
           <div className="max-w-2xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Innovation</p>
@@ -2507,7 +2507,7 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* The Journey - Mapped Blueprint */}
-      <section id="journey" className="px-6 md:px-8 lg:px-24 py-24 md:py-48 bg-white overflow-hidden">
+      <section id="journey" className="px-6 md:px-8 lg:px-24 py-16 md:py-48 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24 md:mb-48">
             <motion.div
@@ -2596,7 +2596,7 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Area Guide Section - Interactive Map */}
-      <section id="explore" className="px-6 md:px-8 lg:px-24 py-24 md:py-48 bg-dark">
+      <section id="explore" className="px-6 md:px-8 lg:px-24 py-16 md:py-48 bg-dark">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12 mb-16 md:mb-32">
           <div className="max-w-3xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Location Intelligence</p>
@@ -2615,7 +2615,7 @@ Furnish: ${searchFurnishStatus}
 
       {/* Footer */}
       <footer id="contact" className="bg-white border-t border-gray-100">
-        <div className="px-6 md:px-8 lg:px-24 py-24 md:py-32">
+        <div className="px-6 md:px-8 lg:px-24 py-16 md:py-32">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-20">
             <div className="md:col-span-4">
               <div className="flex items-baseline gap-1 mb-4">
