@@ -1888,8 +1888,8 @@ Search Criteria:
 ----------------
 Type: ${searchTab}
 Location: ${searchLocation || 'Not specified'}
-Price: ${searchPrice.min || '0'} - ${searchPrice.max || 'Any'} AED
-Beds: ${searchBeds.beds}
+Price: ${searchPrice.max || 'Not specified'} AED
+Beds: ${searchBeds.beds === 0 ? 'Studio' : searchBeds.beds}
 Baths: ${searchBeds.baths}
 Property Type: ${searchPropertyType}
 Furnish: ${searchFurnishStatus}
@@ -2099,7 +2099,7 @@ Furnish: ${searchFurnishStatus}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="w-full max-w-4xl bg-black/10 backdrop-blur-3xl border border-white/10 rounded-xl p-3 md:p-3.5 shadow-[0_0_80px_rgba(0,0,0,0.4)] relative z-[45] overflow-hidden group"
+            className="w-full max-w-4xl bg-black/10 backdrop-blur-3xl border border-white/10 rounded-xl p-3 md:p-3.5 shadow-[0_0_80px_rgba(0,0,0,0.4)] relative z-[45] group"
           >
             {/* Animated Border Glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
@@ -2135,49 +2135,18 @@ Furnish: ${searchFurnishStatus}
                 />
               </div>
 
-              {/* Price Dropdown */}
+              {/* Price Input */}
               <div className="relative lg:col-span-2">
-                <button 
-                  onClick={() => setActivePopover(activePopover === 'price' ? null : 'price')}
-                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
-                >
-                  <span className="truncate">{searchPrice.min || searchPrice.max ? `${searchPrice.min}-${searchPrice.max} AED` : 'Price'}</span>
-                  <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'price' ? 'rotate-180' : ''}`} />
-                </button>
-                <AnimatePresence>
-                  {activePopover === 'price' && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 z-50 shadow-2xl"
-                    >
-                      <p className="text-white/40 text-[12px] font-technical font-bold tracking-widest uppercase mb-4">Price Range (AED)</p>
-                      <div className="flex gap-3 mb-4">
-                        <input 
-                          type="number" 
-                          placeholder="Min"
-                          value={searchPrice.min}
-                          onChange={(e) => setSearchPrice({...searchPrice, min: e.target.value})}
-                          className="w-1/2 bg-white/1 border border-white/10 rounded-xl py-3 px-4 text-white text-sm font-technical focus:outline-none focus:border-porsche-red/50"
-                        />
-                        <input 
-                          type="number" 
-                          placeholder="Max"
-                          value={searchPrice.max}
-                          onChange={(e) => setSearchPrice({...searchPrice, max: e.target.value})}
-                          className="w-1/2 bg-white/1 border border-white/10 rounded-xl py-3 px-4 text-white text-sm font-technical focus:outline-none focus:border-porsche-red/50"
-                        />
-                      </div>
-                      <button 
-                        onClick={() => { setSearchPrice({min: '', max: ''}); setActivePopover(null); }}
-                        className="w-full py-2 text-[12px] font-technical font-bold text-white/40 uppercase tracking-widest hover:text-white transition-colors"
-                      >
-                        Reset
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className="relative h-full">
+                  <input 
+                    type="text"
+                    placeholder="Price (AED)"
+                    value={searchPrice.max}
+                    onChange={(e) => setSearchPrice({...searchPrice, max: e.target.value.replace(/[^0-9]/g, '')})}
+                    className="w-full h-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest focus:outline-none focus:border-porsche-red/40 transition-all placeholder:text-white/10 min-h-[48px] md:min-h-0"
+                  />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-black text-white/20 pointer-events-none">AED</div>
+                </div>
               </div>
 
               {/* Beds & Baths Dropdown */}
@@ -2186,7 +2155,11 @@ Furnish: ${searchFurnishStatus}
                   onClick={() => setActivePopover(activePopover === 'beds' ? null : 'beds')}
                   className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
                 >
-                  <span className="truncate">{searchBeds.beds || searchBeds.baths ? `${searchBeds.beds}B / ${searchBeds.baths}Ba` : 'Beds & Baths'}</span>
+                  <span className="truncate">
+                    {searchBeds.beds === 0 && searchBeds.baths === 0 ? 'Beds & Baths' : 
+                     searchBeds.beds === 0 ? `Studio / ${searchBeds.baths}Ba` : 
+                     `${searchBeds.beds}B / ${searchBeds.baths}Ba`}
+                  </span>
                   <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'beds' ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
@@ -2201,11 +2174,11 @@ Furnish: ${searchFurnishStatus}
                         <div>
                           <p className="text-white/40 text-[12px] font-technical font-bold tracking-widest uppercase mb-3">Bedrooms</p>
                           <div className="flex flex-wrap gap-1.5">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
+                            {['ST', 1, 2, 3, 4, 5, 6, 7, 8].map(n => (
                               <button 
                                 key={n}
-                                onClick={() => setSearchBeds({...searchBeds, beds: n})}
-                                className={`w-8 h-8 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.beds === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/1 text-white/40 hover:bg-white/10'}`}
+                                onClick={() => setSearchBeds({...searchBeds, beds: n === 'ST' ? 0 : Number(n)})}
+                                className={`w-10 h-10 rounded-lg text-[11px] font-technical font-bold transition-all ${((n === 'ST' && searchBeds.beds === 0) || (typeof n === 'number' && searchBeds.beds === n)) ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/1 text-white/40 hover:bg-white/10'}`}
                               >
                                 {n}
                               </button>
@@ -2215,11 +2188,11 @@ Furnish: ${searchFurnishStatus}
                         <div>
                           <p className="text-white/40 text-[12px] font-technical font-bold tracking-widest uppercase mb-3">Bathrooms</p>
                           <div className="flex flex-wrap gap-1.5">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
+                            {[1, 2, 3, 4, 5, 6].map(n => (
                               <button 
                                 key={n}
                                 onClick={() => setSearchBeds({...searchBeds, baths: n})}
-                                className={`w-8 h-8 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.baths === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/1 text-white/40 hover:bg-white/10'}`}
+                                className={`w-10 h-10 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.baths === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/1 text-white/40 hover:bg-white/10'}`}
                               >
                                 {n}
                               </button>
@@ -2263,7 +2236,7 @@ Furnish: ${searchFurnishStatus}
                       exit={{ opacity: 0, y: 10 }}
                       className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 z-50 shadow-2xl"
                     >
-                      {['Apartment', 'Villa', 'Townhouse', 'Penthouse', 'Land'].map(type => (
+                      {['Studio', 'Apartment', 'Townhouse', 'Villa', 'Hotel Apartments'].map(type => (
                         <button 
                           key={type}
                           onClick={() => { setSearchPropertyType(type); setActivePopover(null); }}
@@ -2294,7 +2267,7 @@ Furnish: ${searchFurnishStatus}
                       exit={{ opacity: 0, y: 10 }}
                       className="absolute top-full left-0 right-0 mt-3 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-2 z-50 shadow-2xl"
                     >
-                      {['Furnished', 'Unfurnished', 'Partly Furnished'].map(status => (
+                      {['Furnished', 'Fully Furnished', 'Semi Furnished', 'Vacant'].map(status => (
                         <button 
                           key={status}
                           onClick={() => { setSearchFurnishStatus(status); setActivePopover(null); }}
