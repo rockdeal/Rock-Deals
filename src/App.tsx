@@ -948,84 +948,106 @@ const ZONES = [
     pricePerSqft: '3,200 AED',
     description: 'The world\'s most famous man-made island, offering ultra-luxury villas and high-end apartments with private beach access.',
     image: 'https://images.unsplash.com/photo-1549944850-84e00be4203b?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '45%', y: '32%' },
+    coords: { x: '22%', y: '62%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'marina',
-    name: 'Marina & JBR',
+    name: 'Dubai Marina',
     areas: ['Dubai Marina', 'JBR', 'Blue Waters', 'Marsa Dubai'],
     yield: '7.8%',
     pricePerSqft: '2,100 AED',
     description: 'A vibrant waterfront community known for its high-rise towers, luxury yachts, and a bustling promenade with world-class dining.',
     image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '35%', y: '38%' },
+    coords: { x: '32%', y: '74%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'downtown',
-    name: 'Downtown Core',
-    areas: ['Downtown Dubai', 'Business Bay', 'DIFC', 'Burj Dubai'],
+    name: 'Downtown Dubai',
+    areas: ['Burj Khalifa', 'Dubai Mall', 'Old Town', 'The Address'],
     yield: '6.5%',
-    pricePerSqft: '2,950 AED',
-    description: 'The heart of Dubai, home to the Burj Khalifa (formerly Burj Dubai), Dubai Mall, and the city\'s premier financial hubs.',
+    pricePerSqft: '2,800 AED',
+    description: 'The heart of the city, home to the Burj Khalifa and Dubai Mall. Offers premium urban living with iconic views and unmatched convenience.',
     image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '65%', y: '28%' },
+    coords: { x: '63%', y: '52%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
-    id: 'hills',
-    name: 'Emirates Hills',
-    areas: ['Emirates Hills', 'Jumeirah Islands', 'Meadows', 'Montgomerie'],
-    yield: '5.8%',
-    pricePerSqft: '2,450 AED',
-    description: 'Exclusive gated communities featuring sprawling villas, lush greenery, and championship golf courses for elite living.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '38%', y: '48%' },
-    link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
-  },
-  {
-    id: 'jvc',
-    name: 'JVC & Sports City',
-    areas: ['JVC', 'JVT', 'Sports City', 'Motor City'],
-    yield: '8.2%',
-    pricePerSqft: '1,150 AED',
-    description: 'Rapidly developing residential areas offering high rental yields and modern lifestyle amenities for families and professionals.',
+    id: 'business-bay',
+    name: 'Business Bay',
+    areas: ['Executive Towers', 'Bay Square', 'Marasi Drive'],
+    yield: '7.4%',
+    pricePerSqft: '1,850 AED',
+    description: 'A major business district with a mix of commercial and residential towers, offering a cosmopolitan lifestyle along the Dubai Canal.',
     image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '42%', y: '58%' },
+    coords: { x: '66%', y: '58%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
-    id: 'creek',
+    id: 'creek-harbour',
     name: 'Creek Harbour',
-    areas: ['Dubai Creek Harbour', 'Meydan', 'The Lagoons'],
-    yield: '6.9%',
+    areas: ['Creek Island', 'The Island District', 'Creek Beach'],
+    yield: '8.1%',
     pricePerSqft: '1,950 AED',
-    description: 'A futuristic waterfront destination blending modern architecture with natural beauty, set to become the new heart of the city.',
-    image: 'https://images.unsplash.com/photo-1549944850-84e00be4203b?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '78%', y: '22%' },
+    description: 'A sustainable waterfront community offering a mix of residential, commercial, and retail spaces with stunning views of the Dubai skyline.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
+    coords: { x: '78%', y: '48%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
-    id: 'jebel-ali',
-    name: 'Jebel Ali Village',
-    areas: ['Jebel Ali', 'Discovery Gardens', 'The Gardens'],
-    yield: '7.1%',
-    pricePerSqft: '1,050 AED',
-    description: 'The southern gateway of Dubai, featuring massive industrial hubs and established residential communities like Discovery Gardens.',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '12%', y: '55%' },
+    id: 'hills-estate',
+    name: 'Dubai Hills Estate',
+    areas: ['Sidra', 'Maple', 'Park Heights', 'Golf Grove'],
+    yield: '6.8%',
+    pricePerSqft: '1,650 AED',
+    description: 'A master-planned community centered around an 18-hole championship golf course, offering a serene and family-friendly environment.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
+    coords: { x: '58%', y: '68%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
-    id: 'al-barsha',
-    name: 'Al Barsha District',
-    areas: ['Al Barsha', 'Al Quoz', 'Mall of Emirates'],
-    yield: '6.7%',
-    pricePerSqft: '1,350 AED',
-    description: 'A central residential and commercial hub, home to the Mall of the Emirates and a diverse range of property options.',
-    image: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '55%', y: '42%' },
+    id: 'arabian-ranches',
+    name: 'Arabian Ranches',
+    areas: ['Ranches 1', 'Ranches 2', 'Ranches 3'],
+    yield: '6.2%',
+    pricePerSqft: '1,450 AED',
+    description: 'A premium gated community offering a range of villas and townhouses, known for its lush greenery and world-class amenities.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
+    coords: { x: '45%', y: '78%' },
+    link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
+  },
+  {
+    id: 'jumeirah-beach',
+    name: 'Jumeirah Beach',
+    areas: ['JBR', 'La Mer', 'Pearl Jumeirah'],
+    yield: '7.0%',
+    pricePerSqft: '2,400 AED',
+    description: 'A prime coastal area offering luxury beachfront living with a mix of residential and leisure destinations.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
+    coords: { x: '50%', y: '45%' },
+    link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
+  },
+  {
+    id: 'bur-dubai',
+    name: 'Bur Dubai',
+    areas: ['Al Mankhool', 'Al Karama', 'Oud Metha'],
+    yield: '7.9%',
+    pricePerSqft: '1,250 AED',
+    description: 'A historic district known for its cultural landmarks, traditional architecture, and vibrant community life.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
+    coords: { x: '65%', y: '45%' },
+    link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
+  },
+  {
+    id: 'deira',
+    name: 'Deira',
+    areas: ['Al Rigga', 'Al Muraqqabat', 'Naif'],
+    yield: '8.5%',
+    pricePerSqft: '1,100 AED',
+    description: 'One of the oldest parts of Dubai, Deira is a bustling commercial hub with a rich cultural heritage and a variety of traditional souks.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
+    coords: { x: '80%', y: '38%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   }
 ];
@@ -1044,182 +1066,78 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
           className="absolute top-0 bottom-0 w-48 bg-gradient-to-r from-transparent via-porsche-red/10 to-transparent skew-x-12 pointer-events-none z-20"
         />
 
-        <svg viewBox="0 0 800 600" className="w-full h-full">
-          {/* Detailed Coastline Path */}
-          <motion.path
-            d="M0,520 L80,500 L120,480 L180,440 L250,410 L320,380 L400,350 L480,320 L550,280 L620,240 L700,180 L800,120"
-            fill="none"
-            stroke="rgba(255,255,255,0.08)"
-            strokeWidth="1.5"
-            strokeDasharray="8 4"
+        <div className="w-full h-full relative overflow-hidden">
+          <motion.img 
+            src="https://storage.googleapis.com/birdview-public-assets/projects/ais-dev-x2tn27z2sm6defbgavbyxz-632468988127/assets/map_image.png" 
+            alt="Dubai Map"
+            className="w-full h-full object-cover opacity-90 scale-105 origin-center"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 0.9, scale: 1.05 }}
+            transition={{ duration: 1.5 }}
           />
-
-          {/* Major Road Networks (Stylized) */}
-          {/* Sheikh Zayed Road (E11) */}
-          <motion.path
-            d="M0,580 L100,540 L200,500 L350,440 L500,380 L650,300 L800,220"
-            fill="none"
-            stroke="rgba(213,0,28,0.2)"
-            strokeWidth="2.5"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 3, ease: "easeInOut" }}
-          />
-          <text x="50" y="565" className="fill-white/20 text-[6px] font-technical font-bold uppercase tracking-widest">E11 - Sheikh Zayed Rd</text>
+          {/* Technical Overlay Grid */}
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />
           
-          {/* Al Khail Road (E44) */}
-          <motion.path
-            d="M100,600 L250,540 L400,480 L550,400 L700,320 L800,280"
-            fill="none"
-            stroke="rgba(255,255,255,0.04)"
-            strokeWidth="1.5"
-          />
-          <text x="180" y="575" className="fill-white/10 text-[6px] font-technical font-bold uppercase tracking-widest">E44 - Al Khail Rd</text>
+          {/* Red Glowing Road Effect (Simulated) */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-porsche-red/5 via-transparent to-porsche-red/5 pointer-events-none" />
 
-          {/* Emirates Road (E611) */}
-          <motion.path
-            d="M200,600 L400,540 L600,460 L800,380"
-            fill="none"
-            stroke="rgba(255,255,255,0.02)"
-            strokeWidth="1"
-          />
-          <text x="350" y="565" className="fill-white/5 text-[6px] font-technical font-bold uppercase tracking-widest">E611 - Emirates Rd</text>
-
-          {/* Stylized Palm Jebel Ali */}
-          <g transform="translate(120, 480) scale(0.4) rotate(-25)">
-            {[...Array(10)].map((_, i) => (
-              <line key={i} x1="0" y1="0" x2={Math.cos(i * 0.35) * 65} y2={Math.sin(i * 0.35) * 65} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-            ))}
-          </g>
-
-          {/* Stylized Palm Jumeirah */}
-          <g transform="translate(420, 320) scale(0.7) rotate(-15)">
-            <path d="M-10,0 Q0,-60 10,0 T30,0" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-            {[...Array(14)].map((_, i) => {
-              if (i === 6 || i === 10) return null;
-              return (
-                <line key={i} x1="0" y1="0" x2={Math.cos(i * 0.25) * 75} y2={Math.sin(i * 0.25) * 75} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
-              );
-            })}
-          </g>
-
-          {/* Stylized The World Islands */}
-          <g transform="translate(580, 200) scale(0.5)">
-            {[...Array(25)].map((_, i) => (
-              <circle 
-                key={i} 
-                cx={Math.sin(i) * 60 + (Math.random() * 20)} 
-                cy={Math.cos(i) * 40 + (Math.random() * 20)} 
-                r={Math.random() * 4 + 1.5} 
-                fill="rgba(255,255,255,0.15)" 
-              />
-            ))}
-          </g>
-
-          {/* Burj Al Arab Landmark */}
-          <g transform="translate(480, 280)">
-            <path d="M0,0 L-5,-15 L5,-15 Z" fill="#d5001c" />
-            <circle cx="0" cy="-18" r="2" fill="#d5001c" />
-            <text x="10" y="-15" className="fill-white/40 text-[5px] font-technical font-bold uppercase tracking-widest">Burj Al Arab</text>
-          </g>
-
-          {/* Burj Khalifa Landmark */}
-          <g transform="translate(680, 240)">
-            <path d="M-2,0 L0,-40 L2,0 Z" fill="#d5001c" />
-            <circle cx="0" cy="-42" r="1.5" fill="#d5001c" className="animate-pulse" />
-            <text x="10" y="-35" className="fill-white/40 text-[5px] font-technical font-bold uppercase tracking-widest">Burj Khalifa</text>
-          </g>
-
-          {/* Additional Landmarks from Image */}
-          <g transform="translate(520, 260)">
-            <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.2)" />
-            <text x="5" y="2" className="fill-white/10 text-[4px] font-technical font-bold uppercase tracking-widest">Dubai Zoo</text>
-          </g>
-
-          <g transform="translate(580, 280)">
-            <rect x="-1.5" y="-1.5" width="3" height="3" fill="rgba(255,255,255,0.1)" />
-            <text x="5" y="2" className="fill-white/10 text-[4px] font-technical font-bold uppercase tracking-widest">Safa Park</text>
-          </g>
-
-          <g transform="translate(280, 520)">
-            <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.2)" />
-            <text x="5" y="2" className="fill-white/10 text-[4px] font-technical font-bold uppercase tracking-widest">Sports City</text>
-          </g>
-
-          <g transform="translate(180, 540)">
-            <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.2)" />
-            <text x="5" y="2" className="fill-white/10 text-[4px] font-technical font-bold uppercase tracking-widest">IMPZ</text>
-          </g>
-
-          <g transform="translate(150, 450)">
-            <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.2)" />
-            <text x="5" y="2" className="fill-white/10 text-[4px] font-technical font-bold uppercase tracking-widest">Discovery Gardens</text>
-          </g>
-
-          <g transform="translate(320, 480)">
-            <circle cx="0" cy="0" r="1.5" fill="rgba(255,255,255,0.2)" />
-            <text x="5" y="2" className="fill-white/10 text-[4px] font-technical font-bold uppercase tracking-widest">Jumeirah Golf Estates</text>
-          </g>
-
-          {/* Madinat Jumeirah / Wild Wadi Area */}
-          <g transform="translate(460, 295)">
-            <rect x="-2" y="-2" width="4" height="4" fill="rgba(255,255,255,0.1)" />
-            <text x="6" y="2" className="fill-white/20 text-[4px] font-technical font-bold uppercase tracking-widest">Madinat Jumeirah</text>
-          </g>
-
-          {/* Stylized Palm Deira / Creek Harbour */}
-          <g transform="translate(780, 80) scale(0.8) rotate(-5)">
-            {[...Array(18)].map((_, i) => (
-              <line key={i} x1="0" y1="0" x2={Math.cos(i * 0.18) * 100} y2={Math.sin(i * 0.18) * 100} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-            ))}
-          </g>
+          {/* Masking the logo in bottom right */}
+          <div className="absolute bottom-0 right-0 w-32 h-32 bg-dark/90 blur-3xl pointer-events-none z-20" />
           
-          {/* Grid Lines (Technical Overlay) */}
-          {[...Array(25)].map((_, i) => (
-            <line key={`v-${i}`} x1={i * 32} y1="0" x2={i * 32} y2="600" stroke="rgba(255,255,255,0.015)" strokeWidth="0.5" />
-          ))}
-          {[...Array(20)].map((_, i) => (
-            <line key={`h-${i}`} x1="0" y1={i * 30} x2="800" y2={i * 30} stroke="rgba(255,255,255,0.015)" strokeWidth="0.5" />
-          ))}
-
-          {/* Zone Hotspots */}
-          {ZONES.map((zone) => (
-            <g 
-              key={zone.id} 
-              className="cursor-pointer group/zone"
-              onClick={() => setActiveZone(zone)}
-            >
-              {/* Zone Marker */}
-              <motion.circle
-                cx={zone.coords.x}
-                cy={zone.coords.y}
-                r="6"
-                fill={activeZone.id === zone.id ? "#d5001c" : "rgba(255,255,255,0.4)"}
-                whileHover={{ scale: 2.5, fill: "#d5001c" }}
-                transition={{ duration: 0.4 }}
-                className="shadow-[0_0_20px_rgba(213,0,28,0.5)]"
-              />
-
-              {/* Technical Crosshair for Active Zone */}
-              {activeZone.id === zone.id && (
-                <g>
-                  <line x1={parseFloat(zone.coords.x) - 4 + '%'} y1={zone.coords.y} x2={parseFloat(zone.coords.x) + 4 + '%'} y2={zone.coords.y} stroke="#d5001c" strokeWidth="0.5" strokeDasharray="2 2" />
-                  <line x1={zone.coords.x} y1={parseFloat(zone.coords.y) - 4 + '%'} x2={zone.coords.x} y2={parseFloat(zone.coords.y) + 4 + '%'} stroke="#d5001c" strokeWidth="0.5" strokeDasharray="2 2" />
-                </g>
-              )}
-              
-              {/* Zone Label */}
-              <text
-                x={zone.coords.x}
-                y={parseFloat(zone.coords.y) - 18 + '%'}
-                textAnchor="middle"
-                className={`text-[7px] font-technical font-bold tracking-[0.25em] uppercase transition-all duration-500 ${activeZone.id === zone.id ? 'opacity-100 fill-white text-[11px] glow-porsche' : 'opacity-30 fill-white/30 group-hover/zone:opacity-100 group-hover/zone:fill-white'}`}
+          <svg viewBox="0 0 800 600" className="absolute inset-0 w-full h-full z-10 pointer-events-none">
+            {/* Technical Crosshair Overlay */}
+            <line x1="0" y1="300" x2="800" y2="300" stroke="rgba(213,0,28,0.05)" strokeWidth="0.5" />
+            <line x1="400" y1="0" x2="400" y2="600" stroke="rgba(213,0,28,0.05)" strokeWidth="0.5" />
+            
+            {/* Zone Hotspots */}
+            {ZONES.map((zone) => (
+              <g 
+                key={zone.id} 
+                className="cursor-pointer group/zone pointer-events-auto"
+                onClick={() => setActiveZone(zone)}
               >
-                {zone.name}
-              </text>
-            </g>
-          ))}
-        </svg>
+                {/* Pulsing Aura */}
+                <motion.circle
+                  cx={zone.coords.x}
+                  cy={zone.coords.y}
+                  r="12"
+                  fill="rgba(213,0,28,0.1)"
+                  animate={{ scale: [1, 1.5, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+
+                {/* Zone Marker */}
+                <motion.circle
+                  cx={zone.coords.x}
+                  cy={zone.coords.y}
+                  r="6"
+                  fill={activeZone.id === zone.id ? "#d5001c" : "rgba(255,255,255,0.4)"}
+                  whileHover={{ scale: 2.5, fill: "#d5001c" }}
+                  transition={{ duration: 0.4 }}
+                  className="shadow-[0_0_20px_rgba(213,0,28,0.5)]"
+                />
+
+                {/* Technical Crosshair for Active Zone */}
+                {activeZone.id === zone.id && (
+                  <g>
+                    <line x1={parseFloat(zone.coords.x) - 10 + '%'} y1={zone.coords.y} x2={parseFloat(zone.coords.x) + 10 + '%'} y2={zone.coords.y} stroke="#d5001c" strokeWidth="0.5" strokeDasharray="2 2" />
+                    <line x1={zone.coords.x} y1={parseFloat(zone.coords.y) - 10 + '%'} x2={zone.coords.x} y2={parseFloat(zone.coords.y) + 10 + '%'} stroke="#d5001c" strokeWidth="0.5" strokeDasharray="2 2" />
+                  </g>
+                )}
+                
+                {/* Zone Label */}
+                <text
+                  x={zone.coords.x}
+                  y={parseFloat(zone.coords.y) - 18 + '%'}
+                  textAnchor="middle"
+                  className={`text-[8px] font-technical font-black tracking-[0.3em] uppercase transition-all duration-500 ${activeZone.id === zone.id ? 'opacity-100 fill-white text-[12px] glow-porsche' : 'opacity-40 fill-white/40 group-hover/zone:opacity-100 group-hover/zone:fill-white'}`}
+                >
+                  {zone.name}
+                </text>
+              </g>
+            ))}
+          </svg>
+        </div>
 
         {/* Technical Data Overlays */}
         <div className="absolute top-10 left-10 flex flex-col gap-6">
