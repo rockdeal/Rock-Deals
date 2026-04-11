@@ -2086,26 +2086,20 @@ Furnish: ${searchFurnishStatus}
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (view === 'calculator') {
-    return <PaymentCalculator onBack={() => setView('home')} />;
-  }
-
-  if (view === 'roi-calculator') {
-    return <ROICalculator onBack={() => setView('home')} />;
-  }
-
-  if (view === 'developers') {
-    return <DevelopersView onBack={() => setView('home')} onEnquire={() => setIsEnquiryModalOpen(true)} />;
-  }
-
-  if (view === 'pre-approval') {
-    return <PreApprovalForm onBack={() => setView('home')} />;
-  }
-
   return (
-    <div className="min-h-screen bg-white selection:bg-dark selection:text-white">
-      {/* Header */}
-      <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${isScrolled ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
+    <>
+      {view === 'calculator' ? (
+        <PaymentCalculator onBack={() => setView('home')} />
+      ) : view === 'roi-calculator' ? (
+        <ROICalculator onBack={() => setView('home')} />
+      ) : view === 'developers' ? (
+        <DevelopersView onBack={() => setView('home')} onEnquire={() => setIsEnquiryModalOpen(true)} />
+      ) : view === 'pre-approval' ? (
+        <PreApprovalForm onBack={() => setView('home')} />
+      ) : (
+        <div className="min-h-screen bg-white selection:bg-dark selection:text-white">
+          {/* Header */}
+          <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${isScrolled ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
         {/* Scroll Progress Bar */}
         <motion.div 
           className="absolute top-0 left-0 h-[3px] bg-porsche-red z-[60]"
@@ -2905,6 +2899,8 @@ Furnish: ${searchFurnishStatus}
           </div>
         </div>
       </footer>
+    </div>
+  )}
 
       {/* Enquiry Modal */}
       <AnimatePresence>
@@ -3018,6 +3014,6 @@ Furnish: ${searchFurnishStatus}
           </div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }
