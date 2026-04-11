@@ -142,8 +142,8 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
         </button>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 md:px-8 py-8 md:py-24">
-        <div className="mb-12 md:20">
+      <main className="max-w-5xl mx-auto px-6 md:px-8 py-8 md:py-16">
+        <div className="mb-10 md:mb-12">
           <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Financial Intelligence</p>
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
             Payment Plan<br />
@@ -480,8 +480,8 @@ Total ROI: ${totalROI.toFixed(1)}%
         </button>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-24">
-        <div className="max-w-3xl mb-16 md:mb-24">
+      <main className="max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-16">
+        <div className="max-w-3xl mb-12 md:mb-16">
           <p className="text-[#B12B28] text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Investment Analytics</p>
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase mb-6 md:mb-8">
             Property ROI<br />
@@ -501,10 +501,10 @@ Total ROI: ${totalROI.toFixed(1)}%
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Inputs Section */}
-          <div className="lg:col-span-5 space-y-16">
-            <div className="space-y-12">
+          <div className="lg:col-span-5 space-y-12">
+            <div className="space-y-8">
               <h3 className="text-white/20 text-[12px] tracking-[0.4em] uppercase font-black border-b border-white/5 pb-4">Core Parameters</h3>
               
               <div className="space-y-6">
@@ -553,7 +553,7 @@ Total ROI: ${totalROI.toFixed(1)}%
               </div>
             </div>
 
-            <div className="space-y-12">
+            <div className="space-y-8">
               <h3 className="text-white/20 text-[12px] tracking-[0.4em] uppercase font-black border-b border-white/5 pb-4">Mortgage & Growth</h3>
               
               <div className="grid grid-cols-2 gap-12">
@@ -1357,7 +1357,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
         </div>
       </header>
 
-      <main className="pt-20 md:pt-32 pb-16 md:pb-48">
+      <main className="pt-20 md:pt-32 pb-12 md:pb-24">
         <AnimatePresence mode="wait">
           {subView === 'list' && (
             <motion.div
@@ -1367,7 +1367,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               exit={{ opacity: 0, y: -20 }}
               className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
             >
-              <div className="mb-10 md:mb-24">
+              <div className="mb-8 md:mb-12">
                 <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Industry Leaders</p>
                 <h2 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-dark tracking-tighter leading-none">
                   DUBAI<br />
@@ -1380,10 +1380,10 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                   <motion.div
                     key={dev.id}
                     whileHover={{ y: -10 }}
-                    className="group bg-white p-6 md:p-12 rounded-[2rem] border border-gray-100 hover:border-porsche-red/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 cursor-pointer flex flex-col"
+                    className="group bg-white p-6 md:p-8 rounded-[2rem] border border-gray-100 hover:border-porsche-red/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 cursor-pointer flex flex-col"
                     onClick={() => handleDevClick(dev.id)}
                   >
-                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden mb-6 md:mb-10 bg-white p-4 border border-gray-50 shadow-sm group-hover:shadow-md transition-all duration-500 flex items-center justify-center">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden mb-4 md:mb-6 bg-white p-4 border border-gray-50 shadow-sm group-hover:shadow-md transition-all duration-500 flex items-center justify-center">
                       <img 
                         src={dev.logo} 
                         alt={dev.name} 
@@ -1609,7 +1609,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                 )}
               </>
             ) : (
-                <div className="py-32 text-center border-2 border-dashed border-gray-100 rounded-[3rem]">
+                <div className="py-16 text-center border-2 border-dashed border-gray-100 rounded-[3rem]">
                   <Search className="w-12 h-12 text-dark/10 mx-auto mb-6" />
                   <p className="text-dark/30 text-xl font-light tracking-widest uppercase">No projects match your filters.</p>
                   <button onClick={resetFilters} className="mt-8 text-porsche-red text-[12px] font-black tracking-[0.3em] uppercase hover:underline">Clear all filters</button>
@@ -1627,7 +1627,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24"
             >
               {/* Hero Section */}
-              <div className="relative h-[60vh] md:h-[80vh] rounded-[3rem] overflow-hidden mb-16 md:mb-24 shadow-2xl">
+              <div className="relative h-[60vh] md:h-[80vh] rounded-[3rem] overflow-hidden mb-12 md:mb-16 shadow-2xl">
                 <img 
                   src={selectedProject.heroImage} 
                   alt={selectedProject.name} 
@@ -1679,7 +1679,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                 {/* Left Column: Info & Overview */}
                 <div className="lg:col-span-8">
                   {/* Key Info Box */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100 border border-gray-100 rounded-[2rem] overflow-hidden mb-16 md:mb-24 shadow-sm">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100 border border-gray-100 rounded-[2rem] overflow-hidden mb-12 md:mb-16 shadow-sm">
                     {[
                       { label: 'Starting Price', value: selectedProject.price, icon: DollarSign },
                       { label: 'Handover Date', value: selectedProject.handover, icon: Calendar },
@@ -1695,7 +1695,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                   </div>
 
                   {/* Overview */}
-                  <div className="mb-16 md:mb-24">
+                  <div className="mb-12 md:mb-16">
                     <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-8">Project Overview</p>
                     <p className="text-dark/60 text-xl md:text-2xl font-light leading-relaxed mb-12">
                       {selectedProject.description}
@@ -1712,7 +1712,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                   </div>
 
                   {/* Amenities */}
-                  <div className="mb-16 md:mb-24">
+                  <div className="mb-12 md:mb-16">
                     <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-12">World-Class Amenities</p>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
                       {selectedProject.amenities.map((amenity, i) => (
@@ -1728,7 +1728,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
 
                   {/* Payment Plan Breakdown */}
                   {selectedProject.paymentPlanBreakdown && (
-                    <div className="mb-16 md:mb-24">
+                    <div className="mb-12 md:mb-16">
                       <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-12">Payment Plan Breakdown</p>
                       <div className="space-y-4">
                         {selectedProject.paymentPlanBreakdown.map((plan, i) => (
@@ -1866,8 +1866,8 @@ This request was generated from the Rock Deals Smart Hub.
         </button>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 md:px-8 py-12 md:py-24">
-        <div className="mb-20">
+      <main className="max-w-5xl mx-auto px-6 md:px-8 py-8 md:py-16">
+        <div className="mb-12">
           <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-6">Mortgage Intelligence</p>
           <h1 className="text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
             Free Pre-<br />
@@ -1878,9 +1878,9 @@ This request was generated from the Rock Deals Smart Hub.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
           {/* Personal Info */}
-          <div className="space-y-12">
+          <div className="space-y-8">
             <h3 className="text-[12px] tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Personal Information</h3>
             
             <div className="space-y-4">
@@ -1935,7 +1935,7 @@ This request was generated from the Rock Deals Smart Hub.
           </div>
 
           {/* Income Info */}
-          <div className="space-y-12">
+          <div className="space-y-8">
             <h3 className="text-[12px] tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Income Details</h3>
             
             <div className="space-y-4">
@@ -2524,7 +2524,7 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Intro Section */}
-      <section className="px-6 md:px-8 lg:px-24 py-16 md:py-40 bg-white">
+      <section className="px-6 md:px-8 lg:px-24 py-12 md:py-20 bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <div>
             <motion.div
@@ -2568,8 +2568,8 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Property Types Section (Filtered Grid) */}
-      <section id="property-types" className="px-6 md:px-8 lg:px-24 py-16 md:py-48 bg-white">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-32 gap-8 md:gap-12">
+      <section id="property-types" className="px-6 md:px-8 lg:px-24 py-12 md:py-24 bg-white">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-8 md:gap-12">
           <div className="max-w-3xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Portfolio</p>
             <h2 className="text-5xl sm:text-7xl md:text-[10rem] font-display font-black text-dark tracking-tighter leading-[0.8]">
@@ -2633,15 +2633,15 @@ Furnish: ${searchFurnishStatus}
         </div>
         
         {PROPERTIES.filter(p => activeFilter === 'All Properties' || p.category === activeFilter).length === 0 && (
-          <div className="py-40 text-center">
+          <div className="py-20 text-center">
             <p className="text-dark/20 text-xl font-light tracking-widest uppercase">No properties found in this category.</p>
           </div>
         )}
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="px-6 md:px-8 lg:px-24 py-16 md:py-40 bg-gray-50/50">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8 md:gap-12">
+      <section id="features" className="px-6 md:px-8 lg:px-24 py-12 md:py-20 bg-gray-50/50">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-8 md:gap-12">
           <div className="max-w-2xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Innovation</p>
             <h2 className="text-5xl md:text-9xl font-display font-black text-dark tracking-tighter leading-[0.8]">
@@ -2684,9 +2684,9 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* The Journey - Mapped Blueprint */}
-      <section id="journey" className="px-6 md:px-8 lg:px-24 py-16 md:py-48 bg-white overflow-hidden">
+      <section id="journey" className="px-6 md:px-8 lg:px-24 py-12 md:py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24 md:mb-48">
+          <div className="text-center mb-16 md:mb-24">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -2773,8 +2773,8 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Area Guide Section - Interactive Map */}
-      <section id="explore" className="px-6 md:px-8 lg:px-24 py-16 md:py-48 bg-dark">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12 mb-16 md:mb-32">
+      <section id="explore" className="px-6 md:px-8 lg:px-24 py-12 md:py-24 bg-dark">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12 mb-12 md:mb-20">
           <div className="max-w-3xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Location Intelligence</p>
             <h2 className="text-5xl sm:text-7xl md:text-[10rem] font-display font-black text-white tracking-tighter leading-[0.8]">
@@ -2792,7 +2792,7 @@ Furnish: ${searchFurnishStatus}
 
       {/* Footer */}
       <footer id="contact" className="bg-white border-t border-gray-100">
-        <div className="px-6 md:px-8 lg:px-24 py-16 md:py-32">
+        <div className="px-6 md:px-8 lg:px-24 py-12 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-20">
             <div className="md:col-span-4">
               <div className="flex items-baseline gap-1 mb-4">
