@@ -1242,6 +1242,520 @@ const PROPERTIES = [
   { id: 7, title: 'Azure Waterfront | Dubai Distress Deals', category: 'Luxury Villas', price: 'AED 32,000,000', location: 'Jumeirah Bay', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
 ];
 
+const COMMUNITIES = [
+  {
+    id: 'jvc',
+    name: 'Jumeirah Village Circle',
+    tagline: 'Family-Centric Urban Living',
+    description: 'Jumeirah Village Circle (JVC) is one of Dubai\'s most popular family-friendly communities. Developed by Nakheel, it offers a serene lifestyle with a mix of modern apartments, villas, and townhouses surrounded by lush greenery and over 30 landscaped parks.',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2070&auto=format&fit=crop',
+    roi: '7.5% - 8.2%',
+    avgPrice: '1,200 AED/sqft',
+    highlights: [
+      'Over 30 Landscaped Parks',
+      'Circle Mall Shopping Hub',
+      'Family-Oriented Atmosphere',
+      'High Rental Demand'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'JSS International School, Sunmarke School' },
+      { name: 'Healthcare', detail: 'Right Health JVC, Magnum Family Medical Center' },
+      { name: 'Retail', detail: 'Circle Mall, Spinneys, Choithrams' },
+      { name: 'Leisure', detail: 'Five JVC Hotel, Community Parks, Fitness Centers' }
+    ],
+    connectivity: [
+      { point: 'Dubai Marina', time: '15 Mins' },
+      { point: 'Downtown Dubai', time: '20 Mins' },
+      { point: 'DXB Airport', time: '30 Mins' }
+    ]
+  },
+  {
+    id: 'downtown',
+    name: 'Downtown Dubai',
+    tagline: 'The Center of Now',
+    description: 'Home to the iconic Burj Khalifa and Dubai Mall, Downtown Dubai is the city\'s most prestigious square kilometer. It offers an unparalleled urban lifestyle with luxury high-rises, world-class dining, and the spectacular Dubai Fountain.',
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1974&auto=format&fit=crop',
+    roi: '5.5% - 6.5%',
+    avgPrice: '2,800 AED/sqft',
+    highlights: [
+      'Burj Khalifa & Dubai Mall',
+      'Dubai Opera District',
+      'Premium Luxury Living',
+      'Iconic Landmark Views'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Hartland International, Dubai Modern High' },
+      { name: 'Healthcare', detail: 'Mediclinic Dubai Mall, Emirates Hospital' },
+      { name: 'Retail', detail: 'The Dubai Mall, Souk Al Bahar' },
+      { name: 'Leisure', detail: 'Burj Park, Fountain Shows, Fine Dining' }
+    ],
+    connectivity: [
+      { point: 'Dubai Marina', time: '20 Mins' },
+      { point: 'DXB Airport', time: '15 Mins' },
+      { point: 'DIFC', time: '5 Mins' }
+    ]
+  },
+  {
+    id: 'marina',
+    name: 'Dubai Marina',
+    tagline: 'Waterfront Sophistication',
+    description: 'Dubai Marina is a stunning man-made canal city, famous for its glittering skyline and vibrant waterfront lifestyle. It\'s a top choice for professionals and expats seeking high-rise living with immediate access to the beach and Marina Walk.',
+    image: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=2070&auto=format&fit=crop',
+    roi: '6.8% - 7.4%',
+    avgPrice: '1,900 AED/sqft',
+    highlights: [
+      '7km Waterfront Promenade',
+      'Marina Mall & Yacht Club',
+      'Proximity to JBR Beach',
+      'Vibrant Nightlife'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Emirates International School' },
+      { name: 'Healthcare', detail: 'Marina Medical Center, King\'s College' },
+      { name: 'Retail', detail: 'Dubai Marina Mall, Waitrose' },
+      { name: 'Leisure', detail: 'Yacht Club, Skydiving, Beach Clubs' }
+    ],
+    connectivity: [
+      { point: 'Downtown Dubai', time: '20 Mins' },
+      { point: 'Palm Jumeirah', time: '10 Mins' },
+      { point: 'DWC Airport', time: '25 Mins' }
+    ]
+  },
+  {
+    id: 'business-bay',
+    name: 'Business Bay',
+    tagline: 'The Corporate & Residential Hub',
+    description: 'Strategically located next to Downtown, Business Bay is a fast-evolving district that blends commercial power with luxury residential living. With the Dubai Canal flowing through it, it offers unique waterfront views and high-end amenities.',
+    image: 'https://images.unsplash.com/photo-1549944850-84e00be4203b?q=80&w=2070&auto=format&fit=crop',
+    roi: '6.5% - 7.2%',
+    avgPrice: '1,750 AED/sqft',
+    highlights: [
+      'Dubai Canal Waterfront',
+      'Proximity to DIFC & Downtown',
+      'Modern Architectural Icons',
+      'High Capital Appreciation'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Dubai International School' },
+      { name: 'Healthcare', detail: 'Emirates Hospital, Aster Clinic' },
+      { name: 'Retail', detail: 'Bay Avenue Mall, Executive Towers' },
+      { name: 'Leisure', detail: 'Canal Walk, La Perle, Luxury Hotels' }
+    ],
+    connectivity: [
+      { point: 'Downtown Dubai', time: '5 Mins' },
+      { point: 'DXB Airport', time: '15 Mins' },
+      { point: 'Jumeirah Beach', time: '10 Mins' }
+    ]
+  },
+  {
+    id: 'palm-jumeirah',
+    name: 'Palm Jumeirah',
+    tagline: 'The Eighth Wonder of the World',
+    description: 'Palm Jumeirah is the world\'s largest man-made island and a global icon of luxury. It features ultra-luxury villas, high-end apartments, and some of the world\'s finest hotels, including Atlantis The Royal. It offers a truly unique beachfront lifestyle.',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop',
+    roi: '4.5% - 5.5%',
+    avgPrice: '4,500 AED/sqft',
+    highlights: [
+      'Iconic Palm-Shaped Island',
+      'Private Beach Access',
+      'World-Class Luxury Resorts',
+      'High Capital Appreciation'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Asya\'s Nursery, Redwood Montessori' },
+      { name: 'Healthcare', detail: 'Al Das Medical Clinic, Emirates Hospital' },
+      { name: 'Retail', detail: 'Nakheel Mall, The Pointe' },
+      { name: 'Leisure', detail: 'Atlantis, Aquaventure, Beach Clubs' }
+    ],
+    connectivity: [
+      { point: 'Dubai Marina', time: '10 Mins' },
+      { point: 'Downtown Dubai', time: '20 Mins' },
+      { point: 'DXB Airport', time: '30 Mins' }
+    ]
+  },
+  {
+    id: 'creek-harbour',
+    name: 'Dubai Creek Harbour',
+    tagline: 'The Future of Dubai',
+    description: 'Dubai Creek Harbour is a massive waterfront development that blends modern living with nature. Home to the Ras Al Khor Wildlife Sanctuary and the future Creek Tower, it offers a sustainable and smart urban environment with stunning skyline views.',
+    image: 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?q=80&w=2070&auto=format&fit=crop',
+    roi: '6.2% - 7.0%',
+    avgPrice: '1,850 AED/sqft',
+    highlights: [
+      'Ras Al Khor Wildlife Sanctuary',
+      'Creek Marina & Yacht Club',
+      'Future Iconic Creek Tower',
+      'Sustainable Urban Design'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Swiss International Scientific School' },
+      { name: 'Healthcare', detail: 'Mediclinic, Aster Clinic' },
+      { name: 'Retail', detail: 'Dubai Square (Future), Creek Marina Retail' },
+      { name: 'Leisure', detail: 'Viewing Point, Central Park, Yacht Club' }
+    ],
+    connectivity: [
+      { point: 'Downtown Dubai', time: '10 Mins' },
+      { point: 'DXB Airport', time: '15 Mins' },
+      { point: 'Dubai Marina', time: '25 Mins' }
+    ]
+  },
+  {
+    id: 'dubai-hills',
+    name: 'Dubai Hills Estate',
+    tagline: 'The Green Heart of Dubai',
+    description: 'Dubai Hills Estate is a master-planned community centered around an 18-hole championship golf course. It offers a mix of luxury villas, townhouses, and apartments, along with a massive central park and the Dubai Hills Mall.',
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2070&auto=format&fit=crop',
+    roi: '6.5% - 7.5%',
+    avgPrice: '1,650 AED/sqft',
+    highlights: [
+      'Championship Golf Course',
+      'Dubai Hills Mall',
+      '1.4 Million Sqm Central Park',
+      'Top International Schools'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'GEMS Wellington Academy, GEMS New Millennium' },
+      { name: 'Healthcare', detail: 'King\'s College Hospital London' },
+      { name: 'Retail', detail: 'Dubai Hills Mall' },
+      { name: 'Leisure', detail: 'Golf Club, Splash Park, Ice Rink' }
+    ],
+    connectivity: [
+      { point: 'Downtown Dubai', time: '15 Mins' },
+      { point: 'Dubai Marina', time: '15 Mins' },
+      { point: 'DXB Airport', time: '20 Mins' }
+    ]
+  },
+  {
+    id: 'palm-jebel-ali',
+    name: 'Palm Jebel Ali',
+    tagline: 'The Future of Island Living',
+    description: 'Palm Jebel Ali is the next frontier of luxury in Dubai. Twice the size of Palm Jumeirah, this mega-project will feature over 80 hotels and resorts, pristine beaches, and ultra-luxury villas. It is set to become a global destination for waterfront living.',
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2070&auto=format&fit=crop',
+    roi: '7.0% - 8.5%',
+    avgPrice: '3,200 AED/sqft',
+    highlights: [
+      'Twice the Size of Palm Jumeirah',
+      '110km of New Coastline',
+      '80+ Hotels & Resorts',
+      'Ultra-Luxury Signature Villas'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Planned International Schools' },
+      { name: 'Healthcare', detail: 'Premium Medical Centers' },
+      { name: 'Retail', detail: 'Luxury Malls & Boutiques' },
+      { name: 'Leisure', detail: 'Theme Parks, Marinas, Beach Clubs' }
+    ],
+    connectivity: [
+      { point: 'Dubai Marina', time: '15 Mins' },
+      { point: 'DWC Airport', time: '15 Mins' },
+      { point: 'Downtown Dubai', time: '30 Mins' }
+    ]
+  },
+  {
+    id: 'dubai-south',
+    name: 'Dubai South',
+    tagline: 'The City of You',
+    description: 'Dubai South is a massive 145 sqkm city-within-a-city, home to the Al Maktoum International Airport and the Expo City Dubai. It is designed to be a sustainable urban hub with a focus on logistics, aviation, and high-quality residential living.',
+    image: 'https://images.unsplash.com/photo-1549944850-84e00be4203b?q=80&w=2070&auto=format&fit=crop',
+    roi: '7.5% - 9.0%',
+    avgPrice: '950 AED/sqft',
+    highlights: [
+      'Home to Al Maktoum Airport',
+      'Expo City Dubai Proximity',
+      'Future Global Logistics Hub',
+      'High Rental Yields'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Dove Green Private School' },
+      { name: 'Healthcare', detail: 'NMC Royal Hospital' },
+      { name: 'Retail', detail: 'Dubai South Mall (Planned)' },
+      { name: 'Leisure', detail: 'Expo City, Golf Courses, Parks' }
+    ],
+    connectivity: [
+      { point: 'DWC Airport', time: '5 Mins' },
+      { point: 'Dubai Marina', time: '20 Mins' },
+      { point: 'Downtown Dubai', time: '35 Mins' }
+    ]
+  },
+  {
+    id: 'arabian-ranches',
+    name: 'Arabian Ranches III',
+    tagline: 'The Ultimate Family Destination',
+    description: 'Arabian Ranches III is a premium gated community designed for family living. It offers a wide range of townhouses and villas with private gardens, surrounded by lush green parks and world-class amenities.',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop',
+    roi: '5.8% - 6.5%',
+    avgPrice: '1,450 AED/sqft',
+    highlights: [
+      'Gated Family Community',
+      'Central Park & Sports Facilities',
+      'Lazy River & Clubhouse',
+      'High Capital Appreciation'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Ranches Primary School, JESS' },
+      { name: 'Healthcare', detail: 'Aster Clinic, Mediclinic' },
+      { name: 'Retail', detail: 'The Ranches Souk' },
+      { name: 'Leisure', detail: 'Golf Club, Polo Club, Parks' }
+    ],
+    connectivity: [
+      { point: 'Downtown Dubai', time: '20 Mins' },
+      { point: 'DXB Airport', time: '25 Mins' },
+      { point: 'Global Village', time: '5 Mins' }
+    ]
+  },
+  {
+    id: 'tilal-al-ghaf',
+    name: 'Tilal Al Ghaf',
+    tagline: 'Resort Living Reimagined',
+    description: 'Tilal Al Ghaf is a flagship mixed-use community by Majid Al Futtaim. Centered around a stunning crystal lagoon (Lagoon Al Ghaf), it offers luxury villas and townhouses with a focus on wellness and outdoor living.',
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2070&auto=format&fit=crop',
+    roi: '6.5% - 7.2%',
+    avgPrice: '1,800 AED/sqft',
+    highlights: [
+      'Crystal Lagoon & Sandy Beaches',
+      'Majid Al Futtaim Quality',
+      'Wellness-Focused Design',
+      'Premium Luxury Villas'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Royal Grammar School Guildford' },
+      { name: 'Healthcare', detail: 'Burjeel Hospital, Mediclinic' },
+      { name: 'Retail', detail: 'City Centre Me\'aisem' },
+      { name: 'Leisure', detail: 'Beach Club, Water Sports, Parks' }
+    ],
+    connectivity: [
+      { point: 'Dubai Marina', time: '15 Mins' },
+      { point: 'Downtown Dubai', time: '20 Mins' },
+      { point: 'DXB Airport', time: '30 Mins' }
+    ]
+  },
+  {
+    id: 'mbr-city',
+    name: 'MBR City (Meydan)',
+    tagline: 'The Heart of Modern Dubai',
+    description: 'Mohammed Bin Rashid City (MBR City) is one of the largest mixed-use developments in Dubai. Home to the Meydan Racecourse and the future Meydan One Mall, it offers luxury villas and apartments in a prime location.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2070&auto=format&fit=crop',
+    roi: '6.8% - 7.5%',
+    avgPrice: '1,950 AED/sqft',
+    highlights: [
+      'Meydan Racecourse & Grandstand',
+      'Future Meydan One Mall',
+      'Crystal Lagoons & Parks',
+      'Ultra-Luxury Mansions'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'North London Collegiate School' },
+      { name: 'Healthcare', detail: 'Emirates Hospital, Mediclinic' },
+      { name: 'Retail', detail: 'Meydan One Mall (Planned)' },
+      { name: 'Leisure', detail: 'Golf Course, Tennis Academy, Canal' }
+    ],
+    connectivity: [
+      { point: 'Downtown Dubai', time: '5 Mins' },
+      { point: 'DXB Airport', time: '15 Mins' },
+      { point: 'DIFC', time: '10 Mins' }
+    ]
+  },
+  {
+    id: 'jlt',
+    name: 'Jumeirah Lake Towers',
+    tagline: 'The Professional Lifestyle Hub',
+    description: 'JLT is a vibrant community consisting of 80 towers built around three man-made lakes. It is a popular choice for professionals and families seeking high-rise living with a wide range of dining, retail, and leisure options.',
+    image: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=2070&auto=format&fit=crop',
+    roi: '7.2% - 8.0%',
+    avgPrice: '1,400 AED/sqft',
+    highlights: [
+      'Vibrant Lakefront Living',
+      'DMCC Free Zone Hub',
+      'Over 600 Dining Outlets',
+      'Excellent Metro Connectivity'
+    ],
+    amenities: [
+      { name: 'Education', detail: 'Emirates International School' },
+      { name: 'Healthcare', detail: 'Life Medical Center, Aster' },
+      { name: 'Retail', detail: 'Marina Mall (Nearby), Spinneys' },
+      { name: 'Leisure', detail: 'JLT Park, Fitness Centers, Bars' }
+    ],
+    connectivity: [
+      { point: 'Dubai Marina', time: '5 Mins' },
+      { point: 'Downtown Dubai', time: '20 Mins' },
+      { point: 'DXB Airport', time: '30 Mins' }
+    ]
+  }
+];
+
+const AreaGuide = ({ onBack }: { onBack: () => void }) => {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selectedCommunity = COMMUNITIES.find(c => c.id === selectedId);
+
+  return (
+    <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-porsche-red">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-[100] bg-[#0A0A0A]/80 backdrop-blur-xl border-b border-white/5">
+        <div className="px-6 md:px-12 lg:px-24 py-6 flex items-center justify-between">
+          <button 
+            onClick={() => selectedId ? setSelectedId(null) : onBack()}
+            className="group flex items-center gap-3 text-white/40 hover:text-porsche-red transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            <span className="text-[12px] font-black tracking-[0.3em] uppercase">
+              {selectedId ? 'Back to Communities' : 'Return Home'}
+            </span>
+          </button>
+          <div className="flex items-baseline gap-1">
+            <span className="text-white font-display font-black text-2xl tracking-tighter">ROCK</span>
+            <span className="text-white/40 font-display font-light text-2xl tracking-tighter">DEALS</span>
+          </div>
+        </div>
+      </header>
+
+      <main className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+        <AnimatePresence mode="wait">
+          {!selectedId ? (
+            <motion.div
+              key="list"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <div className="mb-16">
+                <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-6">Area Guide</p>
+                <h1 className="text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase">
+                  Explore Dubai<br />
+                  <span className="text-porsche-red">Communities.</span>
+                </h1>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {COMMUNITIES.map((community) => (
+                  <motion.div
+                    key={community.id}
+                    whileHover={{ scale: 1.02 }}
+                    onClick={() => setSelectedId(community.id)}
+                    className="group relative h-[400px] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-2xl"
+                  >
+                    <img 
+                      src={community.image} 
+                      alt={community.name} 
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div className="absolute bottom-10 left-10 right-10">
+                      <p className="text-porsche-red text-[10px] font-black tracking-[0.4em] uppercase mb-2">{community.tagline}</p>
+                      <h3 className="text-4xl font-display font-black text-white uppercase tracking-tighter mb-4">{community.name}</h3>
+                      <div className="flex items-center gap-8">
+                        <div>
+                          <p className="text-white/40 text-[8px] font-black tracking-widest uppercase mb-1">Avg ROI</p>
+                          <p className="text-white font-technical font-bold text-lg">{community.roi}</p>
+                        </div>
+                        <div>
+                          <p className="text-white/40 text-[8px] font-black tracking-widest uppercase mb-1">Price/Sqft</p>
+                          <p className="text-white font-technical font-bold text-lg">{community.avgPrice}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="details"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.02 }}
+              className="space-y-16"
+            >
+              {/* Hero */}
+              <div className="relative h-[50vh] rounded-[3rem] overflow-hidden shadow-2xl">
+                <img 
+                  src={selectedCommunity?.image} 
+                  alt={selectedCommunity?.name} 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent"></div>
+                <div className="absolute bottom-12 left-12">
+                  <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-4">{selectedCommunity?.tagline}</p>
+                  <h2 className="text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase">
+                    {selectedCommunity?.name}<span className="text-porsche-red">.</span>
+                  </h2>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                <div className="lg:col-span-8 space-y-16">
+                  {/* Overview */}
+                  <div>
+                    <h3 className="text-porsche-red text-[12px] tracking-[0.4em] uppercase font-black mb-8">Overview</h3>
+                    <p className="text-white/60 text-xl md:text-2xl font-light leading-relaxed">
+                      {selectedCommunity?.description}
+                    </p>
+                  </div>
+
+                  {/* Highlights */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {selectedCommunity?.highlights.map((h, i) => (
+                      <div key={i} className="flex items-center gap-4 p-6 bg-white/5 rounded-2xl border border-white/5 hover:border-porsche-red/20 transition-all">
+                        <CheckCircle2 className="w-5 h-5 text-porsche-red" />
+                        <span className="text-white font-technical font-bold text-xs uppercase tracking-widest">{h}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Amenities */}
+                  <div>
+                    <h3 className="text-porsche-red text-[12px] tracking-[0.4em] uppercase font-black mb-8">Key Amenities</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      {selectedCommunity?.amenities.map((a, i) => (
+                        <div key={i} className="space-y-2">
+                          <p className="text-white/20 text-[10px] font-black tracking-widest uppercase">{a.name}</p>
+                          <p className="text-white font-technical font-bold text-sm">{a.detail}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 space-y-12">
+                  {/* Stats Card */}
+                  <div className="bg-white/5 p-10 rounded-[2.5rem] border border-white/5">
+                    <div className="space-y-8">
+                      <div>
+                        <p className="text-white/20 text-[10px] font-black tracking-widest uppercase mb-2">Investment Potential</p>
+                        <p className="text-porsche-red font-display font-black text-4xl">{selectedCommunity?.roi}</p>
+                        <p className="text-white/40 text-[10px] font-light mt-1">Average Annual Rental Yield</p>
+                      </div>
+                      <div className="pt-8 border-t border-white/5">
+                        <p className="text-white/20 text-[10px] font-black tracking-widest uppercase mb-2">Market Entry</p>
+                        <p className="text-white font-display font-black text-3xl">{selectedCommunity?.avgPrice}</p>
+                        <p className="text-white/40 text-[10px] font-light mt-1">Average Price per Square Foot</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Connectivity */}
+                  <div className="bg-porsche-red p-10 rounded-[2.5rem] shadow-2xl shadow-porsche-red/10">
+                    <h4 className="text-white text-[12px] tracking-[0.3em] uppercase font-black mb-8">Connectivity</h4>
+                    <div className="space-y-6">
+                      {selectedCommunity?.connectivity.map((c, i) => (
+                        <div key={i} className="flex items-center justify-between">
+                          <span className="text-white/60 text-[10px] font-black tracking-widest uppercase">{c.point}</span>
+                          <span className="text-white font-technical font-bold text-sm">{c.time}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </main>
+    </div>
+  );
+};
+
 
 const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: () => void }) => {
   const [subView, setSubView] = useState<'list' | 'projects' | 'details'>('list');
@@ -2023,7 +2537,7 @@ This request was generated from the Rock Deals Smart Hub.
 };
 
 export default function App() {
-  const [view, setView] = useState<'home' | 'calculator' | 'roi-calculator' | 'developers' | 'pre-approval'>('home');
+  const [view, setView] = useState<'home' | 'calculator' | 'roi-calculator' | 'developers' | 'pre-approval' | 'area-guide'>('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All Properties');
@@ -2094,6 +2608,8 @@ Furnish: ${searchFurnishStatus}
         <ROICalculator onBack={() => setView('home')} />
       ) : view === 'developers' ? (
         <DevelopersView onBack={() => setView('home')} onEnquire={() => setIsEnquiryModalOpen(true)} />
+      ) : view === 'area-guide' ? (
+        <AreaGuide onBack={() => setView('home')} />
       ) : view === 'pre-approval' ? (
         <PreApprovalForm onBack={() => setView('home')} />
       ) : (
@@ -2128,6 +2644,7 @@ Furnish: ${searchFurnishStatus}
               <div className={`flex items-center transition-all duration-500 ${isScrolled ? 'gap-8' : 'gap-12'}`}>
                 {[
                   { name: 'Properties', href: '#property-types' },
+                  { name: 'Area Guide', onClick: () => setView('area-guide') },
                   { name: 'Developers', onClick: () => setView('developers') },
                   { name: 'ROI Calculator', onClick: () => setView('roi-calculator') },
                   { name: 'Payment Plans', onClick: () => setView('calculator') },
@@ -2839,6 +3356,7 @@ Furnish: ${searchFurnishStatus}
               <ul className="space-y-5">
                 {[
                   { name: 'Properties', href: '#property-types' },
+                  { name: 'Area Guide', onClick: () => setView('area-guide') },
                   { name: 'Developers', onClick: () => setView('developers') },
                   { name: 'Gallery', href: '#property-types' },
                   { name: 'Features', href: '#features' },

@@ -80,5 +80,13 @@ export const DEVELOPERS: Developer[] = [
     tagline: 'Urban Lifestyle Destinations',
     description: 'Creating destinations that enhance the Dubai lifestyle through innovation and urban sophistication.',
     projectCount: 20
+  },
+  {
+    id: 11,
+    name: 'London Gate',
+    logo: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=100',
+    tagline: 'Excellence in Every Detail',
+    description: 'A premium developer bringing London\'s architectural heritage and quality to Dubai\'s most prestigious locations.',
+    projectCount: 5
   }
 ];
