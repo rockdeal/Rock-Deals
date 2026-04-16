@@ -207,7 +207,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
           </div>
 
           {/* Results */}
-          <div className="bg-dark p-8 md:p-12 rounded-none relative overflow-hidden">
+          <div className="bg-dark p-6 md:p-12 rounded-none relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-porsche-red/10 blur-3xl rounded-full"></div>
             
             <h2 className="text-white font-display font-black text-xl md:text-2xl mb-8 md:mb-12 tracking-tight uppercase">Breakdown</h2>
@@ -215,38 +215,38 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
             <div className="space-y-6 md:space-y-8">
               <div className="flex justify-between items-end border-b border-white/10 pb-4 md:pb-6">
                 <div>
-                  <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-black mb-1 md:mb-2">Down Payment</p>
-                  <p className="text-white font-technical font-bold text-lg md:text-xl">{downPaymentPercent}%</p>
+                  <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black mb-1 md:mb-2">Down Payment</p>
+                  <p className="text-white font-technical font-bold text-base md:text-xl">{downPaymentPercent}%</p>
                 </div>
-                <p className="text-porsche-red font-technical font-bold text-xl md:text-2xl">{formatCurrency(dpAmount)}</p>
+                <p className="text-porsche-red font-technical font-bold text-lg md:text-2xl">{formatCurrency(dpAmount)}</p>
               </div>
 
               <div className="flex justify-between items-end border-b border-white/10 pb-4 md:pb-6">
                 <div>
-                  <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-black mb-1 md:mb-2">During Construction</p>
-                  <p className="text-white font-technical font-bold text-lg md:text-xl">{currentPlan.during - downPaymentPercent}%</p>
+                  <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black mb-1 md:mb-2">During Construction</p>
+                  <p className="text-white font-technical font-bold text-base md:text-xl">{currentPlan.during - numDPPercent}%</p>
                 </div>
-                <p className="text-white font-technical font-bold text-xl md:text-2xl">{formatCurrency(duringAmount)}</p>
+                <p className="text-white font-technical font-bold text-lg md:text-2xl">{formatCurrency(duringAmount)}</p>
               </div>
 
               {currentPlan.handover > 0 && (
                 <div className="flex justify-between items-end border-b border-white/10 pb-4 md:pb-6">
                   <div>
-                    <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-black mb-1 md:mb-2">On Handover</p>
-                    <p className="text-white font-technical font-bold text-lg md:text-xl">{currentPlan.handover}%</p>
+                    <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black mb-1 md:mb-2">On Handover</p>
+                    <p className="text-white font-technical font-bold text-base md:text-xl">{currentPlan.handover}%</p>
                   </div>
-                  <p className="text-white font-technical font-bold text-xl md:text-2xl">{formatCurrency(handoverAmount)}</p>
+                  <p className="text-white font-technical font-bold text-lg md:text-2xl">{formatCurrency(handoverAmount)}</p>
                 </div>
               )}
 
               {currentPlan.post !== undefined && currentPlan.post > 0 && (
                 <div className="flex justify-between items-end border-b border-white/10 pb-4 md:pb-6">
                   <div>
-                    <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-black mb-1 md:mb-2">Post Handover</p>
-                    <p className="text-white font-technical font-bold text-lg md:text-xl">{currentPlan.post}%</p>
+                    <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black mb-1 md:mb-2">Post Handover</p>
+                    <p className="text-white font-technical font-bold text-base md:text-xl">{currentPlan.post}%</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-porsche-red font-technical font-bold text-xl md:text-2xl">{formatCurrency(postAmount)}</p>
+                    <p className="text-porsche-red font-technical font-bold text-lg md:text-2xl">{formatCurrency(postAmount)}</p>
                     <p className="text-white/20 text-[8px] tracking-widest uppercase mt-1">
                       Est. {formatCurrency(postAmount / (currentPlan.postMonths || 36))} / mo ({currentPlan.postMonths ? `${currentPlan.postMonths} mos` : '3 yrs'})
                     </p>
@@ -255,8 +255,8 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
               )}
 
               <div className="pt-8 md:pt-12 flex justify-between items-center">
-                <p className="text-white/60 text-[11px] md:text-[12px] tracking-[0.4em] uppercase font-black">Total Commitment</p>
-                <p className="text-white font-display font-black text-3xl md:text-4xl tracking-tighter">{formatCurrency(price)}</p>
+                <p className="text-white/60 text-[10px] md:text-[12px] tracking-[0.2em] md:tracking-[0.4em] uppercase font-black">Total Commitment</p>
+                <p className="text-white font-display font-black text-2xl md:text-4xl tracking-tighter">{formatCurrency(numPrice)}</p>
               </div>
             </div>
 
@@ -674,18 +674,18 @@ Total ROI: ${totalROI.toFixed(1)}%
                       { label: 'Total Rental Income', value: formatCurrency(totalRentalIncome), color: 'text-white' },
                       { label: 'Total Profit', value: formatCurrency(totalProfit), color: 'text-white' }
                     ].map((item, i) => (
-                      <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 p-10 group hover:bg-white/10 transition-all duration-500">
-                        <p className="text-white/40 text-[11px] tracking-[0.4em] uppercase font-black mb-4">{item.label}</p>
-                        <p className={`text-4xl font-display font-black tracking-tighter ${item.color}`}>{item.value}</p>
+                      <div key={i} className="bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-10 group hover:bg-white/10 transition-all duration-500">
+                        <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.2em] md:tracking-[0.4em] uppercase font-black mb-2 md:mb-4">{item.label}</p>
+                        <p className={`text-2xl md:text-4xl font-display font-black tracking-tighter ${item.color}`}>{item.value}</p>
                       </div>
                     ))}
                   </div>
 
                   {/* ROI Highlight */}
-                  <div className="bg-[#B12B28] p-12 flex flex-col md:flex-row justify-between items-center gap-8">
+                  <div className="bg-[#B12B28] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center gap-8">
                     <div>
-                      <p className="text-white/60 text-[12px] tracking-[0.4em] uppercase font-black mb-2">Total ROI over {holdingPeriod} years</p>
-                      <h2 className="text-7xl font-display font-black text-white tracking-tighter">{totalROI.toFixed(1)}%</h2>
+                      <p className="text-white/60 text-[10px] md:text-[12px] tracking-[0.3em] md:tracking-[0.4em] uppercase font-black mb-2">Total ROI over {holdingPeriod} years</p>
+                      <h2 className="text-5xl md:text-7xl font-display font-black text-white tracking-tighter">{totalROI.toFixed(1)}%</h2>
                     </div>
                     <button 
                       onClick={() => setIsExportModalOpen(true)}
@@ -2372,25 +2372,25 @@ This request was generated from the Rock Deals Smart Hub.
       {/* Header */}
       <header className="px-6 md:px-8 lg:px-24 py-4 md:py-8 border-b border-gray-100 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-xl z-[100]">
         <div className="flex items-baseline gap-1">
-          <span className="text-dark font-display font-black text-2xl tracking-tighter">ROCK</span>
-          <span className="text-dark/40 font-display font-light text-2xl tracking-tighter">DEALS</span>
+          <span className="text-dark font-display font-black text-xl md:text-2xl tracking-tighter">ROCK</span>
+          <span className="text-dark/40 font-display font-light text-xl md:text-2xl tracking-tighter">DEALS</span>
         </div>
         <button 
           onClick={onBack}
-          className="flex items-center gap-3 text-[12px] tracking-[0.3em] uppercase font-black hover:text-porsche-red transition-colors"
+          className="flex items-center gap-2 md:gap-3 text-[11px] md:text-[12px] tracking-[0.2em] md:tracking-[0.3em] uppercase font-black hover:text-porsche-red transition-colors min-h-[44px]"
         >
-          <X className="w-4 h-4" /> Cancel Application
+          <X className="w-4 h-4" /> <span className="hidden sm:inline">Cancel Application</span><span className="sm:hidden">Cancel</span>
         </button>
       </header>
 
       <main className="max-w-5xl mx-auto px-6 md:px-8 py-8 md:py-16">
         <div className="mb-12">
-          <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-6">Mortgage Intelligence</p>
-          <h1 className="text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
+          <p className="text-porsche-red text-[12px] tracking-[0.2em] md:tracking-[0.5em] uppercase font-black mb-6">Mortgage Intelligence</p>
+          <h1 className="text-4xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
             Free Pre-<br />
             <span className="text-porsche-red">Approval.</span>
           </h1>
-          <p className="mt-8 text-dark/40 text-xl font-light max-w-2xl leading-relaxed">
+          <p className="mt-8 text-dark/40 text-lg md:text-xl font-light max-w-2xl leading-relaxed">
             Secure your financing before you browse. Our experts work with top UAE banks to get you the best rates and terms.
           </p>
         </div>
@@ -2398,10 +2398,10 @@ This request was generated from the Rock Deals Smart Hub.
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
           {/* Personal Info */}
           <div className="space-y-8">
-            <h3 className="text-[12px] tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Personal Information</h3>
+            <h3 className="text-[12px] tracking-[0.2em] md:tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Personal Information</h3>
             
             <div className="space-y-4">
-              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Full Name (As per Passport)</label>
+              <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">Full Name (As per Passport)</label>
               <input 
                 required
                 type="text" 
@@ -2413,7 +2413,7 @@ This request was generated from the Rock Deals Smart Hub.
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Email Address</label>
+                <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">Email Address</label>
                 <input 
                   required
                   type="email" 
@@ -2423,7 +2423,7 @@ This request was generated from the Rock Deals Smart Hub.
                 />
               </div>
               <div className="space-y-4">
-                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Mobile Number</label>
+                <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">Mobile Number</label>
                 <input 
                   required
                   type="tel" 
@@ -2435,7 +2435,7 @@ This request was generated from the Rock Deals Smart Hub.
             </div>
 
             <div className="space-y-4">
-              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">UAE Residency Status</label>
+              <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">UAE Residency Status</label>
               <div className="flex gap-4">
                 {['Resident', 'Non-Resident'].map((status) => (
                   <button 
@@ -2453,10 +2453,10 @@ This request was generated from the Rock Deals Smart Hub.
 
           {/* Income Info */}
           <div className="space-y-8">
-            <h3 className="text-[12px] tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Income Details</h3>
+            <h3 className="text-[12px] tracking-[0.2em] md:tracking-[0.4em] uppercase font-black text-dark/20 border-b border-gray-100 pb-4">Income Details</h3>
             
             <div className="space-y-4">
-              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Employment Type</label>
+              <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">Employment Type</label>
               <div className="flex gap-4">
                 {['Salaried', 'Self-Employed'].map((type) => (
                   <button 
@@ -2472,7 +2472,7 @@ This request was generated from the Rock Deals Smart Hub.
             </div>
 
             <div className="space-y-4">
-              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Monthly Salary / Income (AED)</label>
+              <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">Monthly Salary / Income (AED)</label>
               <div className="relative">
                 <input 
                   required
@@ -2487,7 +2487,7 @@ This request was generated from the Rock Deals Smart Hub.
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Company Name</label>
+                <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">Company Name</label>
                 <input 
                   required
                   type="text" 
@@ -2497,7 +2497,7 @@ This request was generated from the Rock Deals Smart Hub.
                 />
               </div>
               <div className="space-y-4">
-                <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Primary Bank</label>
+                <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">Primary Bank</label>
                 <input 
                   required
                   type="text" 
@@ -2509,7 +2509,7 @@ This request was generated from the Rock Deals Smart Hub.
             </div>
 
             <div className="space-y-4">
-              <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Other Monthly Income (Optional)</label>
+              <label className="text-[12px] tracking-[0.1em] md:tracking-[0.3em] uppercase font-black text-dark/40">Other Monthly Income (Optional)</label>
               <div className="relative">
                 <input 
                   type="number" 
