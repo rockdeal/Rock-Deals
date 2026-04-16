@@ -105,12 +105,13 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
   const [downPaymentPercent, setDownPaymentPercent] = useState<number | string>(10);
   const [selectedPlan, setSelectedPlan] = useState('60/40');
 
-  const plans: Record<string, { during: number; handover: number; post?: number }> = {
+  const plans: Record<string, { during: number; handover: number; post?: number; postMonths?: number }> = {
     '60/40': { during: 60, handover: 40 },
     '70/30': { during: 70, handover: 30 },
     '50/50': { during: 50, handover: 50 },
     '80/20': { during: 80, handover: 20 },
-    '40/60 (Post Handover)': { during: 40, handover: 0, post: 60 },
+    '1% Monthly (80 Months)': { during: 20, handover: 0, post: 80, postMonths: 80 },
+    '40/60 (Post Handover)': { during: 40, handover: 0, post: 60, postMonths: 36 },
   };
 
   const currentPlan = plans[selectedPlan] || plans['60/40'];
@@ -151,9 +152,9 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24">
           {/* Inputs */}
-          <div className="space-y-12">
+          <div className="space-y-10 md:space-y-12">
             <div className="space-y-4">
               <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Property Price (AED)</label>
               <div className="relative group">
@@ -161,30 +162,30 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
                   type="number" 
                   value={price}
                   onChange={(e) => setPrice(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full bg-gray-50 border-b-2 border-gray-100 py-6 px-0 text-3xl font-technical font-bold focus:border-porsche-red outline-none transition-all"
+                  className="w-full bg-gray-50 border-b-2 border-gray-100 py-4 md:py-6 px-0 text-2xl md:text-3xl font-technical font-bold focus:border-porsche-red outline-none transition-all"
                 />
-                <div className="absolute right-0 bottom-6 text-dark/20 font-technical font-bold">AED</div>
+                <div className="absolute right-0 bottom-4 md:bottom-6 text-dark/20 font-technical font-bold">AED</div>
               </div>
             </div>
 
             <div className="space-y-4">
               <label className="text-[12px] tracking-[0.3em] uppercase font-black text-dark/40">Down Payment (%)</label>
-              <div className="flex gap-4">
+              <div className="grid grid-cols-2 sm:flex gap-3 md:gap-4">
                 {[10, 20, 25].map((pct) => (
                   <button 
                     key={pct}
                     onClick={() => setDownPaymentPercent(pct)}
-                    className={`flex-1 py-4 border-2 transition-all font-technical font-bold ${downPaymentPercent === pct ? 'border-porsche-red bg-porsche-red text-white' : 'border-gray-100 hover:border-dark/10'}`}
+                    className={`flex-1 py-3 md:py-4 border-2 transition-all font-technical font-bold text-sm md:text-base ${downPaymentPercent === pct ? 'border-porsche-red bg-porsche-red text-white' : 'border-gray-100 hover:border-dark/10'}`}
                   >
                     {pct}%
                   </button>
                 ))}
-                <div className="flex-1 relative">
+                <div className="flex-1 relative col-span-2 sm:col-span-1">
                   <input 
                     type="number" 
                     value={downPaymentPercent}
                     onChange={(e) => setDownPaymentPercent(e.target.value === '' ? '' : Number(e.target.value))}
-                    className="w-full h-full border-2 border-gray-100 bg-gray-50 px-4 text-center font-technical font-bold focus:border-porsche-red outline-none"
+                    className="w-full h-full min-h-[44px] border-2 border-gray-100 bg-gray-50 px-4 text-center font-technical font-bold focus:border-porsche-red outline-none"
                   />
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[12px] font-black opacity-20">%</div>
                 </div>
@@ -196,7 +197,7 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
               <select 
                 value={selectedPlan}
                 onChange={(e) => setSelectedPlan(e.target.value)}
-                className="w-full bg-gray-50 border-2 border-gray-100 py-6 px-8 text-lg font-technical font-bold focus:border-porsche-red outline-none appearance-none cursor-pointer"
+                className="w-full bg-gray-50 border-2 border-gray-100 py-4 md:py-6 px-6 md:px-8 text-base md:text-lg font-technical font-bold focus:border-porsche-red outline-none appearance-none cursor-pointer"
               >
                 {Object.keys(plans).map(p => (
                   <option key={p} value={p}>{p}</option>
@@ -206,58 +207,60 @@ const PaymentCalculator = ({ onBack }: { onBack: () => void }) => {
           </div>
 
           {/* Results */}
-          <div className="bg-dark p-12 rounded-none relative overflow-hidden">
+          <div className="bg-dark p-8 md:p-12 rounded-none relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-porsche-red/10 blur-3xl rounded-full"></div>
             
-            <h2 className="text-white font-display font-black text-2xl mb-12 tracking-tight uppercase">Breakdown</h2>
+            <h2 className="text-white font-display font-black text-xl md:text-2xl mb-8 md:mb-12 tracking-tight uppercase">Breakdown</h2>
             
-            <div className="space-y-8">
-              <div className="flex justify-between items-end border-b border-white/10 pb-6">
+            <div className="space-y-6 md:space-y-8">
+              <div className="flex justify-between items-end border-b border-white/10 pb-4 md:pb-6">
                 <div>
-                  <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase font-black mb-2">Down Payment</p>
-                  <p className="text-white font-technical font-bold text-xl">{downPaymentPercent}%</p>
+                  <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-black mb-1 md:mb-2">Down Payment</p>
+                  <p className="text-white font-technical font-bold text-lg md:text-xl">{downPaymentPercent}%</p>
                 </div>
-                <p className="text-porsche-red font-technical font-bold text-2xl">{formatCurrency(dpAmount)}</p>
+                <p className="text-porsche-red font-technical font-bold text-xl md:text-2xl">{formatCurrency(dpAmount)}</p>
               </div>
 
-              <div className="flex justify-between items-end border-b border-white/10 pb-6">
+              <div className="flex justify-between items-end border-b border-white/10 pb-4 md:pb-6">
                 <div>
-                  <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase font-black mb-2">During Construction</p>
-                  <p className="text-white font-technical font-bold text-xl">{currentPlan.during - downPaymentPercent}%</p>
+                  <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-black mb-1 md:mb-2">During Construction</p>
+                  <p className="text-white font-technical font-bold text-lg md:text-xl">{currentPlan.during - downPaymentPercent}%</p>
                 </div>
-                <p className="text-white font-technical font-bold text-2xl">{formatCurrency(duringAmount)}</p>
+                <p className="text-white font-technical font-bold text-xl md:text-2xl">{formatCurrency(duringAmount)}</p>
               </div>
 
               {currentPlan.handover > 0 && (
-                <div className="flex justify-between items-end border-b border-white/10 pb-6">
+                <div className="flex justify-between items-end border-b border-white/10 pb-4 md:pb-6">
                   <div>
-                    <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase font-black mb-2">On Handover</p>
-                    <p className="text-white font-technical font-bold text-xl">{currentPlan.handover}%</p>
+                    <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-black mb-1 md:mb-2">On Handover</p>
+                    <p className="text-white font-technical font-bold text-lg md:text-xl">{currentPlan.handover}%</p>
                   </div>
-                  <p className="text-white font-technical font-bold text-2xl">{formatCurrency(handoverAmount)}</p>
+                  <p className="text-white font-technical font-bold text-xl md:text-2xl">{formatCurrency(handoverAmount)}</p>
                 </div>
               )}
 
               {currentPlan.post !== undefined && currentPlan.post > 0 && (
-                <div className="flex justify-between items-end border-b border-white/10 pb-6">
+                <div className="flex justify-between items-end border-b border-white/10 pb-4 md:pb-6">
                   <div>
-                    <p className="text-white/40 text-[11px] tracking-[0.3em] uppercase font-black mb-2">Post Handover</p>
-                    <p className="text-white font-technical font-bold text-xl">{currentPlan.post}%</p>
+                    <p className="text-white/40 text-[10px] md:text-[11px] tracking-[0.3em] uppercase font-black mb-1 md:mb-2">Post Handover</p>
+                    <p className="text-white font-technical font-bold text-lg md:text-xl">{currentPlan.post}%</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-porsche-red font-technical font-bold text-2xl">{formatCurrency(postAmount)}</p>
-                    <p className="text-white/20 text-[8px] tracking-widest uppercase mt-1">Est. {formatCurrency(postAmount / 36)} / mo (3 yrs)</p>
+                    <p className="text-porsche-red font-technical font-bold text-xl md:text-2xl">{formatCurrency(postAmount)}</p>
+                    <p className="text-white/20 text-[8px] tracking-widest uppercase mt-1">
+                      Est. {formatCurrency(postAmount / (currentPlan.postMonths || 36))} / mo ({currentPlan.postMonths ? `${currentPlan.postMonths} mos` : '3 yrs'})
+                    </p>
                   </div>
                 </div>
               )}
 
-              <div className="pt-12 flex justify-between items-center">
-                <p className="text-white/60 text-[12px] tracking-[0.4em] uppercase font-black">Total Commitment</p>
-                <p className="text-white font-display font-black text-4xl tracking-tighter">{formatCurrency(price)}</p>
+              <div className="pt-8 md:pt-12 flex justify-between items-center">
+                <p className="text-white/60 text-[11px] md:text-[12px] tracking-[0.4em] uppercase font-black">Total Commitment</p>
+                <p className="text-white font-display font-black text-3xl md:text-4xl tracking-tighter">{formatCurrency(price)}</p>
               </div>
             </div>
 
-            <button className="w-full mt-16 bg-porsche-red text-white py-6 font-black tracking-[0.4em] uppercase text-xs hover:bg-white hover:text-dark transition-all duration-500">
+            <button className="w-full mt-12 md:mt-16 bg-porsche-red text-white py-5 md:py-6 font-black tracking-[0.4em] uppercase text-[10px] md:text-xs hover:bg-white hover:text-dark transition-all duration-500 min-h-[48px]">
               Download PDF Report
             </button>
           </div>
@@ -2200,7 +2203,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                       { label: 'Payment Plan', value: selectedProject.paymentPlan, icon: Wallet },
                       { label: 'Property Type', value: selectedProject.type, icon: Home }
                     ].map((item, i) => (
-                      <div key={i} className="bg-white p-4 md:p-10 flex flex-col items-center text-center group hover:bg-gray-50 transition-colors">
+                      <div key={i} className="bg-white p-6 md:p-10 flex flex-col items-center text-center group hover:bg-gray-50 transition-colors">
                         <item.icon className="w-5 h-5 md:w-6 md:h-6 text-porsche-red mb-4 md:mb-6 group-hover:scale-110 transition-transform" />
                         <p className="text-dark/30 text-[8px] font-black tracking-widest uppercase mb-2">{item.label}</p>
                         <p className="text-dark font-technical font-bold text-xs md:text-base">{item.value}</p>
@@ -2243,12 +2246,12 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                   {/* Payment Plan Breakdown */}
                   {selectedProject.paymentPlanBreakdown && (
                     <div className="mb-12 md:mb-16">
-                      <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-12">Payment Plan Breakdown</p>
-                      <div className="space-y-4">
+                      <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-8 md:mb-12">Payment Plan Breakdown</p>
+                      <div className="space-y-3 md:space-y-4">
                         {selectedProject.paymentPlanBreakdown.map((plan, i) => (
-                          <div key={i} className="flex items-center justify-between p-8 bg-gray-50 rounded-2xl group hover:bg-dark hover:text-white transition-all duration-500">
-                            <span className="text-dark/60 group-hover:text-white/60 font-technical font-bold text-xs uppercase tracking-widest">{plan.milestone}</span>
-                            <span className="text-dark group-hover:text-porsche-red font-display font-black text-2xl">{plan.percentage}</span>
+                          <div key={i} className="flex items-center justify-between p-5 md:p-8 bg-gray-50 rounded-2xl group hover:bg-dark hover:text-white transition-all duration-500">
+                            <span className="text-dark/60 group-hover:text-white/60 font-technical font-bold text-[10px] md:text-xs uppercase tracking-widest leading-tight pr-4">{plan.milestone}</span>
+                            <span className="text-dark group-hover:text-porsche-red font-display font-black text-xl md:text-2xl whitespace-nowrap">{plan.percentage}</span>
                           </div>
                         ))}
                       </div>

@@ -31,7 +31,8 @@ export const PROJECTS: Project[] = [
     highlights: ['Next to Creek Marina', 'Stunning Views of the Creek', 'Modern Architecture', 'Vibrant Community'],
     amenities: ['Swimming Pool', 'Gymnasium', 'Landscaped Gardens', 'BBQ Area', 'Concierge Service'],
     gallery: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800', 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?auto=format&fit=crop&q=80&w=800'],
-    heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200'
+    heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200',
+    paymentPlanBreakdown: [{ milestone: 'On Booking', percentage: '10%' }, { milestone: 'During Construction', percentage: '80%' }, { milestone: 'On Handover', percentage: '10%' }]
   },
   {
     id: 6,
@@ -110,7 +111,8 @@ export const PROJECTS: Project[] = [
     highlights: ['Crystal Lagoons', 'Water Activities', 'Mediterranean Theme', 'Spacious Living'],
     amenities: ['Wave Pool', 'Floating Cinema', 'Water Park', 'Clubhouse', 'Sports Facilities'],
     gallery: ['https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800'],
-    heroImage: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1200'
+    heroImage: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1200',
+    paymentPlanBreakdown: [{ milestone: 'On Booking', percentage: '20%' }, { milestone: 'During Construction', percentage: '30%' }, { milestone: 'On Handover', percentage: '50%' }]
   },
   {
     id: 9,
@@ -240,7 +242,8 @@ export const PROJECTS: Project[] = [
     highlights: ['1% Payment Plan', 'Fully Furnished', 'High ROI', 'Prime Location'],
     amenities: ['Infinity Pool', 'Gym', 'Cinema', 'Doctor on Call'],
     gallery: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800'],
-    heroImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200'
+    heroImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    paymentPlanBreakdown: [{ milestone: 'Down Payment', percentage: '20%' }, { milestone: 'Monthly Installments (80 Months)', percentage: '1% Monthly' }, { milestone: 'On Handover', percentage: '0%' }]
   },
 
   // SELECT GROUP PROJECTS (Developer ID: 9)
