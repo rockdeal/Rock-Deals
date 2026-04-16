@@ -1176,28 +1176,28 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
               <span className="text-white/30 text-[11px] tracking-[0.6em] font-black uppercase">Zone_Intelligence_Report</span>
             </div>
 
-            <h3 className="text-6xl md:text-8xl font-display font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.85] uppercase">
+            <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-display font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.9] uppercase">
               {activeZone.name.split(' ').map((word, i) => (
                 <span key={i} className={i === 0 ? 'block' : 'block text-porsche-red'}>{word}</span>
               ))}
             </h3>
 
-            <p className="text-white/50 text-lg leading-relaxed font-light mb-10 md:mb-16 max-w-lg">
+            <p className="text-white/50 text-base md:text-lg leading-relaxed font-light mb-10 md:mb-16 max-w-lg">
               {activeZone.description}
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/5 mb-10 md:mb-16 border border-white/5">
               <div className="bg-dark p-6 md:p-10">
                 <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">Yield_Index</span>
-                <span className="text-white font-display font-black text-5xl tracking-tighter">{activeZone.yield}</span>
+                <span className="text-white font-display font-black text-3xl md:text-5xl tracking-tighter">{activeZone.yield}</span>
               </div>
               <div className="bg-dark p-6 md:p-10">
                 <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">Price_Per_Sqft</span>
-                <span className="text-white font-display font-black text-4xl tracking-tighter">{activeZone.pricePerSqft}</span>
+                <span className="text-white font-display font-black text-2xl md:text-4xl tracking-tighter">{activeZone.pricePerSqft}</span>
               </div>
               <div className="bg-dark p-6 md:p-10 col-span-2 md:col-span-1">
                 <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">District_Count</span>
-                <span className="text-white font-display font-black text-5xl tracking-tighter">{activeZone.areas.length}</span>
+                <span className="text-white font-display font-black text-3xl md:text-5xl tracking-tighter">{activeZone.areas.length}</span>
               </div>
             </div>
 
@@ -1591,7 +1591,7 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-porsche-red">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-[100] bg-[#0A0A0A]/80 backdrop-blur-xl border-b border-white/5">
-        <div className="px-6 md:px-12 lg:px-24 py-6 flex items-center justify-between">
+        <div className="px-4 md:px-12 lg:px-24 py-6 flex items-center justify-between">
           <button 
             onClick={() => selectedId ? setSelectedId(null) : onBack()}
             className="group flex items-center gap-3 text-white/40 hover:text-porsche-red transition-colors"
@@ -1608,7 +1608,7 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
         </div>
       </header>
 
-      <main className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+      <main className="pt-32 pb-24 px-4 md:px-12 lg:px-24 max-w-7xl mx-auto">
         <AnimatePresence mode="wait">
           {!selectedId ? (
             <motion.div
@@ -1617,21 +1617,21 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <div className="mb-16">
+              <div className="mb-12 md:mb-16">
                 <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-6">Area Guide</p>
-                <h1 className="text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase">
+                <h1 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-[1.1] uppercase">
                   Explore Dubai<br />
                   <span className="text-porsche-red">Communities.</span>
                 </h1>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {COMMUNITIES.map((community) => (
                   <motion.div
                     key={community.id}
                     whileHover={{ scale: 1.02 }}
                     onClick={() => setSelectedId(community.id)}
-                    className="group relative h-[400px] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-2xl"
+                    className="group relative h-[350px] md:h-[400px] rounded-3xl md:rounded-[2.5rem] overflow-hidden cursor-pointer shadow-2xl"
                   >
                     <img 
                       src={community.image} 
@@ -1640,17 +1640,17 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                    <div className="absolute bottom-10 left-10 right-10">
+                    <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10">
                       <p className="text-porsche-red text-[10px] font-black tracking-[0.4em] uppercase mb-2">{community.tagline}</p>
-                      <h3 className="text-4xl font-display font-black text-white uppercase tracking-tighter mb-4">{community.name}</h3>
-                      <div className="flex items-center gap-8">
+                      <h3 className="text-3xl md:text-4xl font-display font-black text-white uppercase tracking-tighter mb-4">{community.name}</h3>
+                      <div className="flex items-center gap-6 md:gap-8">
                         <div>
                           <p className="text-white/40 text-[8px] font-black tracking-widest uppercase mb-1">Avg ROI</p>
-                          <p className="text-white font-technical font-bold text-lg">{community.roi}</p>
+                          <p className="text-white font-technical font-bold text-base md:text-lg">{community.roi}</p>
                         </div>
                         <div>
                           <p className="text-white/40 text-[8px] font-black tracking-widest uppercase mb-1">Price/Sqft</p>
-                          <p className="text-white font-technical font-bold text-lg">{community.avgPrice}</p>
+                          <p className="text-white font-technical font-bold text-base md:text-lg">{community.avgPrice}</p>
                         </div>
                       </div>
                     </div>
@@ -1667,7 +1667,7 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
               className="space-y-16"
             >
               {/* Hero */}
-              <div className="relative h-[50vh] rounded-[3rem] overflow-hidden shadow-2xl">
+              <div className="relative h-[50vh] md:h-[60vh] rounded-3xl md:rounded-[3rem] overflow-hidden shadow-2xl">
                 <img 
                   src={selectedCommunity?.image} 
                   alt={selectedCommunity?.name} 
@@ -1675,9 +1675,9 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent"></div>
-                <div className="absolute bottom-12 left-12">
-                  <p className="text-porsche-red text-[12px] tracking-[0.5em] uppercase font-black mb-4">{selectedCommunity?.tagline}</p>
-                  <h2 className="text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase">
+                <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12">
+                  <p className="text-porsche-red text-[10px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4">{selectedCommunity?.tagline}</p>
+                  <h2 className="text-4xl md:text-6xl lg:text-8xl font-display font-black text-white tracking-tighter leading-none uppercase">
                     {selectedCommunity?.name}<span className="text-porsche-red">.</span>
                   </h2>
                 </div>
@@ -1719,7 +1719,7 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
 
                 <div className="lg:col-span-4 space-y-12">
                   {/* Stats Card */}
-                  <div className="bg-white/5 p-10 rounded-[2.5rem] border border-white/5">
+                  <div className="bg-white/5 p-6 md:p-10 rounded-[2.5rem] border border-white/5">
                     <div className="space-y-8">
                       <div>
                         <p className="text-white/20 text-[10px] font-black tracking-widest uppercase mb-2">Investment Potential</p>
@@ -1735,7 +1735,7 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
                   </div>
 
                   {/* Connectivity */}
-                  <div className="bg-porsche-red p-10 rounded-[2.5rem] shadow-2xl shadow-porsche-red/10">
+                  <div className="bg-porsche-red p-6 md:p-10 rounded-[2.5rem] shadow-2xl shadow-porsche-red/10">
                     <h4 className="text-white text-[12px] tracking-[0.3em] uppercase font-black mb-8">Connectivity</h4>
                     <div className="space-y-6">
                       {selectedCommunity?.connectivity.map((c, i) => (
@@ -1835,7 +1835,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
     <div className="min-h-screen bg-white selection:bg-dark selection:text-white font-sans">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100">
-        <div className="px-6 md:px-12 lg:px-16 py-3 md:py-6 flex items-center justify-between">
+        <div className="px-4 md:px-12 lg:px-16 py-3 md:py-6 flex items-center justify-between">
           <div className="flex items-center gap-6 md:gap-12">
             <button 
               onClick={() => {
@@ -1879,11 +1879,11 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
+              className="px-4 md:px-12 lg:px-24 max-w-7xl mx-auto"
             >
               <div className="mb-8 md:mb-12">
                 <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Industry Leaders</p>
-                <h2 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-dark tracking-tighter leading-none">
+                <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-display font-black text-dark tracking-tighter leading-none">
                   DUBAI<br />
                   <span className="text-porsche-red">DEVELOPERS.</span>
                 </h2>
@@ -1935,14 +1935,14 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
+              className="px-4 md:px-12 lg:px-24 max-w-7xl mx-auto"
             >
               <div className="mb-10 md:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
                 <div>
                   <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] md:tracking-[0.5em] uppercase font-black mb-4 md:mb-6">
                     {selectedDeveloper ? selectedDeveloper.name : 'All Projects'}
                   </p>
-                  <h2 className="text-5xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
+                  <h2 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-none uppercase">
                     Featured<br />
                     <span className="text-porsche-red">Projects.</span>
                   </h2>
@@ -2033,7 +2033,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                     <motion.div
                       key={project.id}
                       whileHover={{ y: -10 }}
-                      className="group bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 hover:border-porsche-red/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all duration-700 cursor-pointer flex flex-col"
+                      className="group bg-white rounded-3xl md:rounded-[2.5rem] overflow-hidden border border-gray-100 hover:border-porsche-red/20 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all duration-700 cursor-pointer flex flex-col"
                       onClick={() => handleProjClick(project.id)}
                     >
                       <div className="relative aspect-[4/3] overflow-hidden">
@@ -2042,12 +2042,12 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                           alt={project.name} 
                           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                         />
-                        <div className="absolute top-6 left-6">
+                        <div className="absolute top-4 left-4 md:top-6 md:left-6">
                           <span className="bg-white/90 backdrop-blur-md text-dark text-[8px] font-black px-4 py-1.5 rounded-full tracking-[0.2em] uppercase shadow-sm">
                             {project.type}
                           </span>
                         </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                           <div className="flex items-center gap-2 text-white text-[11px] font-black tracking-widest uppercase">
                             <ImageIcon className="w-3 h-3" />
                             <span>View Gallery</span>
@@ -2055,32 +2055,32 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         </div>
                       </div>
                       
-                      <div className="p-8 md:p-10 flex flex-col flex-1">
+                      <div className="p-6 md:p-10 flex flex-col flex-1">
                         <div className="flex items-center gap-2 text-porsche-red text-[8px] font-black tracking-widest uppercase mb-3">
                           <MapPin className="w-3 h-3" />
                           <span>{project.location}</span>
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-display font-black text-dark mb-6 uppercase tracking-tight group-hover:text-porsche-red transition-colors">
+                        <h3 className="text-2xl md:text-3xl font-display font-black text-dark mb-4 md:mb-6 uppercase tracking-tight group-hover:text-porsche-red transition-colors">
                           {project.name}
                         </h3>
                         
-                        <div className="grid grid-cols-2 gap-6 mb-8 py-6 border-y border-gray-50">
+                        <div className="grid grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8 py-4 md:py-6 border-y border-gray-50">
                           <div>
                             <p className="text-dark/30 text-[8px] font-black tracking-widest uppercase mb-1">Starting Price</p>
-                            <p className="text-dark font-technical font-bold text-sm">{project.price}</p>
+                            <p className="text-dark font-technical font-bold text-xs md:text-sm">{project.price}</p>
                           </div>
                           <div>
                             <p className="text-dark/30 text-[8px] font-black tracking-widest uppercase mb-1">Handover</p>
-                            <p className="text-dark font-technical font-bold text-sm">{project.handover}</p>
+                            <p className="text-dark font-technical font-bold text-xs md:text-sm">{project.handover}</p>
                           </div>
                         </div>
                         
                         <div className="mt-auto flex items-center justify-between">
-                          <div className="flex items-center gap-2 text-dark/40 text-[11px] font-black tracking-widest uppercase">
+                          <div className="flex items-center gap-2 text-dark/40 text-[10px] md:text-[11px] font-black tracking-widest uppercase">
                             <Wallet className="w-3 h-3" />
                             <span>{project.paymentPlan}</span>
                           </div>
-                          <div className="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center group-hover:bg-porsche-red group-hover:border-porsche-red transition-all duration-500">
+                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-100 flex items-center justify-center group-hover:bg-porsche-red group-hover:border-porsche-red transition-all duration-500">
                             <ArrowRight className="w-4 h-4 text-dark/40 group-hover:text-white transition-colors" />
                           </div>
                         </div>
@@ -2138,41 +2138,41 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
-              className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24"
+              className="max-w-7xl mx-auto px-4 md:px-12 lg:px-24"
             >
               {/* Hero Section */}
-              <div className="relative h-[60vh] md:h-[80vh] rounded-[3rem] overflow-hidden mb-12 md:mb-16 shadow-2xl">
+              <div className="relative h-[50vh] md:h-[80vh] rounded-3xl md:rounded-[3rem] overflow-hidden mb-8 md:mb-16 shadow-2xl">
                 <img 
                   src={selectedProject.heroImage} 
                   alt={selectedProject.name} 
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div className="absolute bottom-12 md:bottom-24 left-8 md:left-16 right-8 md:right-16">
-                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                <div className="absolute bottom-8 md:bottom-24 left-6 md:left-16 right-6 md:right-16">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8">
                     <div>
-                      <div className="flex items-center gap-4 mb-6">
-                        <span className="bg-porsche-red text-white text-[11px] font-black px-5 py-2 rounded-full tracking-[0.3em] uppercase">
+                      <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                        <span className="bg-porsche-red text-white text-[10px] md:text-[11px] font-black px-4 md:px-5 py-1.5 md:py-2 rounded-full tracking-[0.2em] md:tracking-[0.3em] uppercase">
                           {selectedProject.type}
                         </span>
-                        <div className="flex items-center gap-2 text-white/60 text-[12px] font-black tracking-widest uppercase">
+                        <div className="flex items-center gap-2 text-white/60 text-[11px] md:text-[12px] font-black tracking-widest uppercase">
                           <MapPin className="w-4 h-4 text-porsche-red" />
                           <span>{selectedProject.location}</span>
                         </div>
                       </div>
-                      <h1 className="text-5xl md:text-8xl lg:text-9xl font-display font-black text-white tracking-tighter leading-none uppercase mb-4">
+                      <h1 className="text-3xl sm:text-5xl md:text-8xl lg:text-9xl font-display font-black text-white tracking-tighter leading-none uppercase mb-4">
                         {selectedProject.name}
                         <span className="text-porsche-red">.</span>
                       </h1>
-                      <p className="text-white/60 text-lg md:text-xl font-light tracking-widest uppercase">
+                      <p className="text-white/60 text-sm md:text-xl font-light tracking-widest uppercase">
                         By {DEVELOPERS.find(d => d.id === selectedProject.developerId)?.name}
                       </p>
                     </div>
                     
-                    <div className="flex gap-4">
+                    <div className="flex gap-3 md:gap-4">
                       <button 
                         onClick={onEnquire}
-                        className="bg-white text-dark px-8 md:px-12 py-4 md:py-5 text-[12px] font-black tracking-[0.3em] uppercase hover:bg-porsche-red hover:text-white transition-all duration-500 shadow-xl"
+                        className="flex-1 md:flex-none bg-white text-dark px-6 md:px-12 py-4 md:py-5 text-[11px] md:text-[12px] font-black tracking-[0.2em] md:tracking-[0.3em] uppercase hover:bg-porsche-red hover:text-white transition-all duration-500 shadow-xl"
                       >
                         Enquire Now
                       </button>
@@ -2182,7 +2182,7 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                         rel="noreferrer"
                         className="bg-green-500 text-white p-4 md:p-5 rounded-full hover:bg-green-600 transition-all shadow-xl flex items-center justify-center"
                       >
-                        <MessageSquare className="w-6 h-6" />
+                        <MessageSquare className="w-5 h-5 md:w-6 md:h-6" />
                       </a>
                     </div>
                   </div>
@@ -2193,17 +2193,17 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                 {/* Left Column: Info & Overview */}
                 <div className="lg:col-span-8">
                   {/* Key Info Box */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100 border border-gray-100 rounded-[2rem] overflow-hidden mb-12 md:mb-16 shadow-sm">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100 border border-gray-100 rounded-3xl md:rounded-[2rem] overflow-hidden mb-12 md:mb-16 shadow-sm">
                     {[
                       { label: 'Starting Price', value: selectedProject.price, icon: DollarSign },
                       { label: 'Handover Date', value: selectedProject.handover, icon: Calendar },
                       { label: 'Payment Plan', value: selectedProject.paymentPlan, icon: Wallet },
                       { label: 'Property Type', value: selectedProject.type, icon: Home }
                     ].map((item, i) => (
-                      <div key={i} className="bg-white p-8 md:p-10 flex flex-col items-center text-center group hover:bg-gray-50 transition-colors">
-                        <item.icon className="w-6 h-6 text-porsche-red mb-6 group-hover:scale-110 transition-transform" />
+                      <div key={i} className="bg-white p-4 md:p-10 flex flex-col items-center text-center group hover:bg-gray-50 transition-colors">
+                        <item.icon className="w-5 h-5 md:w-6 md:h-6 text-porsche-red mb-4 md:mb-6 group-hover:scale-110 transition-transform" />
                         <p className="text-dark/30 text-[8px] font-black tracking-widest uppercase mb-2">{item.label}</p>
-                        <p className="text-dark font-technical font-bold text-sm md:text-base">{item.value}</p>
+                        <p className="text-dark font-technical font-bold text-xs md:text-base">{item.value}</p>
                       </div>
                     ))}
                   </div>
@@ -2630,7 +2630,7 @@ Furnish: ${searchFurnishStatus}
         />
         
         <div className="px-6 lg:px-12">
-          <div className={`flex items-center justify-between transition-all duration-500 gap-4 ${isScrolled ? 'h-[50px] md:h-[60px]' : 'h-[60px] md:h-[80px]'}`}>
+          <div className={`flex items-center justify-between transition-all duration-500 gap-4 ${isScrolled ? 'h-[60px]' : 'h-[70px] md:h-[80px]'}`}>
             <a className="cursor-pointer group flex-shrink-0" href="/">
               <div className="flex flex-col leading-none">
                 <div className="flex items-baseline gap-1">
@@ -2778,7 +2778,7 @@ Furnish: ${searchFurnishStatus}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-script font-bold text-white leading-tight mb-6 md:mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white leading-[1.1] mb-6 md:mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] uppercase tracking-tighter"
             >
               Best Property Deals in <span className="text-porsche-red glow-porsche">Dubai.</span>
             </motion.h1>
@@ -2805,15 +2805,15 @@ Furnish: ${searchFurnishStatus}
             <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
             
             {/* Tabs */}
-            <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-1.5 mb-4 relative z-10">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-2 mb-4 relative z-10">
               {['RENT', 'BUY', 'OFF PLAN', 'COMMERCIAL'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setSearchTab(tab)}
-                  className={`px-3 md:px-4 py-2 md:py-1.5 rounded-lg text-[12px] md:text-[14px] font-technical font-bold tracking-[0.2em] md:tracking-[0.25em] transition-all duration-500 min-h-[40px] md:min-h-0 ${
+                  className={`px-3 md:px-4 py-2.5 md:py-1.5 rounded-xl text-[11px] md:text-[13px] font-technical font-bold tracking-[0.2em] md:tracking-[0.25em] transition-all duration-500 min-h-[44px] md:min-h-0 flex-1 md:flex-none ${
                     searchTab === tab 
                       ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.5)]' 
-                      : 'bg-white/1 text-white/30 hover:bg-white/10 hover:text-white'
+                      : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white'
                   }`}
                 >
                   {tab}
@@ -2868,7 +2868,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-6 z-[60] shadow-2xl min-w-[280px] md:min-w-[320px]"
+                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-6 z-[60] shadow-2xl min-w-[280px] md:min-w-[320px]"
                     >
                       <div className="space-y-6">
                         <div>
@@ -2934,7 +2934,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
+                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
                     >
                       {['Studio', 'Apartment', 'Townhouse', 'Villa', 'Hotel Apartments'].map(type => (
                         <button 
@@ -2965,7 +2965,7 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
+                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
                     >
                       {['Furnished', 'Fully Furnished', 'Semi Furnished', 'Vacant'].map(status => (
                         <button 
@@ -2995,7 +2995,7 @@ Furnish: ${searchFurnishStatus}
 
       <section 
         id="filters" 
-        className={`px-4 md:px-8 lg:px-16 py-4 bg-white/90 backdrop-blur-md border-b border-gray-100 sticky z-40 transition-all duration-500 ${isScrolled ? 'top-[60px] shadow-lg' : 'top-[80px] shadow-sm'}`}
+        className={`px-4 md:px-8 lg:px-16 py-4 bg-white/90 backdrop-blur-md border-b border-gray-100 sticky z-40 transition-all duration-500 ${isScrolled ? 'top-[60px] shadow-lg' : 'top-[70px] md:top-[80px] shadow-sm'}`}
       >
         <div className="max-w-7xl mx-auto overflow-x-auto no-scrollbar -mx-4 px-4">
           <div className="flex items-center justify-start md:justify-center gap-3 min-w-max">
@@ -3047,7 +3047,7 @@ Furnish: ${searchFurnishStatus}
               <div className="w-10 md:w-12 h-[1px] bg-porsche-red"></div>
               <span className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] uppercase font-black">Philosophy</span>
             </motion.div>
-            <h2 className="text-4xl sm:text-5xl md:text-8xl font-display font-black text-dark leading-[0.9] mb-8 md:mb-12 tracking-tighter">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-dark leading-[0.9] mb-8 md:mb-12 tracking-tighter">
               DUBAI<br />
               <span className="text-porsche-red">REAL ESTATE</span><br />
               DEALS.
@@ -3083,7 +3083,7 @@ Furnish: ${searchFurnishStatus}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-8 md:gap-12">
           <div className="max-w-3xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Portfolio</p>
-            <h2 className="text-5xl sm:text-7xl md:text-[10rem] font-display font-black text-dark tracking-tighter leading-[0.8]">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-display font-black text-dark tracking-tighter leading-[0.8]">
               FEATURED<br />
               <span className="text-porsche-red">LISTINGS.</span>
             </h2>
@@ -3103,7 +3103,7 @@ Furnish: ${searchFurnishStatus}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative aspect-[3/2] rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer"
+                className="group relative aspect-[3/2] rounded-3xl md:rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer"
               >
                 <img 
                   src={prop.image} 
@@ -3155,7 +3155,7 @@ Furnish: ${searchFurnishStatus}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-8 md:gap-12">
           <div className="max-w-2xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Innovation</p>
-            <h2 className="text-5xl md:text-9xl font-display font-black text-dark tracking-tighter leading-[0.8]">
+            <h2 className="text-4xl sm:text-6xl md:text-9xl font-display font-black text-dark tracking-tighter leading-[0.8]">
               THE<br />SMART HUB.
             </h2>
           </div>
@@ -3206,7 +3206,7 @@ Furnish: ${searchFurnishStatus}
             >
               <span className="text-dark text-[11px] md:text-[13px] tracking-[0.5em] md:tracking-[0.8em] uppercase font-black">Technical_Process_Flow</span>
             </motion.div>
-            <h2 className="text-6xl md:text-[12rem] font-display font-black text-dark tracking-tighter leading-none">
+            <h2 className="text-4xl sm:text-6xl md:text-[10rem] lg:text-[12rem] font-display font-black text-dark tracking-tighter leading-none">
               THE<br />
               <span className="text-porsche-red">JOURNEY.</span>
             </h2>
@@ -3288,7 +3288,7 @@ Furnish: ${searchFurnishStatus}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12 mb-12 md:mb-20">
           <div className="max-w-3xl">
             <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Location Intelligence</p>
-            <h2 className="text-5xl sm:text-7xl md:text-[10rem] font-display font-black text-white tracking-tighter leading-[0.8]">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-display font-black text-white tracking-tighter leading-[0.8]">
               ZONE<br />
               <span className="text-porsche-red">EXPLORER.</span>
             </h2>
