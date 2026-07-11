@@ -10,6 +10,7 @@ import {
   CreditCard, 
   Calculator, 
   Bell, 
+  Newspaper,
   HandCoins,
   MapPin,
   Instagram,
@@ -63,6 +64,7 @@ import {
 import { DEVELOPERS } from './data/developers';
 import { PROJECTS } from './data/projects';
 import { Developer, Project, PropertyType } from './types';
+import BlogView from './components/BlogView';
 
 const NavLink = ({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) => (
   <a 
@@ -2540,10 +2542,23 @@ This request was generated from the Rock Deals Smart Hub.
 };
 
 export default function App() {
-  const [view, setView] = useState<'home' | 'calculator' | 'roi-calculator' | 'developers' | 'pre-approval' | 'area-guide'>('home');
+  const [view, setView] = useState<'home' | 'calculator' | 'roi-calculator' | 'developers' | 'pre-approval' | 'area-guide' | 'blog'>('home');
+  const [showNewsPopup, setShowNewsPopup] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All Properties');
+
+  useEffect(() => {
+    const isDismissed = sessionStorage.getItem('news-popup-dismissed');
+    if (isDismissed !== 'true' && view !== 'blog') {
+      const timer = setTimeout(() => {
+        setShowNewsPopup(true);
+      }, 4000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowNewsPopup(false);
+    }
+  }, [view]);
 
   // Search Bar State
   const [searchTab, setSearchTab] = useState('RENT');
@@ -2615,6 +2630,8 @@ Furnish: ${searchFurnishStatus}
         <AreaGuide onBack={() => setView('home')} />
       ) : view === 'pre-approval' ? (
         <PreApprovalForm onBack={() => setView('home')} />
+      ) : view === 'blog' ? (
+        <BlogView onBack={() => setView('home')} onEnquire={() => setIsEnquiryModalOpen(true)} />
       ) : (
         <div className="min-h-screen bg-white selection:bg-dark selection:text-white">
           {/* Header */}
@@ -2647,6 +2664,7 @@ Furnish: ${searchFurnishStatus}
               <div className={`flex items-center transition-all duration-500 ${isScrolled ? 'gap-8' : 'gap-12'}`}>
                 {[
                   { name: 'Properties', href: '#property-types' },
+                  { name: 'Daily News', onClick: () => setView('blog') },
                   { name: 'Area Guide', onClick: () => setView('area-guide') },
                   { name: 'Developers', onClick: () => setView('developers') },
                   { name: 'ROI Calculator', onClick: () => setView('roi-calculator') },
@@ -2698,6 +2716,7 @@ Furnish: ${searchFurnishStatus}
               <div className="flex flex-col gap-6 md:gap-8">
                 {[
                   { name: 'Properties', href: '#property-types' },
+                  { name: 'Daily News', onClick: () => setView('blog') },
                   { name: 'Developers', onClick: () => setView('developers') },
                   { name: 'ROI Calculator', onClick: () => setView('roi-calculator') },
                   { name: 'Payment Plans', onClick: () => setView('calculator') },
@@ -3182,10 +3201,11 @@ Furnish: ${searchFurnishStatus}
             onClick={() => setView('roi-calculator')}
           />
           <FeatureCard 
-            icon={Bell} 
-            title="Smart Alerts" 
-            description="Set property alerts based on your criteria and get notified the moment a match goes live."
-            badge="Real-Time"
+            icon={Newspaper} 
+            title="Daily Market News" 
+            description="Read daily market alerts, regulatory updates, transactional briefs, and off-plan investment news."
+            badge="Updated Daily"
+            onClick={() => setView('blog')}
           />
           <FeatureCard 
             icon={HandCoins} 
@@ -3533,6 +3553,59 @@ Furnish: ${searchFurnishStatus}
               </div>
             </motion.div>
           </div>
+        )}
+
+        {showNewsPopup && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 20, stiffness: 150 }}
+            className="fixed bottom-6 right-6 z-[150] w-[calc(100vw-32px)] sm:w-[380px] bg-dark text-white p-5 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-none overflow-hidden group cursor-pointer"
+            onClick={() => {
+              setView('blog');
+              setShowNewsPopup(false);
+              sessionStorage.setItem('news-popup-dismissed', 'true');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            {/* Top red Accent bar */}
+            <div className="absolute top-0 left-0 right-0 h-[3px] bg-porsche-red" />
+            
+            <div className="flex items-start justify-between gap-3 mb-3">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-porsche-red opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-porsche-red"></span>
+                </span>
+                <span className="text-[9px] tracking-[0.3em] uppercase font-black text-white/50">Live Market Alert</span>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowNewsPopup(false);
+                  sessionStorage.setItem('news-popup-dismissed', 'true');
+                }}
+                className="text-white/40 hover:text-porsche-red p-1 transition-colors hover:bg-white/5"
+                aria-label="Dismiss news alert"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            <h4 className="text-sm font-display font-black uppercase tracking-tight leading-snug group-hover:text-porsche-red transition-colors duration-300 mb-2">
+              Dubai Real Estate Hits Historic Highs in H1 2026: Volume Up 28%
+            </h4>
+            
+            <p className="text-white/60 text-xs font-light leading-relaxed mb-4 line-clamp-2">
+              Off-plan payment structures drive 62% of market. Read the full research report & legal updates.
+            </p>
+
+            <div className="flex items-center justify-between pt-3 border-t border-white/5 text-[10px] tracking-widest uppercase font-black text-porsche-red group-hover:translate-x-1 transition-transform duration-300">
+              <span>Read Full Report</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
