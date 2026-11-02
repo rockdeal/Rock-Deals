@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   Calendar, 
   Clock, 
@@ -19,8 +19,9 @@ import {
   FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { SocialShare } from './SocialShare';
 
-interface BlogPost {
+export interface BlogPost {
   id: number;
   title: string;
   category: 'Market Trends' | 'New Launches' | 'Investment Guides' | 'Regulatory Updates';
@@ -38,12 +39,19 @@ interface BlogPost {
   featured?: boolean;
 }
 
-const BLOG_POSTS: BlogPost[] = [
+export const getRelativeDateString = (daysAgo: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() - daysAgo);
+  const options: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+};
+
+export const BLOG_POSTS: BlogPost[] = [
   {
     id: 1,
     title: "Dubai Real Estate Hits Historic Highs in H1 2026: Off-Plan Transactions Drive 62% of Market Volume",
     category: "Market Trends",
-    date: "July 11, 2026",
+    date: getRelativeDateString(0),
     readTime: "5 min read",
     author: {
       name: "Sarah Lin",
@@ -69,7 +77,7 @@ const BLOG_POSTS: BlogPost[] = [
     id: 2,
     title: "The Rise of 1% Payment Plans: How Flexible Terms Are Dematerializing Traditional Mortgages",
     category: "Investment Guides",
-    date: "July 10, 2026",
+    date: getRelativeDateString(1),
     readTime: "4 min read",
     author: {
       name: "Karim Al-Mansoori",
@@ -94,7 +102,7 @@ const BLOG_POSTS: BlogPost[] = [
     id: 3,
     title: "EMAAR Beachfront Unveils New Luxury Coastal Residence: Strategic Project Breakdown",
     category: "New Launches",
-    date: "July 09, 2026",
+    date: getRelativeDateString(2),
     readTime: "3 min read",
     author: {
       name: "Elena Petrova",
@@ -114,7 +122,7 @@ const BLOG_POSTS: BlogPost[] = [
     id: 4,
     title: "New DLD Escrow Regulations: What the Enhanced Digital Safeguards Mean for Foreign Investors",
     category: "Regulatory Updates",
-    date: "July 08, 2026",
+    date: getRelativeDateString(3),
     readTime: "4 min read",
     author: {
       name: "Tariq Saeed",
@@ -134,7 +142,7 @@ const BLOG_POSTS: BlogPost[] = [
     id: 5,
     title: "Luxury Rentals vs. High-Growth Off-Plan: Rebalancing Your Portfolio for Maximum Stability",
     category: "Investment Guides",
-    date: "July 07, 2026",
+    date: getRelativeDateString(5),
     readTime: "6 min read",
     author: {
       name: "Sarah Lin",
@@ -152,7 +160,7 @@ const BLOG_POSTS: BlogPost[] = [
   }
 ];
 
-export default function BlogView({ onBack, onEnquire }: { onBack: () => void; onEnquire: () => void }) {
+export default function BlogView({ onBack, onEnquire, initialPostId }: { onBack: () => void; onEnquire: () => void; initialPostId?: number | null }) {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
@@ -161,8 +169,17 @@ export default function BlogView({ onBack, onEnquire }: { onBack: () => void; on
   const [likes, setLikes] = useState<Record<number, number>>({ 1: 42, 2: 28, 3: 19, 4: 15, 5: 31 });
   const [userLiked, setUserLiked] = useState<Record<number, boolean>>({});
 
+  useEffect(() => {
+    if (initialPostId) {
+      const post = BLOG_POSTS.find(p => p.id === initialPostId);
+      if (post) {
+        setSelectedPost(post);
+      }
+    }
+  }, [initialPostId]);
+
   // Live Market Feed Updates Simulator
-  const [feedDate, setFeedDate] = useState<string>('July 11, 2026');
+  const [feedDate, setFeedDate] = useState<string>(() => getRelativeDateString(0));
   const [feedStats, setFeedStats] = useState({
     transactions: 'AED 1.84 Billion',
     villasSold: 42,
@@ -215,7 +232,13 @@ export default function BlogView({ onBack, onEnquire }: { onBack: () => void; on
 
   // Generate simulated news feed update
   const generateNewUpdate = () => {
-    const dates = ['July 11, 2026', 'July 10, 2026', 'July 09, 2026', 'July 08, 2026', 'July 07, 2026'];
+    const dates = [
+      getRelativeDateString(0),
+      getRelativeDateString(1),
+      getRelativeDateString(2),
+      getRelativeDateString(3),
+      getRelativeDateString(4)
+    ];
     const areas = ['Dubai Marina', 'Palm Jumeirah', 'Dubai Hills Estate', 'Business Bay', 'Downtown Dubai', 'Creek Harbour'];
     const projects = ['Diamondz by Danube', 'Azizi Venice', 'Creek Waters', 'Emaar Beachfront', 'DAMAC Lagoons'];
     
@@ -351,45 +374,92 @@ export default function BlogView({ onBack, onEnquire }: { onBack: () => void; on
             </div>
           </div>
 
-          {/* Premium Newsletter Box */}
-          <div className="bg-gray-50 p-8 md:p-10 flex flex-col justify-between border border-gray-100">
-            <div>
-              <p className="text-porsche-red text-[11px] tracking-[0.3em] uppercase font-black mb-4">Daily Briefing</p>
-              <h3 className="text-2xl font-display font-black uppercase text-dark tracking-tight mb-4">
-                Subscribe to Daily Alerts
-              </h3>
-              <p className="text-dark/50 text-sm leading-relaxed mb-8">
-                Join 14,200+ global estate investors. Get the exact transactional sheets and off-plan deal flows directly in your mailbox daily at 8:00 AM Dubai Time.
-              </p>
+          {/* Staked widgets: Official Portals & Newsletter */}
+          <div className="flex flex-col gap-6">
+            {/* Verified Government & News Portals */}
+            <div className="bg-gray-50 p-6 md:p-8 flex flex-col justify-between border border-gray-100">
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-1.5 h-1.5 bg-porsche-red rounded-full"></div>
+                  <p className="text-porsche-red text-[10px] tracking-[0.3em] uppercase font-black">Live Connections</p>
+                </div>
+                <h3 className="text-lg font-display font-black uppercase text-dark tracking-tight mb-3">
+                  Official Dubai News Portals
+                </h3>
+                <p className="text-dark/50 text-xs leading-relaxed mb-4">
+                  Access live market indices and certified news feeds directly from the source:
+                </p>
+                
+                <div className="space-y-2">
+                  {[
+                    { name: "Dubai Land Department (DLD)", desc: "Official registries & real-time index", url: "https://dubailand.gov.ae", icon: Building2 },
+                    { name: "Khaleej Times Real Estate", desc: "Live local development updates", url: "https://www.khaleejtimes.com/business/real-estate", icon: Newspaper },
+                    { name: "Gulf News Property Dubai", desc: "Off-plan launches & community reports", url: "https://gulfnews.com/business/property", icon: TrendingUp },
+                    { name: "Arabian Business Real Estate", desc: "Corporate transactional reporting", url: "https://www.arabianbusiness.com/industries/real-estate", icon: DollarSign }
+                  ].map((site, index) => (
+                    <a 
+                      key={index}
+                      href={site.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between p-2.5 bg-white border border-gray-100 hover:border-porsche-red/20 hover:shadow-xs transition-all duration-300 group/link"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="p-1.5 bg-gray-50 group-hover/link:bg-porsche-red/5 text-dark/40 group-hover/link:text-porsche-red transition-colors flex-shrink-0">
+                          <site.icon className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[10px] font-black uppercase tracking-tight text-dark truncate">{site.name}</p>
+                          <p className="text-[9px] text-dark/40 truncate">{site.desc}</p>
+                        </div>
+                      </div>
+                      <ChevronRight className="w-3 h-3 text-dark/30 group-hover/link:text-porsche-red group-hover/link:translate-x-0.5 transition-all flex-shrink-0" />
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <form onSubmit={handleSubscribe} className="space-y-4">
-              <div className="relative">
-                <input 
-                  required
-                  type="email" 
-                  placeholder="Enter your email address"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="w-full bg-white border border-gray-200 py-4 px-4 text-sm font-technical focus:border-porsche-red outline-none transition-all"
-                />
+            {/* Premium Newsletter Box */}
+            <div className="bg-gray-50 p-6 md:p-8 flex flex-col justify-between border border-gray-100">
+              <div>
+                <p className="text-porsche-red text-[11px] tracking-[0.3em] uppercase font-black mb-3">Daily Briefing</p>
+                <h3 className="text-xl font-display font-black uppercase text-dark tracking-tight mb-3">
+                  Subscribe to Daily Alerts
+                </h3>
+                <p className="text-dark/50 text-xs leading-relaxed mb-6">
+                  Join 14,200+ global estate investors. Get the exact transactional sheets and off-plan deal flows directly in your mailbox daily at 8:00 AM Dubai Time.
+                </p>
               </div>
-              <button 
-                type="submit"
-                disabled={emailSubscribed}
-                className={`w-full py-4 text-[11px] tracking-[0.3em] uppercase font-black transition-all duration-500 flex items-center justify-center gap-2 ${emailSubscribed ? 'bg-green-600 text-white' : 'bg-dark text-white hover:bg-porsche-red'}`}
-              >
-                {emailSubscribed ? (
-                  <>
-                    <Check className="w-4 h-4" /> Subscribed successfully!
-                  </>
-                ) : (
-                  <>
-                    <Mail className="w-4 h-4" /> Receive Daily Alerts
-                  </>
-                )}
-              </button>
-            </form>
+
+              <form onSubmit={handleSubscribe} className="space-y-3">
+                <div className="relative">
+                  <input 
+                    required
+                    type="email" 
+                    placeholder="Enter your email address"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    className="w-full bg-white border border-gray-200 py-3 px-4 text-xs font-technical focus:border-porsche-red outline-none transition-all"
+                  />
+                </div>
+                <button 
+                  type="submit"
+                  disabled={emailSubscribed}
+                  className={`w-full py-3.5 text-[10px] tracking-[0.3em] uppercase font-black transition-all duration-500 flex items-center justify-center gap-2 ${emailSubscribed ? 'bg-green-600 text-white' : 'bg-dark text-white hover:bg-porsche-red'}`}
+                >
+                  {emailSubscribed ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" /> Subscribed successfully!
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-3.5 h-3.5" /> Receive Daily Alerts
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
 
@@ -480,12 +550,24 @@ export default function BlogView({ onBack, onEnquire }: { onBack: () => void; on
                   </div>
                 </div>
 
-                <button 
-                  onClick={(e) => handleLike(featuredPost.id, e)}
-                  className={`flex items-center gap-1.5 text-xs font-black uppercase tracking-widest transition-colors ${userLiked[featuredPost.id] ? 'text-porsche-red' : 'text-dark/40 hover:text-porsche-red'}`}
-                >
-                  <ThumbsUp className="w-4 h-4" /> {likes[featuredPost.id]}
-                </button>
+                <div className="flex items-center gap-4">
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <SocialShare 
+                      title={featuredPost.title}
+                      summary={featuredPost.summary}
+                      url={typeof window !== 'undefined' ? `${window.location.origin}?article=${featuredPost.id}` : undefined}
+                      variant="compact"
+                      theme="light"
+                    />
+                  </div>
+
+                  <button 
+                    onClick={(e) => handleLike(featuredPost.id, e)}
+                    className={`flex items-center gap-1.5 text-xs font-black uppercase tracking-widest transition-colors ${userLiked[featuredPost.id] ? 'text-porsche-red' : 'text-dark/40 hover:text-porsche-red'}`}
+                  >
+                    <ThumbsUp className="w-4 h-4" /> {likes[featuredPost.id]}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -553,6 +635,15 @@ export default function BlogView({ onBack, onEnquire }: { onBack: () => void; on
                   </div>
 
                   <div className="flex items-center gap-3">
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <SocialShare 
+                        title={post.title}
+                        summary={post.summary}
+                        url={typeof window !== 'undefined' ? `${window.location.origin}?article=${post.id}` : undefined}
+                        variant="minimal"
+                        theme="light"
+                      />
+                    </div>
                     <button 
                       onClick={(e) => handleLike(post.id, e)}
                       className={`flex items-center gap-1 text-[10px] font-black uppercase tracking-widest transition-colors ${userLiked[post.id] ? 'text-porsche-red' : 'text-dark/30 hover:text-porsche-red'}`}
@@ -633,6 +724,17 @@ export default function BlogView({ onBack, onEnquire }: { onBack: () => void; on
                   </div>
                 </div>
 
+                {/* Social Share Bar at Top of Article */}
+                <div className="mb-8">
+                  <SocialShare
+                    title={selectedPost.title}
+                    summary={selectedPost.summary}
+                    url={typeof window !== 'undefined' ? `${window.location.origin}?article=${selectedPost.id}` : undefined}
+                    variant="expanded"
+                    theme="light"
+                  />
+                </div>
+
                 {/* Stats highlighted inside article */}
                 {selectedPost.stats && (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-50 border border-gray-100 p-6 mb-8">
@@ -666,18 +768,34 @@ export default function BlogView({ onBack, onEnquire }: { onBack: () => void; on
                   <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
                     <button 
                       onClick={() => { setSelectedPost(null); onEnquire(); }}
-                      className="bg-white hover:bg-porsche-red text-black hover:text-white py-4 px-8 text-xs tracking-[0.2em] uppercase font-black transition-all text-center"
+                      className="bg-white hover:bg-porsche-red text-black hover:text-white py-4 px-8 text-xs tracking-[0.2em] uppercase font-black transition-all text-center cursor-pointer"
                     >
                       Enquire Direct
                     </button>
                   </div>
                 </div>
 
+                {/* Bottom Article Social Share Bar */}
+                <div className="mt-10 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-dark">
+                      Liked this research? Share it:
+                    </span>
+                  </div>
+                  <SocialShare
+                    title={selectedPost.title}
+                    summary={selectedPost.summary}
+                    url={typeof window !== 'undefined' ? `${window.location.origin}?article=${selectedPost.id}` : undefined}
+                    variant="compact"
+                    theme="light"
+                  />
+                </div>
+
                 {/* Footer buttons */}
-                <div className="flex items-center justify-between border-t border-gray-100 pt-8 mt-12">
+                <div className="flex items-center justify-between border-t border-gray-100 pt-8 mt-6">
                   <button 
                     onClick={() => setSelectedPost(null)}
-                    className="text-dark/40 hover:text-porsche-red text-xs tracking-widest uppercase font-black flex items-center gap-2 transition-colors"
+                    className="text-dark/40 hover:text-porsche-red text-xs tracking-widest uppercase font-black flex items-center gap-2 transition-colors cursor-pointer"
                   >
                     <ArrowLeft className="w-4 h-4" /> Back to Newsroom
                   </button>

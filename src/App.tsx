@@ -41,7 +41,9 @@ import {
   Image as ImageIcon,
   ExternalLink,
   Clock,
-  Wallet
+  Wallet,
+  Flame,
+  Zap
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import jsPDF from 'jspdf';
@@ -64,7 +66,12 @@ import {
 import { DEVELOPERS } from './data/developers';
 import { PROJECTS } from './data/projects';
 import { Developer, Project, PropertyType } from './types';
-import BlogView from './components/BlogView';
+import BlogView, { BLOG_POSTS, BlogPost } from './components/BlogView';
+import { SocialShare } from './components/SocialShare';
+import { OffPlanView } from './components/OffPlanView';
+import { OFFPLAN_PROJECTS } from './data/offplanProjects';
+import { NewLaunchesView } from './components/NewLaunchesView';
+import { NEW_LAUNCHES } from './data/newLaunches';
 
 const NavLink = ({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) => (
   <a 
@@ -1242,9 +1249,16 @@ const PROPERTIES = [
   { id: 2, title: 'Skyline Penthouse | High ROI Investment', category: 'Penthouses', price: 'AED 28,500,000', location: 'Downtown Dubai', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' },
   { id: 3, title: 'Marina Edge | Apartments for Sale in Dubai', category: 'Apartments', price: 'AED 4,200,000', location: 'Dubai Marina', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800' },
   { id: 4, title: 'Desert Rose | Villas for Sale in Dubai', category: 'Townhouses', price: 'AED 3,800,000', location: 'Arabian Ranches', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' },
-  { id: 5, title: 'Crystal Tower | Dubai Off Plan Properties', category: 'Off-Plan', price: 'Starting AED 1,500,000', location: 'Business Bay', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800' },
-  { id: 6, title: 'Modern Creek | Ready to Move Property', category: 'Ready to Move', price: 'AED 2,100,000', location: 'Dubai Creek Harbour', image: 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?auto=format&fit=crop&q=80&w=800' },
-  { id: 7, title: 'Azure Waterfront | Dubai Distress Deals', category: 'Luxury Villas', price: 'AED 32,000,000', location: 'Jumeirah Bay', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
+  { id: 5, title: 'Seascape by Emaar | Mina Rashid', category: 'Off-Plan', price: 'AED 1,725,000', location: 'Mina Rashid, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/seascape/images/seascape-image-78a4e28fc555b514.jpg' },
+  { id: 6, title: 'Orla Dorchester by Omniyat', category: 'Off-Plan', price: 'AED 57,230,250', location: 'Palm Jumeirah', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/orla-dorchester/images/orla-dorchester-image-0d728347c6b28328.jpg' },
+  { id: 7, title: 'Franck Muller Aeternitas Tower', category: 'Off-Plan', price: 'AED 3,480,000', location: 'Dubai Marina', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/aeternitas/images/aeternitas-image-78bf1be9fb58d208.jpg' },
+  { id: 8, title: 'Moonstone Interiors by Missoni', category: 'Off-Plan', price: 'AED 3,216,777', location: 'Al Marjan Island', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/moonstone-interiors-by-missoni/images/moonstone-interiors-by-missoni-image-fa154d494200d610.jpg' },
+  { id: 9, title: 'District One West Phase 1 by Nakheel', category: 'Off-Plan', price: 'AED 7,960,000', location: 'MBR City District One', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/district-one-west-phase-1/images/district-one-west-phase-1-image-06d2a4ea3c870c55.jpg' },
+  { id: 10, title: 'Almaan 101 by MN Vision', category: 'Off-Plan', price: 'AED 799,000', location: 'JVC, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/almaan-101/images/almaan-101-image-afeeb1c57c58c004.jpg' },
+  { id: 11, title: 'Amazonia Residence by Palladium', category: 'Off-Plan', price: 'AED 940,000', location: 'Al Jaddaf, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/amazonia-residence/images/amazonia-residence-image-7874b31b39f0ea29.jpg' },
+  { id: 12, title: 'Ocean Pearl by Samana', category: 'Off-Plan', price: 'AED 3,940,444', location: 'Dubai Islands', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/samana-ocean-pearl-apartment/images/samana-ocean-pearl-apartment-image-00aa9cb89c3ca270.webp' },
+  { id: 13, title: 'Modern Creek | Ready to Move Property', category: 'Ready to Move', price: 'AED 2,100,000', location: 'Dubai Creek Harbour', image: 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?auto=format&fit=crop&q=80&w=800' },
+  { id: 14, title: 'Azure Waterfront | Dubai Distress Deals', category: 'Luxury Villas', price: 'AED 32,000,000', location: 'Jumeirah Bay', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
 ];
 
 const COMMUNITIES = [
@@ -2542,15 +2556,36 @@ This request was generated from the Rock Deals Smart Hub.
 };
 
 export default function App() {
-  const [view, setView] = useState<'home' | 'calculator' | 'roi-calculator' | 'developers' | 'pre-approval' | 'area-guide' | 'blog'>('home');
+  const [view, setView] = useState<'home' | 'calculator' | 'roi-calculator' | 'developers' | 'pre-approval' | 'area-guide' | 'blog' | 'off-plan' | 'new-launches'>('home');
+  const [selectedBlogId, setSelectedBlogId] = useState<number | null>(null);
+  const [offPlanInitialSearch, setOffPlanInitialSearch] = useState('');
   const [showNewsPopup, setShowNewsPopup] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All Properties');
 
   useEffect(() => {
+    // Check if shared article ID exists in URL query params
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const articleId = params.get('article');
+      if (articleId) {
+        const idNum = parseInt(articleId, 10);
+        if (!isNaN(idNum) && BLOG_POSTS.some(p => p.id === idNum)) {
+          setSelectedBlogId(idNum);
+          setView('blog');
+        }
+      }
+      if (params.get('view') === 'offplan' || params.get('view') === 'off-plan') {
+        setView('off-plan');
+      }
+      if (params.get('view') === 'launches' || params.get('view') === 'new-launches') {
+        setView('new-launches');
+      }
+    }
+
     const isDismissed = sessionStorage.getItem('news-popup-dismissed');
-    if (isDismissed !== 'true' && view !== 'blog') {
+    if (isDismissed !== 'true' && view !== 'blog' && view !== 'off-plan' && view !== 'new-launches') {
       const timer = setTimeout(() => {
         setShowNewsPopup(true);
       }, 4000);
@@ -2631,7 +2666,47 @@ Furnish: ${searchFurnishStatus}
       ) : view === 'pre-approval' ? (
         <PreApprovalForm onBack={() => setView('home')} />
       ) : view === 'blog' ? (
-        <BlogView onBack={() => setView('home')} onEnquire={() => setIsEnquiryModalOpen(true)} />
+        <BlogView 
+          onBack={() => {
+            setView('home');
+            setSelectedBlogId(null);
+          }} 
+          onEnquire={() => setIsEnquiryModalOpen(true)} 
+          initialPostId={selectedBlogId}
+        />
+      ) : view === 'new-launches' ? (
+        <NewLaunchesView
+          onBack={() => setView('home')}
+          onEnquire={(projectName) => {
+            setIsEnquiryModalOpen(true);
+            if (projectName) {
+              setEnquiryForm(prev => ({
+                ...prev,
+                name: prev.name || '',
+                email: prev.email || '',
+                mobile: prev.mobile || ''
+              }));
+            }
+          }}
+          onOpenCalculator={() => setView('calculator')}
+        />
+      ) : view === 'off-plan' ? (
+        <OffPlanView
+          onBack={() => setView('home')}
+          onEnquire={(projectName) => {
+            setIsEnquiryModalOpen(true);
+            if (projectName) {
+              setEnquiryForm(prev => ({
+                ...prev,
+                name: prev.name || '',
+                email: prev.email || '',
+                mobile: prev.mobile || ''
+              }));
+            }
+          }}
+          onOpenCalculator={() => setView('calculator')}
+          initialSearch={offPlanInitialSearch}
+        />
       ) : (
         <div className="min-h-screen bg-white selection:bg-dark selection:text-white">
           {/* Header */}
@@ -2661,9 +2736,21 @@ Furnish: ${searchFurnishStatus}
             </a>
 
             <div className="hidden lg:flex items-center justify-end flex-1">
-              <div className={`flex items-center transition-all duration-500 ${isScrolled ? 'gap-8' : 'gap-12'}`}>
+              <div className={`flex items-center transition-all duration-500 ${isScrolled ? 'gap-6 xl:gap-10' : 'gap-8 xl:gap-12'}`}>
                 {[
                   { name: 'Properties', href: '#property-types' },
+                  { 
+                    name: 'NEW LAUNCHES', 
+                    onClick: () => setView('new-launches'),
+                    badge: '41 LIVE',
+                    isNewLaunch: true
+                  },
+                  { 
+                    name: 'OFF PLAN', 
+                    onClick: () => { setOffPlanInitialSearch(''); setView('off-plan'); },
+                    badge: '36 PROJECTS',
+                    isOffPlan: true
+                  },
                   { name: 'Daily News', onClick: () => setView('blog') },
                   { name: 'Area Guide', onClick: () => setView('area-guide') },
                   { name: 'Developers', onClick: () => setView('developers') },
@@ -2683,9 +2770,20 @@ Furnish: ${searchFurnishStatus}
                         item.onClick();
                       }
                     }}
-                    className={`tracking-[0.25em] uppercase font-black transition-all duration-300 cursor-pointer whitespace-nowrap border-b-2 border-transparent hover:text-porsche-red py-2 ${isScrolled ? 'text-dark text-[11px]' : 'text-white text-[12px]'}`}
+                    className={`inline-flex items-center gap-1.5 tracking-[0.25em] uppercase font-black transition-all duration-300 cursor-pointer whitespace-nowrap border-b-2 py-2 ${
+                      item.isNewLaunch
+                        ? 'text-porsche-red border-porsche-red text-[12px] font-black'
+                        : item.isOffPlan
+                          ? isScrolled ? 'text-dark border-dark text-[11px] font-black' : 'text-white border-white/60 text-[12px] font-black'
+                          : isScrolled ? 'text-dark text-[11px] border-transparent hover:text-porsche-red' : 'text-white text-[12px] border-transparent hover:text-porsche-red'
+                    }`}
                   >
-                    {item.name}
+                    <span>{item.name}</span>
+                    {item.badge && (
+                      <span className="px-1.5 py-0.5 text-[7px] font-technical font-black bg-porsche-red text-white rounded-full tracking-wider animate-pulse">
+                        {item.badge}
+                      </span>
+                    )}
                   </a>
                 ))}
               </div>
@@ -2716,6 +2814,8 @@ Furnish: ${searchFurnishStatus}
               <div className="flex flex-col gap-6 md:gap-8">
                 {[
                   { name: 'Properties', href: '#property-types' },
+                  { name: 'NEW LAUNCHES (41 LIVE)', onClick: () => setView('new-launches'), highlight: true },
+                  { name: 'OFF PLAN PROJECTS', onClick: () => { setOffPlanInitialSearch(''); setView('off-plan'); }, highlight: false },
                   { name: 'Daily News', onClick: () => setView('blog') },
                   { name: 'Developers', onClick: () => setView('developers') },
                   { name: 'ROI Calculator', onClick: () => setView('roi-calculator') },
@@ -2739,9 +2839,16 @@ Furnish: ${searchFurnishStatus}
                         item.onClick();
                       }
                     }} 
-                    className="text-2xl md:text-3xl font-display font-black tracking-tight text-dark uppercase hover:text-porsche-red transition-colors"
+                    className={`text-2xl md:text-3xl font-display font-black tracking-tight uppercase hover:text-porsche-red transition-colors flex items-center justify-between ${
+                      item.highlight ? 'text-porsche-red' : 'text-dark'
+                    }`}
                   >
-                    {item.name}
+                    <span>{item.name}</span>
+                    {item.highlight && (
+                      <span className="text-[10px] font-technical px-2.5 py-1 bg-porsche-red text-white rounded-full tracking-widest">
+                        LIVE
+                      </span>
+                    )}
                   </motion.a>
                 ))}
                 <motion.a 
@@ -2827,11 +2934,19 @@ Furnish: ${searchFurnishStatus}
             <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
             
             {/* Tabs */}
-            <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-2 mb-4 relative z-10">
-              {['RENT', 'BUY', 'OFF PLAN', 'COMMERCIAL'].map((tab) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center justify-center gap-2 mb-4 relative z-10">
+              {['RENT', 'BUY', 'NEW LAUNCHES', 'OFF PLAN', 'COMMERCIAL'].map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => setSearchTab(tab)}
+                  onClick={() => {
+                    setSearchTab(tab);
+                    if (tab === 'NEW LAUNCHES') {
+                      setView('new-launches');
+                    } else if (tab === 'OFF PLAN') {
+                      setOffPlanInitialSearch(searchLocation);
+                      setView('off-plan');
+                    }
+                  }}
                   className={`px-3 md:px-4 py-2.5 md:py-1.5 rounded-xl text-[11px] md:text-[13px] font-technical font-bold tracking-[0.2em] md:tracking-[0.25em] transition-all duration-500 min-h-[44px] md:min-h-0 flex-1 md:flex-none ${
                     searchTab === tab 
                       ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.5)]' 
@@ -3003,12 +3118,21 @@ Furnish: ${searchFurnishStatus}
                 </AnimatePresence>
               </div>
 
-              {/* Submit Enquiry Button */}
+              {/* Submit Enquiry / Off-Plan Button */}
               <button 
-                onClick={() => setIsEnquiryModalOpen(true)}
-                className="lg:col-span-2 bg-porsche-red text-white rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-[12px] font-technical font-bold tracking-[0.25em] uppercase hover:bg-porsche-red/80 transition-all shadow-[0_0_15px_rgba(213,0,28,0.4)] active:scale-95 min-h-[48px] md:min-h-0"
+                onClick={() => {
+                  if (searchTab === 'NEW LAUNCHES') {
+                    setView('new-launches');
+                  } else if (searchTab === 'OFF PLAN') {
+                    setOffPlanInitialSearch(searchLocation);
+                    setView('off-plan');
+                  } else {
+                    setIsEnquiryModalOpen(true);
+                  }
+                }}
+                className="lg:col-span-2 bg-porsche-red text-white rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-[12px] font-technical font-bold tracking-[0.25em] uppercase hover:bg-porsche-red/80 transition-all shadow-[0_0_15px_rgba(213,0,28,0.4)] active:scale-95 min-h-[48px] md:min-h-0 flex items-center justify-center gap-1.5"
               >
-                Submit Enquiry
+                {searchTab === 'NEW LAUNCHES' ? 'New Launches' : searchTab === 'OFF PLAN' ? 'View Off-Plan' : 'Submit Enquiry'}
               </button>
             </div>
           </motion.div>
@@ -3021,18 +3145,23 @@ Furnish: ${searchFurnishStatus}
       >
         <div className="max-w-7xl mx-auto overflow-x-auto no-scrollbar -mx-4 px-4">
           <div className="flex items-center justify-start md:justify-center gap-3 min-w-max">
-            {['All Properties', 'Luxury Villas', 'Apartments', 'Townhouses', 'Off-Plan', 'Ready to Move', 'Developers'].map((filter) => (
+            {['All Properties', 'New Launches', 'Off-Plan', 'Luxury Villas', 'Apartments', 'Townhouses', 'Ready to Move', 'Developers'].map((filter) => (
               <button 
                 key={filter} 
                 onClick={() => {
                   if (filter === 'Developers') {
                     setView('developers');
+                  } else if (filter === 'New Launches') {
+                    setView('new-launches');
+                  } else if (filter === 'Off-Plan') {
+                    setOffPlanInitialSearch('');
+                    setView('off-plan');
                   } else {
                     setActiveFilter(filter);
                   }
                 }}
                 className={`group flex items-center gap-2 rounded-full border font-black tracking-[0.2em] uppercase transition-all duration-500 shadow-sm hover:shadow-md whitespace-nowrap min-h-[40px] md:min-h-0
-                  ${filter === 'Developers' 
+                  ${filter === 'Developers' || filter === 'Off-Plan' || filter === 'New Launches'
                     ? 'bg-porsche-red text-white border-porsche-red shadow-[0_0_15px_rgba(213,0,28,0.3)]' 
                     : activeFilter === filter 
                       ? 'bg-dark text-white border-dark' 
@@ -3041,7 +3170,7 @@ Furnish: ${searchFurnishStatus}
                   ${isScrolled ? 'px-4 py-2 md:py-1.5 text-[10px] md:text-[9px]' : 'px-5 py-2.5 md:py-2 text-[11px] md:text-[10px]'}`}
               >
                 <span className={`rounded-full transition-all duration-300 
-                  ${filter === 'Developers' 
+                  ${filter === 'Developers' || filter === 'New Launches' || filter === 'Off-Plan'
                     ? 'bg-white scale-125' 
                     : activeFilter === filter 
                       ? 'bg-white scale-125' 
@@ -3159,7 +3288,19 @@ Furnish: ${searchFurnishStatus}
                   </div>
                 </div>
 
-                <a href="#contact" className="absolute inset-0 z-10"></a>
+                {prop.category === 'Off-Plan' ? (
+                  <button 
+                    onClick={() => {
+                      const cleanSearch = prop.title.split('|')[0].replace('by', '').trim();
+                      setOffPlanInitialSearch(cleanSearch);
+                      setView('off-plan');
+                    }}
+                    className="absolute inset-0 z-10 w-full h-full text-transparent cursor-pointer"
+                    aria-label={`View ${prop.title}`}
+                  />
+                ) : (
+                  <a href="#contact" className="absolute inset-0 z-10"></a>
+                )}
               </motion.div>
             ))}
           </AnimatePresence>
@@ -3185,6 +3326,39 @@ Furnish: ${searchFurnishStatus}
             Experience the Dubai property market through the lens of high-performance technology. Find the best off-plan projects in Dubai and new launch projects with high ROI.
           </p>
         </div>
+
+        {/* New Launches VIP Banner */}
+        <div 
+          onClick={() => setView('new-launches')}
+          className="mb-8 p-6 md:p-8 bg-dark text-white border-l-4 border-porsche-red flex flex-col md:flex-row items-start md:items-center justify-between gap-6 cursor-pointer hover:bg-black transition-colors group shadow-xl"
+        >
+          <div className="flex items-center gap-5">
+            <div className="w-14 h-14 bg-porsche-red/10 border border-porsche-red/30 flex items-center justify-center shrink-0 text-porsche-red group-hover:bg-porsche-red group-hover:text-white transition-all">
+              <Flame className="w-7 h-7" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="px-2 py-0.5 bg-porsche-red text-white text-[9px] font-black uppercase tracking-widest">
+                  LIVE REGISTRY
+                </span>
+                <span className="text-[11px] font-technical uppercase tracking-widest text-white/50">
+                  41 Newly Unveiled Developments
+                </span>
+              </div>
+              <h3 className="text-xl md:text-2xl font-display font-black uppercase tracking-tight text-white group-hover:text-porsche-red transition-colors">
+                Dubai & Abu Dhabi Master Developer New Launches
+              </h3>
+              <p className="text-xs text-white/60 font-light mt-1">
+                Direct access to Nakheel Palm Springs, Binghatti Starfall, DAMAC Chelsea, and 38+ brand-new pre-construction releases.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 text-porsche-red text-xs font-black tracking-widest uppercase shrink-0 group-hover:translate-x-1 transition-transform">
+            <span>Explore 41 Launches</span>
+            <ArrowRight className="w-4 h-4" />
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-200 border border-gray-200">
           <FeatureCard 
             icon={CreditCard} 
@@ -3406,11 +3580,22 @@ Furnish: ${searchFurnishStatus}
             <div className="md:col-span-3">
               <h4 className="text-dark text-[12px] tracking-[0.4em] uppercase font-black mb-10">Property Types</h4>
               <ul className="space-y-5">
-                {['Luxury Villas', 'Penthouses', 'Apartments', 'Townhouses', 'Off-Plan'].map((item) => (
+                {['New Launches', 'Off-Plan', 'Luxury Villas', 'Penthouses', 'Apartments', 'Townhouses'].map((item) => (
                   <li key={item}>
                     <a 
                       href="#property-types"
-                      onClick={() => setActiveFilter(item)}
+                      onClick={(e) => {
+                        if (item === 'New Launches') {
+                          e.preventDefault();
+                          setView('new-launches');
+                        } else if (item === 'Off-Plan') {
+                          e.preventDefault();
+                          setOffPlanInitialSearch('');
+                          setView('off-plan');
+                        } else {
+                          setActiveFilter(item);
+                        }
+                      }}
                       className="text-dark/40 text-sm hover:text-porsche-red transition-colors font-light cursor-pointer"
                     >
                       {item}
@@ -3555,7 +3740,7 @@ Furnish: ${searchFurnishStatus}
           </div>
         )}
 
-        {showNewsPopup && (
+        {showNewsPopup && BLOG_POSTS[0] && (
           <motion.div
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -3563,6 +3748,7 @@ Furnish: ${searchFurnishStatus}
             transition={{ type: 'spring', damping: 20, stiffness: 150 }}
             className="fixed bottom-6 right-6 z-[150] w-[calc(100vw-32px)] sm:w-[380px] bg-dark text-white p-5 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-none overflow-hidden group cursor-pointer"
             onClick={() => {
+              setSelectedBlogId(BLOG_POSTS[0].id);
               setView('blog');
               setShowNewsPopup(false);
               sessionStorage.setItem('news-popup-dismissed', 'true');
@@ -3578,7 +3764,9 @@ Furnish: ${searchFurnishStatus}
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-porsche-red opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-porsche-red"></span>
                 </span>
-                <span className="text-[9px] tracking-[0.3em] uppercase font-black text-white/50">Live Market Alert</span>
+                <span className="text-[9px] tracking-[0.3em] uppercase font-black text-white/50">
+                  Live Market Alert • {BLOG_POSTS[0].date}
+                </span>
               </div>
               <button
                 onClick={(e) => {
@@ -3593,15 +3781,29 @@ Furnish: ${searchFurnishStatus}
               </button>
             </div>
 
-            <h4 className="text-sm font-display font-black uppercase tracking-tight leading-snug group-hover:text-porsche-red transition-colors duration-300 mb-2">
-              Dubai Real Estate Hits Historic Highs in H1 2026: Volume Up 28%
+            <h4 className="text-sm font-display font-black uppercase tracking-tight leading-snug group-hover:text-porsche-red transition-colors duration-300 mb-2 line-clamp-2">
+              {BLOG_POSTS[0].title}
             </h4>
             
-            <p className="text-white/60 text-xs font-light leading-relaxed mb-4 line-clamp-2">
-              Off-plan payment structures drive 62% of market. Read the full research report & legal updates.
+            <p className="text-white/60 text-xs font-light leading-relaxed mb-3 line-clamp-2">
+              {BLOG_POSTS[0].summary}
             </p>
 
-            <div className="flex items-center justify-between pt-3 border-t border-white/5 text-[10px] tracking-widest uppercase font-black text-porsche-red group-hover:translate-x-1 transition-transform duration-300">
+            {/* Social Media Share Actions in Daily News Popup */}
+            <div 
+              className="py-2 px-3 mb-3 bg-white/[0.04] border border-white/5 flex items-center justify-between"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <SocialShare
+                title={BLOG_POSTS[0].title}
+                summary={BLOG_POSTS[0].summary}
+                url={typeof window !== 'undefined' ? `${window.location.origin}?article=${BLOG_POSTS[0].id}` : undefined}
+                variant="compact"
+                theme="dark"
+              />
+            </div>
+
+            <div className="flex items-center justify-between pt-2.5 border-t border-white/5 text-[10px] tracking-widest uppercase font-black text-porsche-red group-hover:translate-x-1 transition-transform duration-300">
               <span>Read Full Report</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </div>
