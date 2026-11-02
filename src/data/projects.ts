@@ -30,7 +30,7 @@ export const PROJECTS: Project[] = [
     description: 'Creek Waters offers a touch of glamour with a modern character. It is a stylish skyscraper with a wide range of luxurious apartments.',
     highlights: ['Next to Creek Marina', 'Stunning Views of the Creek', 'Modern Architecture', 'Vibrant Community'],
     amenities: ['Swimming Pool', 'Gymnasium', 'Landscaped Gardens', 'BBQ Area', 'Concierge Service'],
-    gallery: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800', 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?auto=format&fit=crop&q=80&w=800'],
+    gallery: ['https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800', 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800'],
     heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200',
     paymentPlanBreakdown: [{ milestone: 'On Booking', percentage: '10%' }, { milestone: 'During Construction', percentage: '80%' }, { milestone: 'On Handover', percentage: '10%' }]
   },

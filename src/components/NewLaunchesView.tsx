@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { 
   ArrowLeft, 
   Search, 
@@ -26,11 +26,15 @@ import {
   MessageCircle,
   Clock,
   Zap,
-  Tag
+  Tag,
+  Camera
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NEW_LAUNCHES, NewLaunchProject } from '../data/newLaunches';
 import { SocialShare } from './SocialShare';
+import { SmartImage } from './SmartImage';
+import { DeveloperBadge } from './DeveloperBadge';
+import { getProjectGalleryWithFallbacks, getFallbackCategory } from '../utils/imageUtils';
 
 interface NewLaunchesViewProps {
   onBack: () => void;
@@ -55,6 +59,20 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
   
   const [selectedProject, setSelectedProject] = useState<NewLaunchProject | null>(null);
   const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
+  const [isFullscreenLightbox, setIsFullscreenLightbox] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const modalScrollRef = useRef<HTMLDivElement>(null);
+
+  // Auto reset scroll to top whenever a project is opened
+  useEffect(() => {
+    if (selectedProject) {
+      setActiveGalleryIndex(0);
+      if (modalScrollRef.current) {
+        modalScrollRef.current.scrollTop = 0;
+      }
+    }
+  }, [selectedProject]);
+
 
   // Extract unique developers
   const developers = useMemo(() => {
@@ -368,22 +386,20 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
               >
                 {/* Top Image Container */}
                 <div 
-                  className="relative h-64 overflow-hidden bg-gray-900 cursor-pointer"
+                  className="relative h-64 overflow-hidden bg-gray-950 cursor-pointer"
                   onClick={() => {
                     setSelectedProject(project);
                     setActiveGalleryIndex(0);
                   }}
                 >
-                  <img 
+                  <SmartImage 
                     src={project.heroImage} 
                     alt={project.name} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-95 group-hover:opacity-100"
-                    loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1200&auto=format&fit=crop';
-                    }}
+                    fallbackCategory={getFallbackCategory(project.name, project.type, project.location)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    containerClassName="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none"></div>
 
                   {/* Top Badges */}
                   <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2 pointer-events-none">
@@ -499,134 +515,279 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
 
       {/* Project Detail Modal */}
       <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 bg-black/80 backdrop-blur-sm overflow-y-auto">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.25 }}
-              className="bg-white w-full max-w-5xl max-h-[92vh] overflow-y-auto shadow-2xl border border-white/20 relative flex flex-col"
-            >
-              {/* Sticky Modal Header */}
-              <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="px-2.5 py-1 bg-porsche-red text-white text-[9px] font-black uppercase tracking-[0.2em]">
-                    {selectedProject.badge}
-                  </span>
-                  <span className="text-xs font-technical uppercase font-bold text-dark/40">
-                    ID #{selectedProject.id} • {selectedProject.city}
-                  </span>
+        {selectedProject && (() => {
+          const projectCategory = getFallbackCategory(selectedProject.name, selectedProject.type, selectedProject.location);
+          const safeGallery = getProjectGalleryWithFallbacks(selectedProject.gallery, selectedProject.heroImage, projectCategory);
+          const safeActiveIndex = activeGalleryIndex < safeGallery.length ? activeGalleryIndex : 0;
+
+          return (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 md:p-6 bg-black/80 backdrop-blur-sm overflow-y-auto">
+              <motion.div
+                ref={modalScrollRef}
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.25 }}
+                className="bg-white w-full max-w-5xl max-h-[92vh] overflow-y-auto shadow-2xl border border-white/20 relative flex flex-col scroll-smooth"
+              >
+                {/* Sticky Modal Header */}
+                <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-4 sm:px-6 py-3.5 border-b border-gray-100 flex items-center justify-between">
+                  <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                    <span className="px-2.5 py-1 bg-porsche-red text-white text-[9px] font-black uppercase tracking-[0.2em]">
+                      {selectedProject.badge}
+                    </span>
+                    <DeveloperBadge 
+                      name={selectedProject.developer} 
+                      logoUrl={selectedProject.developerLogo} 
+                      size="sm" 
+                    />
+                    <span className="text-[11px] font-technical uppercase font-bold text-dark/40 hidden sm:inline">
+                      ID #{selectedProject.id} • {selectedProject.city}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {/* Quick View Photos Button */}
+                    <button
+                      onClick={() => setIsFullscreenLightbox(true)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-porsche-red hover:text-white text-dark text-xs font-technical uppercase font-bold tracking-wider transition-colors min-h-[38px]"
+                      title="View all high-res photos"
+                    >
+                      <Camera className="w-3.5 h-3.5" />
+                      <span>{safeGallery.length} Photos</span>
+                    </button>
+
+                    <button
+                      onClick={() => setSelectedProject(null)}
+                      className="w-9 h-9 rounded-full bg-gray-100 hover:bg-dark hover:text-white flex items-center justify-center transition-colors min-h-[44px] min-w-[44px]"
+                      aria-label="Close details"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="w-9 h-9 rounded-full bg-gray-100 hover:bg-dark hover:text-white flex items-center justify-center transition-colors min-h-[44px] min-w-[44px]"
-                  aria-label="Close details"
+
+                {/* Gallery Carousel with Touch Swiping */}
+                <div 
+                  className="relative bg-black min-h-[300px] sm:min-h-[400px] md:min-h-[460px] h-72 sm:h-96 md:h-[460px] w-full shrink-0 overflow-hidden select-none touch-pan-y"
+                  onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+                  onTouchEnd={(e) => {
+                    if (touchStartX === null) return;
+                    const diff = e.changedTouches[0].clientX - touchStartX;
+                    if (diff > 45) {
+                      // Swiped right -> prev image
+                      setActiveGalleryIndex(safeActiveIndex > 0 ? safeActiveIndex - 1 : safeGallery.length - 1);
+                    } else if (diff < -45) {
+                      // Swiped left -> next image
+                      setActiveGalleryIndex(safeActiveIndex < safeGallery.length - 1 ? safeActiveIndex + 1 : 0);
+                    }
+                    setTouchStartX(null);
+                  }}
                 >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+                  <SmartImage 
+                    src={safeGallery[safeActiveIndex]} 
+                    alt={`${selectedProject.name} - Photo ${safeActiveIndex + 1}`} 
+                    fallbackCategory={projectCategory}
+                    className="w-full h-full object-cover"
+                    containerClassName="w-full h-full min-h-[300px] sm:min-h-[400px] md:min-h-[460px]"
+                    loading="eager"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30 pointer-events-none"></div>
 
-              {/* Gallery Carousel */}
-              <div className="relative bg-black h-72 sm:h-96 md:h-[440px] overflow-hidden select-none">
-                <img 
-                  src={selectedProject.gallery[activeGalleryIndex] || selectedProject.heroImage} 
-                  alt={selectedProject.name} 
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
+                  {/* Fullscreen Expansion Button */}
+                  <button
+                    onClick={() => setIsFullscreenLightbox(true)}
+                    className="absolute top-4 right-4 z-20 px-3 py-1.5 rounded-full bg-black/60 hover:bg-porsche-red text-white flex items-center gap-1.5 backdrop-blur-md transition-all shadow-lg text-xs font-technical uppercase font-bold"
+                    title="View Fullscreen High-Res Render"
+                    aria-label="View Fullscreen High-Res Render"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span>Fullscreen</span>
+                  </button>
 
-                {/* Gallery Navigation Controls */}
-                {selectedProject.gallery.length > 1 && (
-                  <>
-                    <button
-                      onClick={() => setActiveGalleryIndex((prev) => (prev > 0 ? prev - 1 : selectedProject.gallery.length - 1))}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-porsche-red text-white flex items-center justify-center transition-colors min-h-[44px] min-w-[44px]"
-                      aria-label="Previous image"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <button
-                      onClick={() => setActiveGalleryIndex((prev) => (prev < selectedProject.gallery.length - 1 ? prev + 1 : 0))}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-porsche-red text-white flex items-center justify-center transition-colors min-h-[44px] min-w-[44px]"
-                      aria-label="Next image"
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </button>
-                    <div className="absolute bottom-4 right-4 px-3 py-1 bg-black/80 text-white text-xs font-technical font-bold uppercase tracking-widest rounded-full">
-                      {activeGalleryIndex + 1} / {selectedProject.gallery.length}
-                    </div>
-                  </>
+                  {/* Gallery Navigation Controls for Desktop/Tablet */}
+                  {safeGallery.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => setActiveGalleryIndex(safeActiveIndex > 0 ? safeActiveIndex - 1 : safeGallery.length - 1)}
+                        className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-porsche-red text-white items-center justify-center transition-colors min-h-[44px] min-w-[44px] shadow-lg z-10"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="w-6 h-6" />
+                      </button>
+                      <button
+                        onClick={() => setActiveGalleryIndex(safeActiveIndex < safeGallery.length - 1 ? safeActiveIndex + 1 : 0)}
+                        className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 hover:bg-porsche-red text-white items-center justify-center transition-colors min-h-[44px] min-w-[44px] shadow-lg z-10"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="w-6 h-6" />
+                      </button>
+
+                      {/* Image Counter Badge */}
+                      <div className="absolute top-4 left-4 px-3 py-1 bg-black/75 backdrop-blur-sm text-white text-xs font-technical font-bold uppercase tracking-widest rounded-full z-10 flex items-center gap-1.5">
+                        <Camera className="w-3.5 h-3.5 text-porsche-red" />
+                        <span>{safeActiveIndex + 1} / {safeGallery.length} Photos</span>
+                      </div>
+
+                      {/* Mobile Touch Pagination Dots */}
+                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 sm:hidden">
+                        {safeGallery.slice(0, 10).map((_, dotIdx) => (
+                          <button
+                            key={dotIdx}
+                            onClick={() => setActiveGalleryIndex(dotIdx)}
+                            className={`h-1.5 transition-all rounded-full ${
+                              safeActiveIndex === dotIdx ? 'w-5 bg-porsche-red' : 'w-1.5 bg-white/50'
+                            }`}
+                            aria-label={`Slide ${dotIdx + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {/* Overlay Title */}
+                  <div className="absolute bottom-4 left-4 sm:left-6 right-6 text-white pointer-events-none hidden sm:block">
+                    <p className="text-xs font-technical uppercase tracking-widest text-porsche-red font-bold">
+                      Official Master Launch • {selectedProject.developer}
+                    </p>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black uppercase tracking-tight text-white drop-shadow-md">
+                      {selectedProject.name}
+                    </h2>
+                  </div>
+                </div>
+
+                {/* Gallery Thumbnails Strip */}
+                {safeGallery.length > 1 && (
+                  <div className="px-4 sm:px-6 py-2.5 bg-gray-950 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0">
+                    {safeGallery.map((imgUrl, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveGalleryIndex(idx)}
+                        className={`relative w-16 h-11 sm:w-20 sm:h-12 shrink-0 border-2 overflow-hidden transition-all rounded-sm ${
+                          safeActiveIndex === idx ? 'border-porsche-red scale-105 opacity-100 shadow-md ring-2 ring-porsche-red/50' : 'border-transparent opacity-50 hover:opacity-100'
+                        }`}
+                      >
+                        <SmartImage 
+                          src={imgUrl} 
+                          alt={`Thumbnail ${idx + 1}`} 
+                          fallbackCategory={projectCategory}
+                          className="w-full h-full object-cover"
+                          containerClassName="w-full h-full"
+                          showSkeleton={false}
+                          loading="eager"
+                        />
+                      </button>
+                    ))}
+                  </div>
                 )}
 
-                {/* Overlay Title */}
-                <div className="absolute bottom-4 left-6 right-20 text-white pointer-events-none">
-                  <p className="text-xs font-technical uppercase tracking-widest text-porsche-red font-bold">
-                    Official Master Launch • {selectedProject.developer}
-                  </p>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black uppercase tracking-tight text-white drop-shadow-md">
-                    {selectedProject.name}
-                  </h2>
-                </div>
-              </div>
-
-              {/* Gallery Thumbnails Strip */}
-              {selectedProject.gallery.length > 1 && (
-                <div className="px-6 py-3 bg-gray-900 flex items-center gap-2 overflow-x-auto">
-                  {selectedProject.gallery.map((imgUrl, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveGalleryIndex(idx)}
-                      className={`relative w-16 h-12 shrink-0 border-2 overflow-hidden transition-all ${
-                        activeGalleryIndex === idx ? 'border-porsche-red scale-105' : 'border-transparent opacity-60 hover:opacity-100'
-                      }`}
-                    >
-                      <img src={imgUrl} alt="Thumbnail" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Modal Body Content */}
-              <div className="p-6 md:p-8 space-y-8">
-                {/* Stats & Pricing Banner */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 p-5 border border-gray-200">
-                  <div>
-                    <p className="text-[10px] font-technical uppercase tracking-widest text-dark/40 mb-1">Starting Price</p>
-                    <p className="text-xl font-display font-black text-porsche-red">{selectedProject.priceFormatted}</p>
-                    <p className="text-[10px] text-dark/50 mt-0.5">0% Agency Brokerage</p>
+                {/* Modal Body Content */}
+                <div className="p-6 md:p-8 space-y-8">
+                  {/* Stats & Pricing Banner */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 p-5 border border-gray-200">
+                    <div>
+                      <p className="text-[10px] font-technical uppercase tracking-widest text-dark/40 mb-1">Starting Price</p>
+                      <p className="text-xl font-display font-black text-porsche-red">{selectedProject.priceFormatted}</p>
+                      <p className="text-[10px] text-dark/50 mt-0.5">0% Agency Brokerage</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-technical uppercase tracking-widest text-dark/40 mb-1">Handover Schedule</p>
+                      <p className="text-xl font-display font-black text-dark">{selectedProject.handover}</p>
+                      <p className="text-[10px] text-dark/50 mt-0.5">Target Completion</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-technical uppercase tracking-widest text-dark/40 mb-1">Payment Plan</p>
+                      <p className="text-xl font-display font-black text-dark">{selectedProject.paymentPlan}</p>
+                      <p className="text-[10px] text-dark/50 mt-0.5">Direct Developer Terms</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-technical uppercase tracking-widest text-dark/40 mb-1">Estimated ROI</p>
+                      <p className="text-xl font-display font-black text-emerald-600">{selectedProject.roiEstimate}</p>
+                      <p className="text-[10px] text-dark/50 mt-0.5">High Rental Yield</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-technical uppercase tracking-widest text-dark/40 mb-1">Handover Schedule</p>
-                    <p className="text-xl font-display font-black text-dark">{selectedProject.handover}</p>
-                    <p className="text-[10px] text-dark/50 mt-0.5">Target Completion</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-technical uppercase tracking-widest text-dark/40 mb-1">Payment Plan</p>
-                    <p className="text-xl font-display font-black text-dark">{selectedProject.paymentPlan}</p>
-                    <p className="text-[10px] text-dark/50 mt-0.5">Direct Developer Terms</p>
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-technical uppercase tracking-widest text-dark/40 mb-1">Estimated ROI</p>
-                    <p className="text-xl font-display font-black text-emerald-600">{selectedProject.roiEstimate}</p>
-                    <p className="text-[10px] text-dark/50 mt-0.5">High Rental Yield</p>
-                  </div>
-                </div>
 
-                {/* Description & Developer Profile */}
-                <div>
-                  <h4 className="text-xs font-technical uppercase tracking-widest font-black text-dark/40 mb-3">
-                    Project Overview & Architecture
-                  </h4>
-                  <p className="text-sm md:text-base text-dark/70 font-light leading-relaxed whitespace-pre-line">
-                    {selectedProject.description}
-                  </p>
-                </div>
+                  {/* Description & Developer Profile */}
+                  <div>
+                    <h4 className="text-xs font-technical uppercase tracking-widest font-black text-dark/40 mb-3">
+                      Project Overview & Architecture
+                    </h4>
+                    <p className="text-sm md:text-base text-dark/70 font-light leading-relaxed whitespace-pre-line">
+                      {selectedProject.description}
+                    </p>
+                  </div>
 
-                {/* Key Investment Highlights */}
-                <div>
-                  <h4 className="text-xs font-technical uppercase tracking-widest font-black text-dark/40 mb-3">
-                    Rock Deals Executive Highlights
+                  {/* Dedicated Architectural Renders & Visual Tour Gallery in Details */}
+                  <div className="space-y-4 pt-4 border-t border-gray-100">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 bg-porsche-red inline-block"></span>
+                          <h4 className="text-sm font-technical uppercase tracking-widest font-black text-dark">
+                            Project Architectural Renders & Visual Gallery
+                          </h4>
+                        </div>
+                        <p className="text-xs text-dark/50 mt-0.5">
+                          High-resolution master exterior views, interiors, and resort amenities
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setIsFullscreenLightbox(true)}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-dark hover:bg-porsche-red text-white text-xs font-technical uppercase font-bold tracking-wider transition-colors self-start sm:self-auto shadow-sm"
+                      >
+                        <Maximize2 className="w-3.5 h-3.5" />
+                        <span>View All {safeGallery.length} High-Res Photos</span>
+                      </button>
+                    </div>
+
+                    {/* Visual Photo Cards Grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+                      {safeGallery.slice(0, 6).map((imgUrl, photoIdx) => (
+                        <div
+                          key={photoIdx}
+                          onClick={() => {
+                            setActiveGalleryIndex(photoIdx);
+                            setIsFullscreenLightbox(true);
+                          }}
+                          className="group relative h-40 sm:h-52 md:h-56 bg-gray-900 border border-gray-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all"
+                        >
+                          <SmartImage 
+                            src={imgUrl}
+                            alt={`${selectedProject.name} visual render ${photoIdx + 1}`}
+                            fallbackCategory={projectCategory}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            containerClassName="w-full h-full"
+                            loading="eager"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent opacity-60 group-hover:opacity-90 transition-opacity"></div>
+                          
+                          <div className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/70 backdrop-blur-sm text-white text-[10px] font-technical uppercase font-bold tracking-wider">
+                            Photo #{photoIdx + 1}
+                          </div>
+
+                          <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white text-xs font-technical">
+                            <span className="font-bold uppercase tracking-wider text-[11px] truncate pr-2">
+                              {photoIdx === 0 ? 'Master Façade' : photoIdx === 1 ? 'Waterfront Living' : photoIdx === 2 ? 'Luxury Interiors' : photoIdx === 3 ? 'Panoramic Terrace' : `Visual Render 0${photoIdx + 1}`}
+                            </span>
+                            <span className="shrink-0 flex items-center gap-1 text-[10px] text-porsche-red bg-white px-2 py-0.5 font-black uppercase tracking-wider opacity-90 group-hover:opacity-100 transition-opacity">
+                              <Maximize2 className="w-3 h-3" />
+                              View
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] font-technical uppercase tracking-wider text-dark/50 pt-1">
+                      <span>Tap any image to inspect high-resolution render</span>
+                      <span className="text-emerald-700 font-bold">Official Direct Developer Imagery</span>
+                    </div>
+                  </div>
+
+                  {/* Key Investment Highlights */}
+                  <div>
+                    <h4 className="text-xs font-technical uppercase tracking-widest font-black text-dark/40 mb-3">
+                      Rock Deals Executive Highlights
+
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                     {selectedProject.highlights.map((hl, i) => (
@@ -743,7 +904,142 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
                   )}
                 </div>
               </div>
+
+              {/* Mobile Sticky Bottom CTA Bar */}
+              <div className="sm:hidden sticky bottom-0 left-0 right-0 p-3 bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-2xl flex items-center gap-2 z-40">
+                <button
+                  onClick={() => openWhatsApp(selectedProject)}
+                  className="flex-1 py-3 bg-emerald-600 active:bg-emerald-700 text-white text-[11px] font-technical font-black tracking-wider uppercase rounded-xl flex items-center justify-center gap-1.5 shadow-md"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>WhatsApp</span>
+                </button>
+                <button
+                  onClick={() => {
+                    onEnquire(`${selectedProject.name} (VIP Launch Allocation)`);
+                    setSelectedProject(null);
+                  }}
+                  className="flex-[1.4] py-3 bg-porsche-red active:bg-dark text-white text-[11px] font-technical font-black tracking-wider uppercase rounded-xl flex items-center justify-center gap-1 shadow-md"
+                >
+                  <span>VIP Allocation</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </motion.div>
+          </div>
+        );
+      })()}
+    </AnimatePresence>
+
+      {/* Fullscreen High-Resolution Lightbox Viewer */}
+      <AnimatePresence>
+        {isFullscreenLightbox && selectedProject && (
+          <div className="fixed inset-0 z-[150] bg-black/95 flex flex-col justify-between p-4 sm:p-8 backdrop-blur-xl select-none">
+            {/* Lightbox Header */}
+            <div className="flex items-center justify-between text-white border-b border-white/10 pb-4">
+              <div>
+                <p className="text-xs font-technical uppercase tracking-widest text-porsche-red font-bold">
+                  {selectedProject.developer} • Launch Gallery
+                </p>
+                <h3 className="text-lg sm:text-2xl font-display font-black uppercase text-white">
+                  {selectedProject.name}
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsFullscreenLightbox(false)}
+                className="w-11 h-11 rounded-full bg-white/10 hover:bg-porsche-red text-white flex items-center justify-center transition-colors"
+                aria-label="Close fullscreen view"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Lightbox Main Render */}
+            {(() => {
+              const projectCategory = getFallbackCategory(selectedProject.name, selectedProject.type, selectedProject.location);
+              const safeGallery = getProjectGalleryWithFallbacks(selectedProject.gallery, selectedProject.heroImage, projectCategory);
+              const safeActiveIndex = activeGalleryIndex < safeGallery.length ? activeGalleryIndex : 0;
+
+              return (
+                <div 
+                  className="relative flex-1 flex items-center justify-center my-4 overflow-hidden"
+                  onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+                  onTouchEnd={(e) => {
+                    if (touchStartX === null) return;
+                    const diff = e.changedTouches[0].clientX - touchStartX;
+                    if (diff > 45) {
+                      setActiveGalleryIndex(safeActiveIndex > 0 ? safeActiveIndex - 1 : safeGallery.length - 1);
+                    } else if (diff < -45) {
+                      setActiveGalleryIndex(safeActiveIndex < safeGallery.length - 1 ? safeActiveIndex + 1 : 0);
+                    }
+                    setTouchStartX(null);
+                  }}
+                >
+                  <SmartImage
+                    src={safeGallery[safeActiveIndex]}
+                    alt={`${selectedProject.name} Fullscreen`}
+                    fallbackCategory={projectCategory}
+                    className="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl"
+                    containerClassName="flex items-center justify-center w-full h-full"
+                  />
+
+                  {safeGallery.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => setActiveGalleryIndex(safeActiveIndex > 0 ? safeActiveIndex - 1 : safeGallery.length - 1)}
+                        className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-porsche-red text-white flex items-center justify-center transition-all shadow-xl"
+                        aria-label="Previous image"
+                      >
+                        <ChevronLeft className="w-8 h-8" />
+                      </button>
+                      <button
+                        onClick={() => setActiveGalleryIndex(safeActiveIndex < safeGallery.length - 1 ? safeActiveIndex + 1 : 0)}
+                        className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-porsche-red text-white flex items-center justify-center transition-all shadow-xl"
+                        aria-label="Next image"
+                      >
+                        <ChevronRight className="w-8 h-8" />
+                      </button>
+                    </>
+                  )}
+                </div>
+              );
+            })()}
+
+            {/* Lightbox Footer Thumbnails */}
+            {(() => {
+              const projectCategory = getFallbackCategory(selectedProject.name, selectedProject.type, selectedProject.location);
+              const safeGallery = getProjectGalleryWithFallbacks(selectedProject.gallery, selectedProject.heroImage, projectCategory);
+              const safeActiveIndex = activeGalleryIndex < safeGallery.length ? activeGalleryIndex : 0;
+
+              return (
+                <div className="flex items-center justify-between border-t border-white/10 pt-4 gap-4">
+                  <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+                    {safeGallery.map((img, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveGalleryIndex(idx)}
+                        className={`w-16 h-12 shrink-0 rounded overflow-hidden border-2 transition-all ${
+                          safeActiveIndex === idx ? 'border-porsche-red scale-105 opacity-100' : 'border-transparent opacity-40 hover:opacity-80'
+                        }`}
+                      >
+                        <SmartImage
+                          src={img}
+                          alt="Thumbnail"
+                          fallbackCategory={projectCategory}
+                          className="w-full h-full object-cover"
+                          containerClassName="w-full h-full"
+                          showSkeleton={false}
+                        />
+                      </button>
+                    ))}
+                  </div>
+
+                  <span className="text-white/60 font-technical text-xs font-bold shrink-0">
+                    {safeActiveIndex + 1} / {safeGallery.length}
+                  </span>
+                </div>
+              );
+            })()}
           </div>
         )}
       </AnimatePresence>

@@ -72,6 +72,7 @@ import { OffPlanView } from './components/OffPlanView';
 import { OFFPLAN_PROJECTS } from './data/offplanProjects';
 import { NewLaunchesView } from './components/NewLaunchesView';
 import { NEW_LAUNCHES } from './data/newLaunches';
+import { SmartImage } from './components/SmartImage';
 
 const NavLink = ({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) => (
   <a 
@@ -1080,8 +1081,11 @@ const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
 
         <div className="w-full h-full relative overflow-hidden">
           <motion.img 
-            src="https://storage.googleapis.com/birdview-public-assets/projects/ais-dev-x2tn27z2sm6defbgavbyxz-632468988127/assets/map_image.png" 
+            src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=2000" 
             alt="Dubai Map"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&q=80&w=2000';
+            }}
             className="w-full h-full object-cover opacity-90 scale-105 origin-center"
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 0.9, scale: 1.05 }}
@@ -1251,13 +1255,13 @@ const PROPERTIES = [
   { id: 4, title: 'Desert Rose | Villas for Sale in Dubai', category: 'Townhouses', price: 'AED 3,800,000', location: 'Arabian Ranches', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' },
   { id: 5, title: 'Seascape by Emaar | Mina Rashid', category: 'Off-Plan', price: 'AED 1,725,000', location: 'Mina Rashid, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/seascape/images/seascape-image-78a4e28fc555b514.jpg' },
   { id: 6, title: 'Orla Dorchester by Omniyat', category: 'Off-Plan', price: 'AED 57,230,250', location: 'Palm Jumeirah', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/orla-dorchester/images/orla-dorchester-image-0d728347c6b28328.jpg' },
-  { id: 7, title: 'Franck Muller Aeternitas Tower', category: 'Off-Plan', price: 'AED 3,480,000', location: 'Dubai Marina', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/aeternitas/images/aeternitas-image-78bf1be9fb58d208.jpg' },
+  { id: 7, title: 'Franck Muller Aeternitas Tower', category: 'Off-Plan', price: 'AED 3,480,000', location: 'Dubai Marina', image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=80&w=800' },
   { id: 8, title: 'Moonstone Interiors by Missoni', category: 'Off-Plan', price: 'AED 3,216,777', location: 'Al Marjan Island', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/moonstone-interiors-by-missoni/images/moonstone-interiors-by-missoni-image-fa154d494200d610.jpg' },
-  { id: 9, title: 'District One West Phase 1 by Nakheel', category: 'Off-Plan', price: 'AED 7,960,000', location: 'MBR City District One', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/district-one-west-phase-1/images/district-one-west-phase-1-image-06d2a4ea3c870c55.jpg' },
+  { id: 9, title: 'District One West Phase 1 by Nakheel', category: 'Off-Plan', price: 'AED 7,960,000', location: 'MBR City District One', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
   { id: 10, title: 'Almaan 101 by MN Vision', category: 'Off-Plan', price: 'AED 799,000', location: 'JVC, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/almaan-101/images/almaan-101-image-afeeb1c57c58c004.jpg' },
   { id: 11, title: 'Amazonia Residence by Palladium', category: 'Off-Plan', price: 'AED 940,000', location: 'Al Jaddaf, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/amazonia-residence/images/amazonia-residence-image-7874b31b39f0ea29.jpg' },
-  { id: 12, title: 'Ocean Pearl by Samana', category: 'Off-Plan', price: 'AED 3,940,444', location: 'Dubai Islands', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/samana-ocean-pearl-apartment/images/samana-ocean-pearl-apartment-image-00aa9cb89c3ca270.webp' },
-  { id: 13, title: 'Modern Creek | Ready to Move Property', category: 'Ready to Move', price: 'AED 2,100,000', location: 'Dubai Creek Harbour', image: 'https://images.unsplash.com/photo-1600607687940-47a0f9259d4b?auto=format&fit=crop&q=80&w=800' },
+  { id: 12, title: 'Ocean Pearl by Samana', category: 'Off-Plan', price: 'AED 3,940,444', location: 'Dubai Islands', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800' },
+  { id: 13, title: 'Modern Creek | Ready to Move Property', category: 'Ready to Move', price: 'AED 2,100,000', location: 'Dubai Creek Harbour', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' },
   { id: 14, title: 'Azure Waterfront | Dubai Distress Deals', category: 'Luxury Villas', price: 'AED 32,000,000', location: 'Jumeirah Bay', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
 ];
 
@@ -1687,11 +1691,12 @@ const AreaGuide = ({ onBack }: { onBack: () => void }) => {
             >
               {/* Hero */}
               <div className="relative h-[50vh] md:h-[60vh] rounded-3xl md:rounded-[3rem] overflow-hidden shadow-2xl">
-                <img 
+                <SmartImage 
                   src={selectedCommunity?.image} 
-                  alt={selectedCommunity?.name} 
+                  alt={selectedCommunity?.name || 'Community'} 
+                  fallbackCategory="skyscraper"
                   className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
+                  containerClassName="w-full h-full"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] to-transparent"></div>
                 <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12">
@@ -2161,10 +2166,12 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
             >
               {/* Hero Section */}
               <div className="relative h-[50vh] md:h-[80vh] rounded-3xl md:rounded-[3rem] overflow-hidden mb-8 md:mb-16 shadow-2xl">
-                <img 
+                <SmartImage 
                   src={selectedProject.heroImage} 
                   alt={selectedProject.name} 
+                  fallbackCategory={selectedProject.type === 'Villa' ? 'villa' : selectedProject.location.includes('Harbour') || selectedProject.location.includes('Marina') ? 'waterfront' : 'skyscraper'}
                   className="w-full h-full object-cover"
+                  containerClassName="w-full h-full"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-8 md:bottom-24 left-6 md:left-16 right-6 md:right-16">
@@ -2284,7 +2291,13 @@ const DevelopersView = ({ onBack, onEnquire }: { onBack: () => void; onEnquire: 
                       <div className="grid grid-cols-1 gap-6">
                         {selectedProject.gallery.map((img, i) => (
                           <div key={i} className="relative aspect-video rounded-3xl overflow-hidden group cursor-pointer shadow-lg">
-                            <img src={img} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                            <SmartImage 
+                              src={img} 
+                              alt="Gallery" 
+                              fallbackCategory={selectedProject.type === 'Villa' ? 'villa' : 'waterfront'}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                              containerClassName="w-full h-full"
+                            />
                             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                               <Maximize className="w-8 h-8 text-white" />
                             </div>
