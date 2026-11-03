@@ -190,42 +190,42 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
       </header>
 
       {/* Hero Header Section */}
-      <section className="bg-dark text-white relative overflow-hidden py-16 md:py-20 border-b border-white/10">
+      <section className="bg-dark text-white relative overflow-hidden py-10 sm:py-16 md:py-20 border-b border-white/10">
         <div className="absolute inset-0 opacity-15 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(#D5001C_1px,transparent_1px)] [background-size:24px_24px]"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8 mb-6 sm:mb-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-porsche-red text-white text-[10px] font-black uppercase tracking-[0.25em] mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-porsche-red text-white text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] mb-3 sm:mb-4">
                 <Flame className="w-3.5 h-3.5" />
                 OFFICIAL REVERSE-ENGINEERED LAUNCH REGISTRY
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-black tracking-tight uppercase leading-[1.08]">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight uppercase leading-[1.08]">
                 Dubai & Abu Dhabi <br />
                 <span className="text-porsche-red">Exclusive New Launches</span>
               </h1>
-              <p className="mt-4 text-white/60 text-sm md:text-base max-w-2xl font-light leading-relaxed">
+              <p className="mt-2.5 sm:mt-4 text-white/60 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed">
                 Explore real-time off-plan releases directly from Dubai & Abu Dhabi’s top master developers. 
                 Enjoy priority unit selection, pre-launch pricing, and 0% brokerage fees.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 shrink-0">
-              <div className="bg-white/5 border border-white/10 p-4">
-                <p className="text-[10px] font-technical uppercase tracking-widest text-white/40 mb-1">Live Launches</p>
-                <p className="text-2xl font-display font-black text-white">{NEW_LAUNCHES.length}</p>
-                <p className="text-[10px] text-porsche-red font-bold mt-1">Verified Inventory</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4 shrink-0">
+              <div className="bg-white/5 border border-white/10 p-3 sm:p-4">
+                <p className="text-[9px] sm:text-[10px] font-technical uppercase tracking-widest text-white/40 mb-0.5">Live Launches</p>
+                <p className="text-xl sm:text-2xl font-display font-black text-white">{NEW_LAUNCHES.length}</p>
+                <p className="text-[9px] sm:text-[10px] text-porsche-red font-bold mt-0.5">Verified Inventory</p>
               </div>
-              <div className="bg-white/5 border border-white/10 p-4">
-                <p className="text-[10px] font-technical uppercase tracking-widest text-white/40 mb-1">Commission</p>
-                <p className="text-2xl font-display font-black text-porsche-red">0%</p>
-                <p className="text-[10px] text-white/60 font-bold mt-1">Direct Developer</p>
+              <div className="bg-white/5 border border-white/10 p-3 sm:p-4">
+                <p className="text-[9px] sm:text-[10px] font-technical uppercase tracking-widest text-white/40 mb-0.5">Commission</p>
+                <p className="text-xl sm:text-2xl font-display font-black text-porsche-red">0%</p>
+                <p className="text-[9px] sm:text-[10px] text-white/60 font-bold mt-0.5">Direct Developer</p>
               </div>
-              <div className="bg-white/5 border border-white/10 p-4 col-span-2 sm:col-span-1">
-                <p className="text-[10px] font-technical uppercase tracking-widest text-white/40 mb-1">Golden Visa</p>
-                <p className="text-2xl font-display font-black text-white">Eligible</p>
-                <p className="text-[10px] text-white/60 font-bold mt-1">Investments 2M+ AED</p>
+              <div className="bg-white/5 border border-white/10 p-3 sm:p-4 col-span-2 sm:col-span-1">
+                <p className="text-[9px] sm:text-[10px] font-technical uppercase tracking-widest text-white/40 mb-0.5">Golden Visa</p>
+                <p className="text-xl sm:text-2xl font-display font-black text-white">Eligible</p>
+                <p className="text-[9px] sm:text-[10px] text-white/60 font-bold mt-0.5">Investments 2M+ AED</p>
               </div>
             </div>
           </div>
@@ -236,10 +236,10 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
               <Search className="w-4 h-4 text-dark/40" />
               <input 
                 type="text" 
-                placeholder="Search by project name, developer, or location (e.g. Palm Springs, Emaar, Yas Island)..."
+                placeholder="Search by project name, developer, or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent text-dark placeholder:text-dark/40 text-sm focus:outline-none font-medium"
+                className="w-full bg-transparent text-dark placeholder:text-dark/40 text-xs sm:text-sm focus:outline-none font-medium"
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')} className="text-dark/40 hover:text-dark text-xs">
@@ -252,7 +252,7 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
               <select
                 value={selectedCity}
                 onChange={(e) => setSelectedCity(e.target.value)}
-                className="px-3 py-3 bg-gray-50 border border-gray-200 text-dark text-xs font-technical font-bold uppercase tracking-wider focus:outline-none"
+                className="flex-1 sm:flex-none px-3 py-2 bg-gray-50 border border-gray-200 text-dark text-xs font-technical font-bold uppercase tracking-wider focus:outline-none"
               >
                 <option value="All">All Cities</option>
                 <option value="Dubai">Dubai</option>
@@ -262,7 +262,7 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
               <select
                 value={selectedDeveloper}
                 onChange={(e) => setSelectedDeveloper(e.target.value)}
-                className="px-3 py-3 bg-gray-50 border border-gray-200 text-dark text-xs font-technical font-bold uppercase tracking-wider focus:outline-none max-w-[170px]"
+                className="flex-1 sm:flex-none px-3 py-2 bg-gray-50 border border-gray-200 text-dark text-xs font-technical font-bold uppercase tracking-wider focus:outline-none max-w-[150px] truncate"
               >
                 <option value="All">All Developers</option>
                 {developers.filter(d => d !== 'All').map(dev => (
@@ -272,7 +272,7 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
 
               <button 
                 onClick={resetFilters}
-                className="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-dark text-xs font-technical font-bold uppercase tracking-wider transition-colors whitespace-nowrap"
+                className="px-3.5 py-2 bg-gray-100 hover:bg-gray-200 text-dark text-xs font-technical font-bold uppercase tracking-wider transition-colors whitespace-nowrap"
               >
                 Reset
               </button>
@@ -282,37 +282,35 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
       </section>
 
       {/* Filter Chips Bar */}
-      <div className="bg-white border-b border-gray-200 sticky top-[69px] z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-dark/40 font-technical font-bold uppercase text-[10px] tracking-widest mr-1">
-              Filters:
+      <div className="bg-white border-b border-gray-200 sticky top-[56px] sm:top-[69px] z-40 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-2 sm:py-2.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
+            <span className="text-dark/40 font-technical font-bold uppercase text-[10px] tracking-widest shrink-0 mr-1">
+              Type:
             </span>
 
             {/* Type Filter */}
-            <div className="flex items-center gap-1">
-              {['All', 'Apartment', 'Villa', 'Townhouse', 'Penthouse'].map(t => (
-                <button
-                  key={t}
-                  onClick={() => setSelectedType(t)}
-                  className={`px-3 py-1 text-[11px] font-technical uppercase font-bold tracking-wider transition-colors ${
-                    selectedType === t 
-                      ? 'bg-dark text-white' 
-                      : 'bg-gray-100 text-dark/60 hover:bg-gray-200'
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
+            {['All', 'Apartment', 'Villa', 'Townhouse', 'Penthouse'].map(t => (
+              <button
+                key={t}
+                onClick={() => setSelectedType(t)}
+                className={`px-3 py-1.5 text-[11px] font-technical uppercase font-bold tracking-wider transition-colors shrink-0 ${
+                  selectedType === t 
+                    ? 'bg-dark text-white' 
+                    : 'bg-gray-100 text-dark/70 hover:bg-gray-200'
+                }`}
+              >
+                {t}
+              </button>
+            ))}
 
-            <div className="h-4 w-px bg-gray-300 hidden sm:block mx-1"></div>
+            <div className="h-4 w-px bg-gray-300 shrink-0 mx-1"></div>
 
             {/* Price Filter */}
             <select
               value={selectedPriceRange}
               onChange={(e) => setSelectedPriceRange(e.target.value)}
-              className="px-2.5 py-1 bg-gray-100 text-dark text-[11px] font-technical uppercase font-bold tracking-wider focus:outline-none border-none"
+              className="px-2.5 py-1.5 bg-gray-100 text-dark text-[11px] font-technical uppercase font-bold tracking-wider focus:outline-none border-none shrink-0"
             >
               <option value="All">Price: Any</option>
               <option value="under2m">Under AED 2M</option>
@@ -325,7 +323,7 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
             <select
               value={selectedHandover}
               onChange={(e) => setSelectedHandover(e.target.value)}
-              className="px-2.5 py-1 bg-gray-100 text-dark text-[11px] font-technical uppercase font-bold tracking-wider focus:outline-none border-none"
+              className="px-2.5 py-1.5 bg-gray-100 text-dark text-[11px] font-technical uppercase font-bold tracking-wider focus:outline-none border-none shrink-0"
             >
               <option value="All">Handover: Any</option>
               <option value="2026">2026</option>
@@ -335,30 +333,32 @@ export const NewLaunchesView: React.FC<NewLaunchesViewProps> = ({
             </select>
           </div>
 
-          {/* Sort By */}
-          <div className="flex items-center gap-2">
-            <span className="text-dark/40 font-technical font-bold uppercase text-[10px] tracking-widest">
-              Sort:
-            </span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-2.5 py-1 bg-gray-100 text-dark text-[11px] font-technical uppercase font-bold tracking-wider focus:outline-none border-none"
-            >
-              <option value="newest">Featured Newest</option>
-              <option value="price-asc">Price (Low to High)</option>
-              <option value="price-desc">Price (High to Low)</option>
-              <option value="roi">Highest Target ROI</option>
-            </select>
-            <span className="text-xs font-technical text-dark/40 ml-2">
-              Showing <span className="font-bold text-dark">{filteredProjects.length}</span> launches
+          {/* Sort By & Launch count */}
+          <div className="flex items-center justify-between sm:justify-end gap-2 text-xs pt-1 sm:pt-0 border-t sm:border-t-0 border-gray-100">
+            <div className="flex items-center gap-1.5">
+              <span className="text-dark/40 font-technical font-bold uppercase text-[10px] tracking-widest">
+                Sort:
+              </span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="px-2 py-1 bg-gray-100 text-dark text-[11px] font-technical uppercase font-bold tracking-wider focus:outline-none border-none"
+              >
+                <option value="newest">Featured Newest</option>
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+                <option value="roi">Highest Target ROI</option>
+              </select>
+            </div>
+            <span className="text-[11px] font-technical text-dark/50">
+              <span className="font-bold text-dark">{filteredProjects.length}</span> launches
             </span>
           </div>
         </div>
       </div>
 
       {/* Main Grid Section */}
-      <main className="max-w-7xl mx-auto px-4 md:px-8 py-10">
+      <main className="max-w-7xl mx-auto px-4 md:px-8 py-6 sm:py-10 pb-24 sm:pb-12">
         {filteredProjects.length === 0 ? (
           <div className="bg-white border border-gray-200 p-12 text-center max-w-lg mx-auto">
             <Building2 className="w-12 h-12 text-dark/20 mx-auto mb-4" />

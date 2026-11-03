@@ -167,70 +167,71 @@ export const OffPlanView: React.FC<OffPlanViewProps> = ({
       </header>
 
       {/* Hero Headline Section */}
-      <section className="relative bg-dark text-white pt-16 md:pt-24 pb-16 md:pb-24 px-4 md:px-8 overflow-hidden">
+      {/* Hero Header Section */}
+      <section className="relative bg-dark text-white pt-10 sm:pt-20 pb-8 sm:pb-16 px-4 md:px-8 overflow-hidden">
         {/* Subtle grid background */}
         <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px]"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-porsche-red/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 sm:gap-8 mb-6 sm:mb-10">
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <span className="w-8 h-[2px] bg-porsche-red"></span>
-                <span className="text-porsche-red text-xs md:text-sm font-technical font-black uppercase tracking-[0.3em]">
+              <div className="flex items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-4">
+                <span className="w-6 sm:w-8 h-[2px] bg-porsche-red"></span>
+                <span className="text-porsche-red text-[11px] sm:text-xs md:text-sm font-technical font-black uppercase tracking-[0.25em] sm:tracking-[0.3em]">
                   Live Dubai Launch Registry
                 </span>
               </div>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-display font-black tracking-tight leading-none uppercase">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-black tracking-tight leading-[1.05] uppercase">
                 Accurate Off-Plan <br />
                 <span className="text-porsche-red">Dubai Projects.</span>
               </h1>
             </div>
 
-            <p className="text-white/60 text-sm md:text-base max-w-md font-light leading-relaxed">
+            <p className="text-white/60 text-xs sm:text-sm md:text-base max-w-md font-light leading-relaxed">
               Explore authentic Dubai off-plan developments with verified developer pricing, handover schedules, and flexible payment plans. 0% agency fees with full DLD transparency.
             </p>
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 backdrop-blur-md">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 bg-white/5 border border-white/10 rounded-2xl p-3 sm:p-5 backdrop-blur-md">
             <div>
-              <p className="text-white/40 text-[10px] font-technical font-bold uppercase tracking-widest mb-1">Total Verified Projects</p>
-              <p className="text-2xl md:text-3xl font-display font-black text-white">{OFFPLAN_PROJECTS.length} Developments</p>
+              <p className="text-white/40 text-[9px] sm:text-[10px] font-technical font-bold uppercase tracking-widest mb-0.5">Total Verified Projects</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white">{OFFPLAN_PROJECTS.length} Developments</p>
             </div>
             <div>
-              <p className="text-white/40 text-[10px] font-technical font-bold uppercase tracking-widest mb-1">Starting Price From</p>
-              <p className="text-2xl md:text-3xl font-display font-black text-porsche-red">AED 624K</p>
+              <p className="text-white/40 text-[9px] sm:text-[10px] font-technical font-bold uppercase tracking-widest mb-0.5">Starting Price From</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-display font-black text-porsche-red">AED 624K</p>
             </div>
             <div>
-              <p className="text-white/40 text-[10px] font-technical font-bold uppercase tracking-widest mb-1">Payment Schemes</p>
-              <p className="text-2xl md:text-3xl font-display font-black text-white">1% / 80/20 / 60/40</p>
+              <p className="text-white/40 text-[9px] sm:text-[10px] font-technical font-bold uppercase tracking-widest mb-0.5">Payment Schemes</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white">1% / 80/20 / 60/40</p>
             </div>
             <div>
-              <p className="text-white/40 text-[10px] font-technical font-bold uppercase tracking-widest mb-1">Agency Commission</p>
-              <p className="text-2xl md:text-3xl font-display font-black text-white">0% Free Support</p>
+              <p className="text-white/40 text-[9px] sm:text-[10px] font-technical font-bold uppercase tracking-widest mb-0.5">Agency Commission</p>
+              <p className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white">0% Free Support</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Filter and Search Bar */}
-      <section className="sticky top-[73px] z-40 bg-white border-b border-gray-200 shadow-sm py-4 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto flex flex-col gap-3">
+      <section className="sticky top-[56px] sm:top-[73px] z-40 bg-white border-b border-gray-200 shadow-sm py-2.5 sm:py-3.5 px-3 sm:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col gap-2 sm:gap-3">
           {/* Main Search Input */}
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dark/40" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-dark/40" />
             <input 
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by project name, developer (e.g. Emaar, Omniyat, Nakheel), or area (e.g. Dubai Islands, Palm Jumeirah)..."
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-11 pr-10 py-3 text-sm text-dark placeholder:text-dark/30 focus:outline-none focus:border-porsche-red/50 focus:bg-white transition-all font-medium"
+              placeholder="Search by project name, developer, or area..."
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm text-dark placeholder:text-dark/30 focus:outline-none focus:border-porsche-red/50 focus:bg-white transition-all font-medium"
             />
             {searchQuery && (
               <button 
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-dark/40 hover:text-dark"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-dark/40 hover:text-dark"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -238,14 +239,14 @@ export const OffPlanView: React.FC<OffPlanViewProps> = ({
           </div>
 
           {/* Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
             {/* Developer Selector */}
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              <span className="text-dark/40 font-technical uppercase font-bold text-[10px]">Developer:</span>
+            <div className="flex items-center gap-1 flex-shrink-0">
+              <span className="text-dark/40 font-technical uppercase font-bold text-[9px] sm:text-[10px]">Dev:</span>
               <select 
                 value={selectedDeveloper}
                 onChange={(e) => setSelectedDeveloper(e.target.value)}
-                className="bg-gray-100 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-dark focus:outline-none focus:border-porsche-red"
+                className="bg-gray-100 border border-gray-200 rounded-lg px-2 sm:px-2.5 py-1 sm:py-1.5 text-xs font-semibold text-dark focus:outline-none focus:border-porsche-red max-w-[130px] truncate"
               >
                 {developers.map(dev => (
                   <option key={dev} value={dev}>{dev === 'All' ? 'All Developers' : dev}</option>
@@ -254,44 +255,44 @@ export const OffPlanView: React.FC<OffPlanViewProps> = ({
             </div>
 
             {/* Location Selector */}
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              <span className="text-dark/40 font-technical uppercase font-bold text-[10px]">Community:</span>
+            <div className="flex items-center gap-1 flex-shrink-0">
+              <span className="text-dark/40 font-technical uppercase font-bold text-[9px] sm:text-[10px]">Area:</span>
               <select 
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="bg-gray-100 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-dark focus:outline-none focus:border-porsche-red"
+                className="bg-gray-100 border border-gray-200 rounded-lg px-2 sm:px-2.5 py-1 sm:py-1.5 text-xs font-semibold text-dark focus:outline-none focus:border-porsche-red max-w-[130px] truncate"
               >
                 {locations.map(loc => (
-                  <option key={loc} value={loc}>{loc === 'All' ? 'All Communities' : loc}</option>
+                  <option key={loc} value={loc}>{loc === 'All' ? 'All Areas' : loc}</option>
                 ))}
               </select>
             </div>
 
             {/* Price Selector */}
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              <span className="text-dark/40 font-technical uppercase font-bold text-[10px]">Price:</span>
+            <div className="flex items-center gap-1 flex-shrink-0">
+              <span className="text-dark/40 font-technical uppercase font-bold text-[9px] sm:text-[10px]">Price:</span>
               <select 
                 value={selectedPriceRange}
                 onChange={(e) => setSelectedPriceRange(e.target.value)}
-                className="bg-gray-100 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-dark focus:outline-none focus:border-porsche-red"
+                className="bg-gray-100 border border-gray-200 rounded-lg px-2 sm:px-2.5 py-1 sm:py-1.5 text-xs font-semibold text-dark focus:outline-none focus:border-porsche-red"
               >
                 <option value="All">All Prices</option>
-                <option value="under1m">Under AED 1,000,000</option>
+                <option value="under1m">Under AED 1M</option>
                 <option value="1m-2m">AED 1M - 2M</option>
                 <option value="2m-5m">AED 2M - 5M</option>
-                <option value="over5m">Ultra Luxury (AED 5M+)</option>
+                <option value="over5m">AED 5M+</option>
               </select>
             </div>
 
             {/* Handover Selector */}
-            <div className="flex items-center gap-1.5 flex-shrink-0">
-              <span className="text-dark/40 font-technical uppercase font-bold text-[10px]">Handover:</span>
+            <div className="flex items-center gap-1 flex-shrink-0">
+              <span className="text-dark/40 font-technical uppercase font-bold text-[9px] sm:text-[10px]">Handover:</span>
               <select 
                 value={selectedHandover}
                 onChange={(e) => setSelectedHandover(e.target.value)}
-                className="bg-gray-100 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-dark focus:outline-none focus:border-porsche-red"
+                className="bg-gray-100 border border-gray-200 rounded-lg px-2 sm:px-2.5 py-1 sm:py-1.5 text-xs font-semibold text-dark focus:outline-none focus:border-porsche-red"
               >
-                <option value="All">All Handover Dates</option>
+                <option value="All">All Dates</option>
                 <option value="2026">2026</option>
                 <option value="2027">2027</option>
               </select>
@@ -300,9 +301,9 @@ export const OffPlanView: React.FC<OffPlanViewProps> = ({
             {(selectedDeveloper !== 'All' || selectedLocation !== 'All' || selectedPriceRange !== 'All' || selectedHandover !== 'All' || searchQuery) && (
               <button 
                 onClick={resetFilters}
-                className="text-porsche-red hover:underline text-[11px] font-technical uppercase font-bold flex-shrink-0 ml-2"
+                className="text-porsche-red hover:underline text-[11px] font-technical uppercase font-bold flex-shrink-0 ml-1.5"
               >
-                Reset All Filters
+                Reset
               </button>
             )}
           </div>
@@ -310,8 +311,8 @@ export const OffPlanView: React.FC<OffPlanViewProps> = ({
       </section>
 
       {/* Projects Grid Section */}
-      <main className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-        <div className="flex items-center justify-between mb-8">
+      <main className="max-w-7xl mx-auto px-4 md:px-8 py-6 sm:py-10 pb-24 sm:pb-12">
+        <div className="flex items-center justify-between mb-5 sm:mb-8">
           <div>
             <p className="text-xs font-technical uppercase tracking-widest text-dark/40 font-bold">
               Showing <span className="text-porsche-red font-black">{filteredProjects.length}</span> of {OFFPLAN_PROJECTS.length} Projects

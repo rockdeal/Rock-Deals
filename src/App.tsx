@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   Menu, 
   X, 
@@ -73,6 +73,8 @@ import { OFFPLAN_PROJECTS } from './data/offplanProjects';
 import { NewLaunchesView } from './components/NewLaunchesView';
 import { NEW_LAUNCHES } from './data/newLaunches';
 import { SmartImage } from './components/SmartImage';
+import { PropertyCompareModal, PropertyItem } from './components/PropertyCompareModal';
+import { PropertyCompareBar } from './components/PropertyCompareBar';
 
 const NavLink = ({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) => (
   <a 
@@ -87,24 +89,24 @@ const NavLink = ({ href, children, active = false }: { href: string; children: R
 const FeatureCard = ({ icon: Icon, title, description, badge, onClick }: { icon: any; title: string; description: string; badge: string; onClick?: () => void }) => (
   <div 
     onClick={onClick}
-    className={`group bg-white p-10 hover:shadow-2xl hover:shadow-dark/5 transition-all duration-700 border border-gray-50 relative overflow-hidden ${onClick ? 'cursor-pointer' : 'cursor-default'}`}
+    className={`group bg-white p-6 sm:p-8 md:p-10 hover:shadow-2xl hover:shadow-dark/5 transition-all duration-700 border border-gray-100 relative overflow-hidden ${onClick ? 'cursor-pointer' : 'cursor-default'}`}
   >
     <div className="absolute top-0 left-0 w-1 h-0 bg-porsche-red transition-all duration-500 group-hover:h-full"></div>
-    <div className="flex items-start justify-between mb-12">
-      <div className="w-16 h-16 flex items-center justify-center bg-dark text-white rounded-none transition-all duration-500 group-hover:bg-porsche-red group-hover:rotate-[360deg]">
-        <Icon className="w-7 h-7" />
+    <div className="flex items-start justify-between mb-6 sm:mb-10 md:mb-12">
+      <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center bg-dark text-white rounded-none transition-all duration-500 group-hover:bg-porsche-red group-hover:rotate-[360deg]">
+        <Icon className="w-5 h-5 sm:w-7 sm:h-7" />
       </div>
-      <span className="bg-gray-100 text-dark/40 text-[8px] md:text-[7px] font-black px-3 py-1 tracking-[0.3em] uppercase whitespace-nowrap group-hover:bg-porsche-red group-hover:text-white transition-colors duration-500">
+      <span className="bg-gray-100 text-dark/60 text-[9px] sm:text-[8px] md:text-[7px] font-black px-2.5 sm:px-3 py-1 tracking-[0.25em] sm:tracking-[0.3em] uppercase whitespace-nowrap group-hover:bg-porsche-red group-hover:text-white transition-colors duration-500">
         {badge}
       </span>
     </div>
-    <h3 className="text-dark font-display font-black text-xl mb-4 tracking-tight uppercase">
+    <h3 className="text-dark font-display font-black text-lg sm:text-xl mb-2 sm:mb-4 tracking-tight uppercase">
       {title}
     </h3>
-    <p className="text-dark/50 text-sm leading-relaxed font-light">
+    <p className="text-dark/50 text-xs sm:text-sm leading-relaxed font-light">
       {description}
     </p>
-    <div className="mt-10 flex items-center gap-3 text-porsche-red text-[11px] font-black tracking-[0.3em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+    <div className="mt-6 sm:mt-10 flex items-center gap-3 text-porsche-red text-[10px] sm:text-[11px] font-black tracking-[0.3em] uppercase opacity-90 sm:opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-0 sm:translate-y-2 group-hover:translate-y-0">
       {onClick ? 'Open Calculator' : 'Explore Details'} <ArrowRight className="w-3 h-3" />
     </div>
   </div>
@@ -956,313 +958,1075 @@ const ZONES = [
   {
     id: 'palm-jumeirah',
     name: 'Palm Jumeirah',
-    areas: ['The Fronds', 'The Crescent', 'Golden Mile', 'Atlantis'],
+    tagline: 'Iconic Waterfront Living',
+    areas: ['The Fronds', 'The Crescent', 'Golden Mile', 'Atlantis', 'Palm Tower'],
     yield: '7.2%',
     pricePerSqft: '3,200 AED',
-    description: 'The world\'s most famous man-made island, offering ultra-luxury villas and high-end apartments with private beach access.',
-    image: 'https://images.unsplash.com/photo-1549944850-84e00be4203b?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '22%', y: '62%' },
+    description: 'The world\'s most famous man-made island, offering ultra-luxury beachfront villas, branded residences, and direct private beach access on the Arabian Gulf.',
+    image: 'https://images.unsplash.com/photo-1549944850-84e00be4203b?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '24%', y: '50%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'marina',
     name: 'Dubai Marina',
-    areas: ['Dubai Marina', 'JBR', 'Blue Waters', 'Marsa Dubai'],
+    tagline: 'Riviera High-Rise Living',
+    areas: ['Dubai Marina Promenade', 'JBR Beach', 'Bluewaters Island', 'Marsa Dubai'],
     yield: '7.8%',
     pricePerSqft: '2,100 AED',
-    description: 'A vibrant waterfront community known for its high-rise towers, luxury yachts, and a bustling promenade with world-class dining.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '32%', y: '74%' },
+    description: 'A vibrant waterfront community known for its high-rise towers, luxury yachts, and a bustling promenade with world-class dining and high rental demand.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '17%', y: '70%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'downtown',
     name: 'Downtown Dubai',
-    areas: ['Burj Khalifa', 'Dubai Mall', 'Old Town', 'The Address'],
+    tagline: 'The Center of Now',
+    areas: ['Burj Khalifa', 'Dubai Mall', 'Opera District', 'Old Town', 'The Address'],
     yield: '6.5%',
     pricePerSqft: '2,800 AED',
-    description: 'The heart of the city, home to the Burj Khalifa and Dubai Mall. Offers premium urban living with iconic views and unmatched convenience.',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '63%', y: '52%' },
+    description: 'The prestigious epicenter of Dubai, home to the Burj Khalifa and Dubai Mall. Offers premium urban living with iconic skyline views and unmatched global prestige.',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '58%', y: '44%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'business-bay',
     name: 'Business Bay',
-    areas: ['Executive Towers', 'Bay Square', 'Marasi Drive'],
+    tagline: 'Metropolitan Canal Enclave',
+    areas: ['Executive Towers', 'Bay Square', 'Marasi Drive', 'Canal Front Residences'],
     yield: '7.4%',
     pricePerSqft: '1,850 AED',
-    description: 'A major business district with a mix of commercial and residential towers, offering a cosmopolitan lifestyle along the Dubai Canal.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '66%', y: '58%' },
+    description: 'Dubai\'s central commercial and luxury residential artery running alongside the Dubai Water Canal, bordering Downtown with exceptional capital growth.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '55%', y: '56%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'creek-harbour',
     name: 'Creek Harbour',
-    areas: ['Creek Island', 'The Island District', 'Creek Beach'],
+    tagline: 'Future Waterfront Masterpiece',
+    areas: ['Creek Island', 'The Island District', 'Creek Beach', 'Address Grand'],
     yield: '8.1%',
     pricePerSqft: '1,950 AED',
-    description: 'A sustainable waterfront community offering a mix of residential, commercial, and retail spaces with stunning views of the Dubai skyline.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '78%', y: '48%' },
+    description: 'A forward-looking waterfront master development by Emaar, offering modern luxury residences overlooking the Ras Al Khor sanctuary and Dubai skyline.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '74%', y: '40%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'hills-estate',
     name: 'Dubai Hills Estate',
-    areas: ['Sidra', 'Maple', 'Park Heights', 'Golf Grove'],
+    tagline: 'Green Heart of Dubai',
+    areas: ['Sidra Villas', 'Maple', 'Park Heights', 'Golf Grove', 'Park Point'],
     yield: '6.8%',
     pricePerSqft: '1,650 AED',
-    description: 'A master-planned community centered around an 18-hole championship golf course, offering a serene and family-friendly environment.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '58%', y: '68%' },
+    description: 'A master-planned family golf community centered around an 18-hole championship course, Dubai Hills Mall, and vast rolling green parks.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '46%', y: '70%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'arabian-ranches',
     name: 'Arabian Ranches',
-    areas: ['Ranches 1', 'Ranches 2', 'Ranches 3'],
+    tagline: 'Premier Desert Oasis',
+    areas: ['Ranches 1', 'Ranches 2', 'Ranches 3', 'Polo Club'],
     yield: '6.2%',
     pricePerSqft: '1,450 AED',
-    description: 'A premium gated community offering a range of villas and townhouses, known for its lush greenery and world-class amenities.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '45%', y: '78%' },
+    description: 'Dubai\'s benchmark gated villa community offering spacious family villas, world-class polo club, golf facilities, and tranquil suburban security.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '36%', y: '82%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'jumeirah-beach',
     name: 'Jumeirah Beach',
-    areas: ['JBR', 'La Mer', 'Pearl Jumeirah'],
+    tagline: 'Exclusive Coastal Strip',
+    areas: ['La Mer', 'Pearl Jumeirah', 'Jumeirah Bay Island', 'Kite Beach'],
     yield: '7.0%',
     pricePerSqft: '2,400 AED',
-    description: 'A prime coastal area offering luxury beachfront living with a mix of residential and leisure destinations.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '50%', y: '45%' },
+    description: 'Prestigious low-rise coastal strip featuring private mansions, five-star resorts, and ultra-prime waterfront branded residences.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '42%', y: '35%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'bur-dubai',
     name: 'Bur Dubai',
-    areas: ['Al Mankhool', 'Al Karama', 'Oud Metha'],
+    tagline: 'Heritage & Trade Corridor',
+    areas: ['Al Mankhool', 'Al Karama', 'Oud Metha', 'Al Fahidi'],
     yield: '7.9%',
     pricePerSqft: '1,250 AED',
-    description: 'A historic district known for its cultural landmarks, traditional architecture, and vibrant community life.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '65%', y: '45%' },
+    description: 'A historic district known for diplomatic missions, cultural landmarks, high rental occupancy, and traditional trading proximity.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '67%', y: '30%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   },
   {
     id: 'deira',
-    name: 'Deira',
-    areas: ['Al Rigga', 'Al Muraqqabat', 'Naif'],
+    name: 'Deira & Waterfront',
+    tagline: 'Historic Commercial Gateway',
+    areas: ['Dubai Islands', 'Gold Souk District', 'Al Rigga', 'Deira Corniche'],
     yield: '8.5%',
     pricePerSqft: '1,100 AED',
-    description: 'One of the oldest parts of Dubai, Deira is a bustling commercial hub with a rich cultural heritage and a variety of traditional souks.',
-    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    coords: { x: '80%', y: '38%' },
+    description: 'Dubai\'s historic trading capital with new master developments at Dubai Islands, yielding some of the highest gross rental returns across the city.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=1200',
+    coords: { x: '82%', y: '22%' },
     link: 'https://www.bayut.com/mybayut/dubai-sales-market-report-h1-2023/'
   }
 ];
 
 const DubaiMap = ({ onSearch }: { onSearch?: (filter: string) => void }) => {
-  const [activeZone, setActiveZone] = useState(ZONES[3]);
+  const [activeZone, setActiveZone] = useState(ZONES[0]);
+  const [filterMode, setFilterMode] = useState<'all' | 'highYield' | 'waterfront'>('all');
+
+  const displayedZones = ZONES.filter((z) => {
+    if (filterMode === 'highYield') return parseFloat(z.yield) >= 7.2;
+    if (filterMode === 'waterfront') {
+      return ['palm-jumeirah', 'marina', 'jumeirah-beach', 'creek-harbour', 'business-bay'].includes(z.id);
+    }
+    return true;
+  });
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      {/* Interactive SVG Map */}
-      <div className="lg:col-span-7 relative aspect-[4/3] bg-white/5 border border-white/10 overflow-hidden group">
-        {/* Scanning Line Effect */}
-        <motion.div 
-          animate={{ x: ['-100%', '200%'] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 bottom-0 w-48 bg-gradient-to-r from-transparent via-porsche-red/10 to-transparent skew-x-12 pointer-events-none z-20"
-        />
-
-        <div className="w-full h-full relative overflow-hidden">
-          <motion.img 
-            src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=2000" 
-            alt="Dubai Map"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&q=80&w=2000';
-            }}
-            className="w-full h-full object-cover opacity-90 scale-105 origin-center"
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 0.9, scale: 1.05 }}
-            transition={{ duration: 1.5 }}
-          />
-          {/* Technical Overlay Grid */}
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />
-          
-          {/* Red Glowing Road Effect (Simulated) */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-porsche-red/5 via-transparent to-porsche-red/5 pointer-events-none" />
-
-          {/* Masking the logo in bottom right */}
-          <div className="absolute bottom-0 right-0 w-32 h-32 bg-dark/90 blur-3xl pointer-events-none z-20" />
-          
-          <svg viewBox="0 0 800 600" className="absolute inset-0 w-full h-full z-10 pointer-events-none">
-            {/* Technical Crosshair Overlay */}
-            <line x1="0" y1="300" x2="800" y2="300" stroke="rgba(213,0,28,0.05)" strokeWidth="0.5" />
-            <line x1="400" y1="0" x2="400" y2="600" stroke="rgba(213,0,28,0.05)" strokeWidth="0.5" />
-            
-            {/* Zone Hotspots */}
-            {ZONES.map((zone) => (
-              <g 
-                key={zone.id} 
-                className="cursor-pointer group/zone pointer-events-auto"
-                onClick={() => setActiveZone(zone)}
-              >
-                {/* Pulsing Aura */}
-                <motion.circle
-                  cx={zone.coords.x}
-                  cy={zone.coords.y}
-                  r="12"
-                  fill="rgba(213,0,28,0.1)"
-                  animate={{ scale: [1, 1.5, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-
-                {/* Zone Marker */}
-                <motion.circle
-                  cx={zone.coords.x}
-                  cy={zone.coords.y}
-                  r="6"
-                  fill={activeZone.id === zone.id ? "#d5001c" : "rgba(255,255,255,0.4)"}
-                  whileHover={{ scale: 2.5, fill: "#d5001c" }}
-                  transition={{ duration: 0.4 }}
-                  className="shadow-[0_0_20px_rgba(213,0,28,0.5)]"
-                />
-
-                {/* Technical Crosshair for Active Zone */}
-                {activeZone.id === zone.id && (
-                  <g>
-                    <line x1={parseFloat(zone.coords.x) - 10 + '%'} y1={zone.coords.y} x2={parseFloat(zone.coords.x) + 10 + '%'} y2={zone.coords.y} stroke="#d5001c" strokeWidth="0.5" strokeDasharray="2 2" />
-                    <line x1={zone.coords.x} y1={parseFloat(zone.coords.y) - 10 + '%'} x2={zone.coords.x} y2={parseFloat(zone.coords.y) + 10 + '%'} stroke="#d5001c" strokeWidth="0.5" strokeDasharray="2 2" />
-                  </g>
-                )}
-                
-                {/* Zone Label */}
-                <text
-                  x={zone.coords.x}
-                  y={parseFloat(zone.coords.y) - 18 + '%'}
-                  textAnchor="middle"
-                  className={`text-[8px] font-technical font-black tracking-[0.3em] uppercase transition-all duration-500 ${activeZone.id === zone.id ? 'opacity-100 fill-white text-[12px] glow-porsche' : 'opacity-40 fill-white/40 group-hover/zone:opacity-100 group-hover/zone:fill-white'}`}
-                >
-                  {zone.name}
-                </text>
-              </g>
-            ))}
-          </svg>
-        </div>
-
-        {/* Technical Data Overlays */}
-        <div className="absolute top-10 left-10 flex flex-col gap-6">
-          <div className="flex flex-col">
-            <span className="text-[6px] font-mono text-white/20 tracking-[0.6em] uppercase mb-2">Telemetry_Stream</span>
-            <div className="flex items-center gap-3">
-              <div className="w-1.5 h-1.5 bg-porsche-red animate-pulse"></div>
-              <span className="text-[12px] font-mono text-white/50 tracking-[0.2em] uppercase">LAT: 25.2048° N</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-1.5 h-1.5 bg-porsche-red animate-pulse delay-75"></div>
-              <span className="text-[12px] font-mono text-white/50 tracking-[0.2em] uppercase">LNG: 55.2708° E</span>
-            </div>
+    <div className="space-y-8">
+      {/* Top Quick Area Selection Track */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+        <div className="flex items-center gap-3">
+          <span className="text-[10px] font-technical uppercase tracking-[0.4em] text-white/40 font-bold">Filter By Category:</span>
+          <div className="inline-flex p-1 bg-black/60 border border-white/10 rounded-lg">
+            <button
+              onClick={() => setFilterMode('all')}
+              className={`px-3 py-1 text-[10px] font-technical uppercase tracking-wider transition-all rounded ${
+                filterMode === 'all' ? 'bg-porsche-red text-white font-bold shadow-sm' : 'text-white/60 hover:text-white'
+              }`}
+            >
+              All Zones ({ZONES.length})
+            </button>
+            <button
+              onClick={() => setFilterMode('waterfront')}
+              className={`px-3 py-1 text-[10px] font-technical uppercase tracking-wider transition-all rounded ${
+                filterMode === 'waterfront' ? 'bg-porsche-red text-white font-bold shadow-sm' : 'text-white/60 hover:text-white'
+              }`}
+            >
+              Waterfront
+            </button>
+            <button
+              onClick={() => setFilterMode('highYield')}
+              className={`px-3 py-1 text-[10px] font-technical uppercase tracking-wider transition-all rounded ${
+                filterMode === 'highYield' ? 'bg-porsche-red text-white font-bold shadow-sm' : 'text-white/60 hover:text-white'
+              }`}
+            >
+              High Yield (≥7.2%)
+            </button>
           </div>
         </div>
 
-        <div className="absolute bottom-10 right-10 text-right">
-          <span className="text-[6px] font-mono text-white/20 tracking-[0.6em] uppercase block mb-3">Map_Revision: 2026.04</span>
-          <div className="h-px w-32 bg-white/10 ml-auto"></div>
+        {/* Live Map Coordinates Telemetry */}
+        <div className="hidden md:flex items-center gap-6 text-[10px] font-mono text-white/40 tracking-wider">
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            DUBAI CARTOGRAPHY 2026.4
+          </span>
+          <span className="text-white/20">|</span>
+          <span>N 25° 12&apos; 18&quot; • E 55° 16&apos; 44&quot;</span>
         </div>
       </div>
 
-      {/* Zone Details Panel */}
-      <div className="lg:col-span-5">
-        <AnimatePresence mode="wait">
+      {/* Horizontal Area Buttons Bar for instant tap navigation */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
+        {ZONES.map((zone) => {
+          const isActive = activeZone.id === zone.id;
+          return (
+            <button
+              key={zone.id}
+              onClick={() => setActiveZone(zone)}
+              className={`flex-shrink-0 px-3.5 py-2 rounded-lg border text-xs font-technical uppercase tracking-wider transition-all flex items-center gap-2 ${
+                isActive
+                  ? 'bg-porsche-red text-white border-porsche-red font-bold shadow-[0_0_15px_rgba(213,0,28,0.5)] scale-[1.02]'
+                  : 'bg-black/40 border-white/10 text-white/70 hover:border-white/30 hover:text-white hover:bg-black/60'
+              }`}
+            >
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  isActive ? 'bg-white animate-ping' : 'bg-white/40'
+                }`}
+              />
+              <span>{zone.name}</span>
+              <span
+                className={`text-[9px] px-1.5 py-0.5 rounded font-mono ${
+                  isActive ? 'bg-black/30 text-white' : 'bg-white/5 text-emerald-400'
+                }`}
+              >
+                {zone.yield}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Main Map + Details Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Custom Dubai Vector Map with Low-Opacity UAE Flag Backdrop */}
+        <div className="lg:col-span-7 relative min-h-[460px] sm:min-h-[540px] md:min-h-[600px] bg-[#050508] border border-white/15 overflow-hidden group rounded-xl shadow-2xl">
+          {/* Scanning Technical Radar Line */}
           <motion.div
-            key={activeZone.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="flex flex-col"
-          >
-            <div className="flex items-center gap-4 mb-6 md:mb-10">
-              <div className="w-3 h-3 bg-porsche-red"></div>
-              <span className="text-white/30 text-[11px] tracking-[0.6em] font-black uppercase">Zone_Intelligence_Report</span>
+            animate={{ x: ['-100%', '240%'] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
+            className="absolute top-0 bottom-0 w-36 bg-gradient-to-r from-transparent via-porsche-red/10 to-transparent skew-x-12 pointer-events-none z-20"
+          />
+
+          {/* UAE Flag Backdrop & Shadow Atmosphere (Black background with low opacity flag) */}
+          <div className="w-full h-full absolute inset-0 overflow-hidden bg-black">
+            {/* Target Element: UAE Flag with low opacity */}
+            <motion.img
+              src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&q=80&w=2000"
+              alt="United Arab Emirates Flag Backdrop"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src =
+                  'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=2000';
+              }}
+              className="w-full h-full object-cover opacity-[0.12] contrast-125 saturate-150 pointer-events-none mix-blend-screen scale-105 origin-center"
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 0.12, scale: 1.05 }}
+              transition={{ duration: 1.5 }}
+            />
+
+            {/* UAE Flag Chromatic Shadow Backdrops (Red, Green, White, Black delicate atmospheric ambient layers) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600/[0.08] via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-emerald-600/[0.07] via-transparent to-black/80 pointer-events-none" />
+            <div className="absolute inset-0 bg-radial from-white/[0.04] via-transparent to-black pointer-events-none" />
+            
+            {/* Architectural Grid overlay */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-40" />
+            
+            {/* Vignette shadows around perimeter */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050508] via-transparent to-[#050508]/60 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050508] via-transparent to-[#050508] pointer-events-none" />
+          </div>
+
+          {/* Crisp White Vector Dubai Map Overlay */}
+          <div className="absolute inset-0 w-full h-full pointer-events-none z-10">
+            <svg
+              viewBox="0 0 1000 700"
+              preserveAspectRatio="xMidYMid meet"
+              className="w-full h-full"
+            >
+              <defs>
+                {/* Crisp White Line Glow */}
+                <filter id="whiteGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="rgba(255,255,255,0.7)" />
+                </filter>
+                {/* Porsche Red Active Glow */}
+                <filter id="redGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="rgba(213,0,28,0.9)" />
+                </filter>
+                {/* Coastal Water Hatch */}
+                <pattern id="waterHatch" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <line x1="0" y1="0" x2="0" y2="40" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+                </pattern>
+              </defs>
+
+              {/* Arabian Gulf Water Zone Indicator */}
+              <rect x="0" y="0" width="1000" height="700" fill="url(#waterHatch)" />
+              <text x="70" y="100" fill="rgba(255,255,255,0.18)" fontSize="14" fontFamily="monospace" letterSpacing="0.4em" fontWeight="bold">
+                ARABIAN GULF // GULF WATERS
+              </text>
+              <text x="70" y="125" fill="rgba(255,255,255,0.10)" fontSize="10" fontFamily="monospace" letterSpacing="0.3em">
+                TERRITORIAL COASTLINE • DUBAI SECTOR
+              </text>
+
+              {/* 1. DUBAI ARABIAN GULF COASTLINE - Crisp White Vector Line */}
+              <path
+                d="M 20 690 Q 110 590 180 520 T 320 380 T 470 270 T 630 190 T 710 160 Q 750 145 840 120 T 980 60"
+                fill="none"
+                stroke="rgba(255,255,255,0.85)"
+                strokeWidth="2.5"
+                filter="url(#whiteGlow)"
+              />
+              {/* Secondary Coast Depth Contour */}
+              <path
+                d="M 10 680 Q 100 580 170 510 T 310 370 T 460 260 T 620 180 T 700 150 Q 740 135 830 110 T 970 50"
+                fill="none"
+                stroke="rgba(255,255,255,0.25)"
+                strokeWidth="1"
+                strokeDasharray="4 6"
+              />
+
+              {/* 2. PALM JUMEIRAH - Iconic Crescent, Trunk & Palm Fronds in Crisp White */}
+              <g className="palm-jumeirah-vector">
+                {/* Outer Crescent Breakwater */}
+                <path
+                  d="M 180 370 A 75 75 0 1 1 310 370"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.95)"
+                  strokeWidth="2.2"
+                  filter="url(#whiteGlow)"
+                />
+                {/* Crescent Openings */}
+                <circle cx="245" cy="275" r="3" fill="#D5001C" />
+                {/* Central Spine / Trunk */}
+                <line x1="245" y1="440" x2="245" y2="330" stroke="rgba(255,255,255,0.95)" strokeWidth="3" />
+                {/* Monorail Spine */}
+                <line x1="245" y1="440" x2="245" y2="300" stroke="#D5001C" strokeWidth="0.8" strokeDasharray="3 3" />
+                {/* Radiating Fronds */}
+                <path
+                  d="
+                    M 245 340 Q 210 325 190 338 M 245 340 Q 280 325 300 338
+                    M 245 360 Q 195 345 178 360 M 245 360 Q 295 345 312 360
+                    M 245 380 Q 190 365 172 385 M 245 380 Q 300 365 318 385
+                    M 245 400 Q 195 390 180 410 M 245 400 Q 295 390 310 410
+                    M 245 418 Q 210 410 198 426 M 245 418 Q 280 410 292 426
+                  "
+                  fill="none"
+                  stroke="rgba(255,255,255,0.75)"
+                  strokeWidth="1.6"
+                />
+              </g>
+
+              {/* 3. THE WORLD ISLANDS - Stylized Archipelago in White Vector Outlines */}
+              <g className="world-islands-vector" opacity="0.6">
+                {[
+                  { cx: 500, cy: 140, r: 4 },
+                  { cx: 515, cy: 135, r: 3 },
+                  { cx: 530, cy: 130, r: 5 },
+                  { cx: 545, cy: 132, r: 4 },
+                  { cx: 560, cy: 138, r: 4.5 },
+                  { cx: 490, cy: 155, r: 3.5 },
+                  { cx: 510, cy: 150, r: 5 },
+                  { cx: 530, cy: 148, r: 6 },
+                  { cx: 550, cy: 150, r: 4 },
+                  { cx: 570, cy: 155, r: 3.5 },
+                  { cx: 485, cy: 170, r: 4 },
+                  { cx: 505, cy: 168, r: 5 },
+                  { cx: 525, cy: 165, r: 6.5 },
+                  { cx: 545, cy: 168, r: 5 },
+                  { cx: 565, cy: 172, r: 4 }
+                ].map((island, idx) => (
+                  <ellipse
+                    key={idx}
+                    cx={island.cx}
+                    cy={island.cy}
+                    rx={island.r * 1.4}
+                    ry={island.r}
+                    fill="rgba(255,255,255,0.15)"
+                    stroke="rgba(255,255,255,0.6)"
+                    strokeWidth="1"
+                  />
+                ))}
+                <text x="500" y="195" fill="rgba(255,255,255,0.3)" fontSize="8" fontFamily="monospace" letterSpacing="0.25em">
+                  THE WORLD ISLANDS
+                </text>
+              </g>
+
+              {/* 4. DUBAI WATER CANAL - Connecting Arabian Gulf through Business Bay */}
+              <path
+                d="M 470 270 Q 520 310 560 360 T 600 400"
+                fill="none"
+                stroke="rgba(255,255,255,0.7)"
+                strokeWidth="2.5"
+                strokeDasharray="6 2"
+              />
+              <text x="495" y="310" fill="rgba(255,255,255,0.25)" fontSize="7" fontFamily="monospace" transform="rotate(35 495 310)">
+                DUBAI WATER CANAL
+              </text>
+
+              {/* 5. DUBAI CREEK & RAS AL KHOR SANCTUARY - Flowing Inland */}
+              <path
+                d="M 710 160 Q 725 200 745 240 T 780 290 Q 810 320 830 310 T 850 350"
+                fill="none"
+                stroke="rgba(255,255,255,0.85)"
+                strokeWidth="3.5"
+              />
+              <path
+                d="M 710 160 Q 725 200 745 240 T 780 290 Q 810 320 830 310 T 850 350"
+                fill="none"
+                stroke="rgba(213,0,28,0.35)"
+                strokeWidth="1"
+              />
+              <text x="750" y="220" fill="rgba(255,255,255,0.3)" fontSize="8" fontFamily="monospace" letterSpacing="0.2em">
+                DUBAI CREEK
+              </text>
+
+              {/* 6. MAJOR HIGHWAY ARTERIALS (Sheikh Zayed Road E11 & Al Khail Road E44) */}
+              {/* Sheikh Zayed Road (E11) - Primary White Arterial */}
+              <path
+                d="M 80 670 Q 180 530 280 430 T 480 310 T 670 210 T 890 120"
+                fill="none"
+                stroke="rgba(255,255,255,0.6)"
+                strokeWidth="1.8"
+              />
+              <text x="320" y="405" fill="rgba(255,255,255,0.35)" fontSize="7" fontFamily="monospace" letterSpacing="0.2em" transform="rotate(-30 320 405)">
+                SHEIKH ZAYED RD (E11)
+              </text>
+
+              {/* Al Khail Road (E44) */}
+              <path
+                d="M 180 680 Q 280 560 380 460 T 580 350 T 760 270 T 920 200"
+                fill="none"
+                stroke="rgba(255,255,255,0.35)"
+                strokeWidth="1.2"
+                strokeDasharray="4 4"
+              />
+
+              {/* Mohammed Bin Zayed Road (E311) */}
+              <path
+                d="M 280 690 Q 380 590 480 500 T 680 400 T 860 320"
+                fill="none"
+                stroke="rgba(255,255,255,0.2)"
+                strokeWidth="1"
+                strokeDasharray="2 4"
+              />
+
+              {/* Technical Target Reticle on Selected Zone */}
+              {activeZone && (
+                <g>
+                  {/* Outer Radar Ping */}
+                  <circle
+                    cx={activeZone.coords.x}
+                    cy={activeZone.coords.y}
+                    r="28"
+                    fill="none"
+                    stroke="#D5001C"
+                    strokeWidth="1"
+                    opacity="0.4"
+                    strokeDasharray="3 3"
+                  />
+                  {/* Crosshairs */}
+                  <line
+                    x1={parseFloat(activeZone.coords.x) * 10 - 24}
+                    y1={parseFloat(activeZone.coords.y) * 7}
+                    x2={parseFloat(activeZone.coords.x) * 10 + 24}
+                    y2={parseFloat(activeZone.coords.y) * 7}
+                    stroke="#D5001C"
+                    strokeWidth="0.8"
+                    opacity="0.6"
+                  />
+                  <line
+                    x1={parseFloat(activeZone.coords.x) * 10}
+                    y1={parseFloat(activeZone.coords.y) * 7 - 24}
+                    x2={parseFloat(activeZone.coords.x) * 10}
+                    y2={parseFloat(activeZone.coords.y) * 7 + 24}
+                    stroke="#D5001C"
+                    strokeWidth="0.8"
+                    opacity="0.6"
+                  />
+                </g>
+              )}
+            </svg>
+          </div>
+
+          {/* Interactive Area Buttons placed directly on the Map Coordinates */}
+          <div className="absolute inset-0 z-30 pointer-events-none">
+            {displayedZones.map((zone) => {
+              const isActive = activeZone.id === zone.id;
+              return (
+                <div
+                  key={zone.id}
+                  style={{ left: zone.coords.x, top: zone.coords.y }}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
+                >
+                  <button
+                    onClick={() => setActiveZone(zone)}
+                    className={`group/btn relative flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full backdrop-blur-md transition-all duration-300 shadow-xl select-none ${
+                      isActive
+                        ? 'bg-porsche-red text-white ring-2 ring-white scale-110 shadow-[0_0_25px_rgba(213,0,28,0.85)] z-40'
+                        : 'bg-black/85 text-white/90 border border-white/25 hover:border-porsche-red hover:bg-black hover:text-white hover:scale-105 z-20'
+                    }`}
+                  >
+                    {/* Pulsing Location Pin Beacon */}
+                    <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+                      {isActive && (
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                      )}
+                      <span
+                        className={`relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 ${
+                          isActive ? 'bg-white' : 'bg-porsche-red'
+                        }`}
+                      />
+                    </span>
+
+                    {/* Area Name */}
+                    <span className="font-technical text-[10px] sm:text-xs font-bold tracking-tight whitespace-nowrap uppercase">
+                      {zone.name}
+                    </span>
+
+                    {/* ROI Pill Tag */}
+                    <span
+                      className={`text-[8px] sm:text-[9px] px-1.5 py-0.2 rounded font-mono font-semibold ${
+                        isActive
+                          ? 'bg-black/35 text-white'
+                          : 'bg-white/10 text-emerald-400 group-hover/btn:bg-white/20'
+                      }`}
+                    >
+                      {zone.yield}
+                    </span>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Technical Map Legend in Bottom Left */}
+          <div className="absolute bottom-3 left-3 sm:bottom-5 sm:left-5 z-20 pointer-events-none bg-black/80 backdrop-blur-md border border-white/10 px-3 py-2 rounded-lg text-left">
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-2 h-2 rounded-full bg-porsche-red" />
+              <span className="text-[9px] font-mono font-bold tracking-widest text-white uppercase">UAE INVESTMENT CARTOGRAPHY</span>
             </div>
-
-            <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-display font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.9] uppercase">
-              {activeZone.name.split(' ').map((word, i) => (
-                <span key={i} className={i === 0 ? 'block' : 'block text-porsche-red'}>{word}</span>
-              ))}
-            </h3>
-
-            <p className="text-white/50 text-base md:text-lg leading-relaxed font-light mb-10 md:mb-16 max-w-lg">
-              {activeZone.description}
-            </p>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/5 mb-10 md:mb-16 border border-white/5">
-              <div className="bg-dark p-6 md:p-10">
-                <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">Yield_Index</span>
-                <span className="text-white font-display font-black text-3xl md:text-5xl tracking-tighter">{activeZone.yield}</span>
-              </div>
-              <div className="bg-dark p-6 md:p-10">
-                <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">Price_Per_Sqft</span>
-                <span className="text-white font-display font-black text-2xl md:text-4xl tracking-tighter">{activeZone.pricePerSqft}</span>
-              </div>
-              <div className="bg-dark p-6 md:p-10 col-span-2 md:col-span-1">
-                <span className="text-white/20 text-[8px] tracking-[0.5em] uppercase font-technical font-bold block mb-4">District_Count</span>
-                <span className="text-white font-display font-black text-3xl md:text-5xl tracking-tighter">{activeZone.areas.length}</span>
-              </div>
+            <div className="flex items-center gap-3 text-[8px] font-mono text-white/40">
+              <span className="flex items-center gap-1">
+                <span className="w-2.5 h-0.5 bg-white inline-block" /> White: Shore & Arterials
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-porsche-red inline-block" /> Active Zone
+              </span>
             </div>
+          </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-8 mb-10 md:mb-16">
-              <motion.a 
-                href="#property-types"
-                onClick={() => onSearch?.('All Properties')}
-                whileHover={{ x: 20 }}
-                className="group flex items-center gap-8 text-white text-[12px] tracking-[0.5em] font-technical font-bold uppercase"
-              >
-                <span className="group-hover:text-porsche-red transition-colors">Initialize Search</span>
-                <div className="w-16 h-[1px] bg-white/10 group-hover:bg-porsche-red group-hover:w-24 transition-all duration-700"></div>
-                <ArrowRight className="w-5 h-5 text-porsche-red" />
-              </motion.a>
+          {/* Map Revision Counter in Bottom Right */}
+          <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-5 z-20 pointer-events-none text-right">
+            <span className="text-[8px] font-mono text-white/30 tracking-widest uppercase block">
+              COORDINATES: {activeZone.coords.x}, {activeZone.coords.y}
+            </span>
+          </div>
+        </div>
 
-              <motion.a 
-                href={activeZone.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ x: 20 }}
-                className="group flex items-center gap-8 text-white/40 text-[12px] tracking-[0.5em] font-technical font-bold uppercase"
-              >
-                <span className="group-hover:text-white transition-colors">Market Report</span>
-                <div className="w-16 h-[1px] bg-white/5 group-hover:bg-white/20 group-hover:w-24 transition-all duration-700"></div>
-                <ArrowRight className="w-5 h-5 text-white/20" />
-              </motion.a>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        {/* Zone Details Panel */}
+        <div className="lg:col-span-5">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeZone.id}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="flex flex-col bg-black/40 border border-white/10 p-6 sm:p-8 rounded-xl backdrop-blur-md"
+            >
+              {/* Header Badges */}
+              <div className="flex items-center justify-between gap-4 mb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-2.5 h-2.5 bg-porsche-red rounded-full animate-pulse" />
+                  <span className="text-white/40 text-[10px] tracking-[0.4em] font-mono font-bold uppercase">
+                    ZONE INTELLIGENCE REPORT
+                  </span>
+                </div>
+                <span className="text-porsche-red text-[11px] font-mono font-bold tracking-wider px-2 py-0.5 bg-porsche-red/10 border border-porsche-red/20 rounded">
+                  {activeZone.yield} NET ROI
+                </span>
+              </div>
+
+              {/* Zone Title */}
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-white mb-2 tracking-tight uppercase leading-[0.95]">
+                {activeZone.name}
+              </h3>
+              <p className="text-porsche-red text-xs sm:text-sm font-technical uppercase tracking-[0.25em] mb-4">
+                {activeZone.tagline}
+              </p>
+
+              {/* Description */}
+              <p className="text-white/70 text-sm sm:text-base leading-relaxed font-light mb-6">
+                {activeZone.description}
+              </p>
+
+              {/* Key Metrics Grid */}
+              <div className="grid grid-cols-3 gap-px bg-white/10 mb-6 border border-white/10 rounded-lg overflow-hidden">
+                <div className="bg-black/80 p-4 text-center sm:text-left">
+                  <span className="text-white/30 text-[9px] tracking-[0.2em] uppercase font-technical font-bold block mb-1">
+                    Yield Index
+                  </span>
+                  <span className="text-emerald-400 font-display font-black text-2xl sm:text-3xl tracking-tight">
+                    {activeZone.yield}
+                  </span>
+                </div>
+                <div className="bg-black/80 p-4 text-center sm:text-left">
+                  <span className="text-white/30 text-[9px] tracking-[0.2em] uppercase font-technical font-bold block mb-1">
+                    Avg Price / Sqft
+                  </span>
+                  <span className="text-white font-display font-black text-lg sm:text-2xl tracking-tight">
+                    {activeZone.pricePerSqft}
+                  </span>
+                </div>
+                <div className="bg-black/80 p-4 text-center sm:text-left">
+                  <span className="text-white/30 text-[9px] tracking-[0.2em] uppercase font-technical font-bold block mb-1">
+                    Key Enclaves
+                  </span>
+                  <span className="text-white font-display font-black text-2xl sm:text-3xl tracking-tight">
+                    {activeZone.areas.length}
+                  </span>
+                </div>
+              </div>
+
+              {/* Sub-Districts Chips */}
+              <div className="mb-6">
+                <span className="text-white/30 text-[9px] tracking-[0.3em] uppercase font-technical font-bold block mb-2.5">
+                  Prime Sub-Communities
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {activeZone.areas.map((sub, i) => (
+                    <span
+                      key={i}
+                      className="px-2.5 py-1 bg-white/5 border border-white/10 text-white/80 text-[11px] font-technical uppercase tracking-wider rounded"
+                    >
+                      {sub}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Direct Actions */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4 border-t border-white/10">
+                <motion.a
+                  href="#property-types"
+                  onClick={() => onSearch?.(activeZone.name)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex-1 flex items-center justify-center gap-3 px-6 py-3.5 bg-porsche-red text-white text-xs tracking-[0.3em] font-technical font-bold uppercase rounded-lg shadow-[0_0_20px_rgba(213,0,28,0.4)] hover:bg-red-700 transition-colors"
+                >
+                  <span>Explore {activeZone.name}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </motion.a>
+
+                <motion.a
+                  href={`https://wa.me/971529178630?text=${encodeURIComponent(
+                    `Hello Rock Deals, I would like to inquire about premium off-plan investment deals in ${activeZone.name}.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-5 py-3.5 bg-white/5 hover:bg-white/10 border border-white/20 text-white text-xs tracking-wider font-technical uppercase rounded-lg text-center transition-colors"
+                >
+                  WhatsApp Broker
+                </motion.a>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
 };
 
-const PROPERTIES = [
-  { id: 1, title: 'Luxury Palm Villa | Dubai Best Deal', category: 'Luxury Villas', price: 'AED 45,000,000', location: 'Palm Jumeirah', image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800' },
-  { id: 2, title: 'Skyline Penthouse | High ROI Investment', category: 'Penthouses', price: 'AED 28,500,000', location: 'Downtown Dubai', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' },
-  { id: 3, title: 'Marina Edge | Apartments for Sale in Dubai', category: 'Apartments', price: 'AED 4,200,000', location: 'Dubai Marina', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800' },
-  { id: 4, title: 'Desert Rose | Villas for Sale in Dubai', category: 'Townhouses', price: 'AED 3,800,000', location: 'Arabian Ranches', image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' },
-  { id: 5, title: 'Seascape by Emaar | Mina Rashid', category: 'Off-Plan', price: 'AED 1,725,000', location: 'Mina Rashid, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/seascape/images/seascape-image-78a4e28fc555b514.jpg' },
-  { id: 6, title: 'Orla Dorchester by Omniyat', category: 'Off-Plan', price: 'AED 57,230,250', location: 'Palm Jumeirah', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/orla-dorchester/images/orla-dorchester-image-0d728347c6b28328.jpg' },
-  { id: 7, title: 'Franck Muller Aeternitas Tower', category: 'Off-Plan', price: 'AED 3,480,000', location: 'Dubai Marina', image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=80&w=800' },
-  { id: 8, title: 'Moonstone Interiors by Missoni', category: 'Off-Plan', price: 'AED 3,216,777', location: 'Al Marjan Island', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/moonstone-interiors-by-missoni/images/moonstone-interiors-by-missoni-image-fa154d494200d610.jpg' },
-  { id: 9, title: 'District One West Phase 1 by Nakheel', category: 'Off-Plan', price: 'AED 7,960,000', location: 'MBR City District One', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
-  { id: 10, title: 'Almaan 101 by MN Vision', category: 'Off-Plan', price: 'AED 799,000', location: 'JVC, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/almaan-101/images/almaan-101-image-afeeb1c57c58c004.jpg' },
-  { id: 11, title: 'Amazonia Residence by Palladium', category: 'Off-Plan', price: 'AED 940,000', location: 'Al Jaddaf, Dubai', image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/amazonia-residence/images/amazonia-residence-image-7874b31b39f0ea29.jpg' },
-  { id: 12, title: 'Ocean Pearl by Samana', category: 'Off-Plan', price: 'AED 3,940,444', location: 'Dubai Islands', image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800' },
-  { id: 13, title: 'Modern Creek | Ready to Move Property', category: 'Ready to Move', price: 'AED 2,100,000', location: 'Dubai Creek Harbour', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' },
-  { id: 14, title: 'Azure Waterfront | Dubai Distress Deals', category: 'Luxury Villas', price: 'AED 32,000,000', location: 'Jumeirah Bay', image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' },
+const PROPERTIES: PropertyItem[] = [
+  { 
+    id: 1, 
+    title: 'Luxury Palm Villa | Dubai Best Deal', 
+    category: 'Luxury Villas', 
+    price: 'AED 45,000,000', 
+    rawPrice: 45000000,
+    location: 'Palm Jumeirah', 
+    developer: 'Nakheel / Bespoke Arch',
+    type: 'Signature Beachfront Villa',
+    bedrooms: '6 Beds',
+    bathrooms: '7 Baths',
+    builtUpArea: '10,500 sq.ft',
+    pricePerSqFt: 'AED 4,285 / sq.ft',
+    handover: 'Ready to Move',
+    paymentPlan: 'Cash or 80/20 Mortgage',
+    estimatedROI: '7.8% - 9.2%',
+    amenities: ['Private Beach Access', 'Infinity Pool', 'Smart Home Tech', 'Private Marina Berth', 'Maid & Driver Quarters'],
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 2, 
+    title: 'Skyline Penthouse | High ROI Investment', 
+    category: 'Penthouses', 
+    price: 'AED 28,500,000', 
+    rawPrice: 28500000,
+    location: 'Downtown Dubai', 
+    developer: 'Emaar Properties',
+    type: 'Duplex Sky Penthouse',
+    bedrooms: '4 Beds',
+    bathrooms: '5 Baths',
+    builtUpArea: '5,800 sq.ft',
+    pricePerSqFt: 'AED 4,913 / sq.ft',
+    handover: 'Ready to Move',
+    paymentPlan: 'Cash or 75/25 Mortgage',
+    estimatedROI: '8.4% - 10.5%',
+    amenities: ['Burj Khalifa Views', 'Private Sky Pool', 'Concierge & Valet', 'Private Elevator', 'Wine Cellar'],
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 3, 
+    title: 'Marina Edge | Apartments for Sale in Dubai', 
+    category: 'Apartments', 
+    price: 'AED 4,200,000', 
+    rawPrice: 4200000,
+    location: 'Dubai Marina', 
+    developer: 'Select Group',
+    type: 'Waterfront Marina Apartment',
+    bedrooms: '2 Beds',
+    bathrooms: '3 Baths',
+    builtUpArea: '1,450 sq.ft',
+    pricePerSqFt: 'AED 2,896 / sq.ft',
+    handover: 'Ready to Move',
+    paymentPlan: 'Cash or 80/20 Bank Finance',
+    estimatedROI: '8.8% - 10.2%',
+    amenities: ['Full Marina Views', 'Infinity Pool', 'State-of-the-Art Gym', 'Yacht Club Proximity', 'Covered Parking'],
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 4, 
+    title: 'Desert Rose | Villas for Sale in Dubai', 
+    category: 'Townhouses', 
+    price: 'AED 3,800,000', 
+    rawPrice: 3800000,
+    location: 'Arabian Ranches', 
+    developer: 'Emaar Properties',
+    type: 'Contemporary Family Townhouse',
+    bedrooms: '4 Beds',
+    bathrooms: '4 Baths',
+    builtUpArea: '2,800 sq.ft',
+    pricePerSqFt: 'AED 1,357 / sq.ft',
+    handover: 'Ready to Move',
+    paymentPlan: 'Flexible Payment / Mortgage',
+    estimatedROI: '8.1% - 9.6%',
+    amenities: ['Championship Golf Proximity', 'Community Swimming Pool', 'Tennis & Padel Courts', 'Children Play Park', 'Private Garden'],
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 5, 
+    title: 'Seascape by Emaar | Mina Rashid', 
+    category: 'Off-Plan', 
+    price: 'AED 1,725,000', 
+    rawPrice: 1725000,
+    location: 'Mina Rashid, Dubai', 
+    developer: 'Emaar Properties',
+    type: 'Waterfront Yachting Apartment',
+    bedrooms: '1-2 Beds',
+    bathrooms: '2 Baths',
+    builtUpArea: '880 sq.ft',
+    pricePerSqFt: 'AED 1,960 / sq.ft',
+    handover: 'Q4 2026',
+    paymentPlan: '80/20 on Handover',
+    estimatedROI: '9.0% - 11.4%',
+    amenities: ['500m Venetian Canal Pool', 'Yacht Marina Berths', 'Pedestrian Promenade', 'Fitness Center', 'Retail Boulevard'],
+    image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/seascape/images/seascape-image-78a4e28fc555b514.jpg' 
+  },
+  { 
+    id: 6, 
+    title: 'Orla Dorchester by Omniyat', 
+    category: 'Off-Plan', 
+    price: 'AED 57,230,250', 
+    rawPrice: 57230250,
+    location: 'Palm Jumeirah', 
+    developer: 'Omniyat',
+    type: 'Ultra-Luxury Managed Sky Palace',
+    bedrooms: '4-5 Beds',
+    bathrooms: '6 Baths',
+    builtUpArea: '8,200 sq.ft',
+    pricePerSqFt: 'AED 6,979 / sq.ft',
+    handover: 'Q4 2026',
+    paymentPlan: '50/50 Handover Scheme',
+    estimatedROI: '7.2% - 8.9%',
+    amenities: ['Dorchester Collection Hospitality', 'Private Beach Club', 'Indoor Lap Pool', 'Helipad Access', 'Private Cigar Lounge'],
+    image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/orla-dorchester/images/orla-dorchester-image-0d728347c6b28328.jpg' 
+  },
+  { 
+    id: 7, 
+    title: 'Franck Muller Aeternitas Tower', 
+    category: 'Off-Plan', 
+    price: 'AED 3,480,000', 
+    rawPrice: 3480000,
+    location: 'Dubai Marina', 
+    developer: 'London Gate',
+    type: 'World Tallest Branded Clocktower Residence',
+    bedrooms: '2 Beds',
+    bathrooms: '2 Baths',
+    builtUpArea: '1,280 sq.ft',
+    pricePerSqFt: 'AED 2,718 / sq.ft',
+    handover: 'Q2 2027',
+    paymentPlan: '1% Monthly (40/60 Scheme)',
+    estimatedROI: '9.4% - 11.8%',
+    amenities: ['Franck Muller Clock Tower', 'Sky Zen Garden', 'Private Cinema', 'Valet Parking', 'Padel Tennis Court'],
+    image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 8, 
+    title: 'Moonstone Interiors by Missoni', 
+    category: 'Off-Plan', 
+    price: 'AED 3,216,777', 
+    rawPrice: 3216777,
+    location: 'Al Marjan Island', 
+    developer: 'Durar Group',
+    type: 'Italian Designer Beach Residence',
+    bedrooms: '2 Beds',
+    bathrooms: '3 Baths',
+    builtUpArea: '1,520 sq.ft',
+    pricePerSqFt: 'AED 2,116 / sq.ft',
+    handover: 'Q4 2026',
+    paymentPlan: '60/40 Plan',
+    estimatedROI: '9.8% - 12.5%',
+    amenities: ['Direct Wynn Casino Proximity', 'Private White Sand Beach', 'Missoni Italian Interiors', 'Infinity Sunset Pool', 'Wellness Spa'],
+    image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/moonstone-interiors-by-missoni/images/moonstone-interiors-by-missoni-image-fa154d494200d610.jpg' 
+  },
+  { 
+    id: 9, 
+    title: 'District One West Phase 1 by Nakheel', 
+    category: 'Off-Plan', 
+    price: 'AED 7,960,000', 
+    rawPrice: 7960000,
+    location: 'MBR City District One', 
+    developer: 'Nakheel',
+    type: 'Crystal Lagoon Luxury Villa',
+    bedrooms: '4-5 Beds',
+    bathrooms: '5 Baths',
+    builtUpArea: '4,600 sq.ft',
+    pricePerSqFt: 'AED 1,730 / sq.ft',
+    handover: 'Q1 2027',
+    paymentPlan: '80/20 Direct Developer',
+    estimatedROI: '8.2% - 9.8%',
+    amenities: ['Crystal Swimmable Lagoon', '8.4km Cycling Track', 'Clubhouse & Lagoon Beach', '24/7 Gated Security', 'Community School'],
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 10, 
+    title: 'Almaan 101 by MN Vision', 
+    category: 'Off-Plan', 
+    price: 'AED 799,000', 
+    rawPrice: 799000,
+    location: 'JVC, Dubai', 
+    developer: 'MN Vision',
+    type: 'High Yield Boutique Apartment',
+    bedrooms: 'Studio - 1 Bed',
+    bathrooms: '1-2 Baths',
+    builtUpArea: '560 sq.ft',
+    pricePerSqFt: 'AED 1,426 / sq.ft',
+    handover: 'Q3 2026',
+    paymentPlan: '1% Monthly Payment Plan',
+    estimatedROI: '10.2% - 12.8%',
+    amenities: ['Rooftop Swimming Pool', 'Smart Home Automation', 'Equipped Gymnasium', 'Boutique Lobby', 'High Rental Demand'],
+    image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/almaan-101/images/almaan-101-image-afeeb1c57c58c004.jpg' 
+  },
+  { 
+    id: 11, 
+    title: 'Amazonia Residence by Palladium', 
+    category: 'Off-Plan', 
+    price: 'AED 940,000', 
+    rawPrice: 940000,
+    location: 'Al Jaddaf, Dubai', 
+    developer: 'Palladium Developments',
+    type: 'Biophilic Urban Residence',
+    bedrooms: '1 Bed',
+    bathrooms: '1.5 Baths',
+    builtUpArea: '720 sq.ft',
+    pricePerSqFt: 'AED 1,305 / sq.ft',
+    handover: 'Q4 2026',
+    paymentPlan: '60/40 Payment Plan',
+    estimatedROI: '9.6% - 11.5%',
+    amenities: ['Vertical Tropical Gardens', 'Hydrotherapy Pool', 'Co-working Business Lounge', 'Direct Metro Connectivity', 'Sky Jogging Track'],
+    image: 'https://elist-solz.s3.ap-south-1.amazonaws.com/projects/amazonia-residence/images/amazonia-residence-image-7874b31b39f0ea29.jpg' 
+  },
+  { 
+    id: 12, 
+    title: 'Ocean Pearl by Samana', 
+    category: 'Off-Plan', 
+    price: 'AED 3,940,444', 
+    rawPrice: 3940444,
+    location: 'Dubai Islands', 
+    developer: 'Samana Developers',
+    type: 'Private Pool Island Apartment',
+    bedrooms: '2-3 Beds',
+    bathrooms: '3 Baths',
+    builtUpArea: '1,890 sq.ft',
+    pricePerSqFt: 'AED 2,084 / sq.ft',
+    handover: 'Q4 2027',
+    paymentPlan: '1% Monthly for 80 Months',
+    estimatedROI: '9.5% - 12.0%',
+    amenities: ['Private Balcony Plunge Pool', 'Island Beachfront Access', 'Outdoor Cinema', 'Steam & Sauna Rooms', 'Kids Splash Park'],
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 13, 
+    title: 'Modern Creek | Ready to Move Property', 
+    category: 'Ready to Move', 
+    price: 'AED 2,100,000', 
+    rawPrice: 2100000,
+    location: 'Dubai Creek Harbour', 
+    developer: 'Emaar Properties',
+    type: 'Modern Creek Park Apartment',
+    bedrooms: '1-2 Beds',
+    bathrooms: '2 Baths',
+    builtUpArea: '1,050 sq.ft',
+    pricePerSqFt: 'AED 2,000 / sq.ft',
+    handover: 'Ready to Move',
+    paymentPlan: 'Cash or Mortgage',
+    estimatedROI: '8.6% - 10.1%',
+    amenities: ['Creek Marina Boardwalk', 'Creek Beach Access', 'Infinity Pool', 'Central Park Views', 'Supermarket & Cafes'],
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 14, 
+    title: 'Azure Waterfront | Dubai Distress Deals', 
+    category: 'Luxury Villas', 
+    price: 'AED 32,000,000', 
+    rawPrice: 32000000,
+    location: 'Jumeirah Bay', 
+    developer: 'Meraas',
+    type: 'Waterfront Distress Mansion',
+    bedrooms: '5 Beds',
+    bathrooms: '6 Baths',
+    builtUpArea: '8,500 sq.ft',
+    pricePerSqFt: 'AED 3,764 / sq.ft',
+    handover: 'Ready to Move',
+    paymentPlan: 'Immediate Cash Settlement',
+    estimatedROI: '8.0% - 9.8%',
+    amenities: ['Private Mooring Jetty', 'Direct Open Sea Views', 'Private Cinema & Spa', 'Basement 4-Car Garage', 'Smart Automation'],
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 15, 
+    title: 'Sobha Seahaven Sky Edition | Dubai Harbour', 
+    category: 'Penthouses', 
+    price: 'AED 21,500,000', 
+    rawPrice: 21500000,
+    location: 'Dubai Harbour', 
+    developer: 'Sobha Realty',
+    type: 'Ultra-Luxury Sky Residence',
+    bedrooms: '4-5 Beds',
+    bathrooms: '6 Baths',
+    builtUpArea: '5,800 sq.ft',
+    pricePerSqFt: 'AED 3,706 / sq.ft',
+    handover: 'Q4 2026',
+    paymentPlan: '80/20 Payment Scheme',
+    estimatedROI: '8.4% - 10.2%',
+    amenities: ['360° Cruise Terminal Views', 'Private Infinity Sky Pool', 'Superyacht Berths', 'Valet & Concierge', 'Executive Lounge'],
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 16, 
+    title: 'Palm Jebel Ali Beach Mansions | Frond Luxury', 
+    category: 'Luxury Villas', 
+    price: 'AED 38,000,000', 
+    rawPrice: 3800000,
+    location: 'Palm Jebel Ali', 
+    developer: 'Nakheel',
+    type: 'Private Frond Beach Mansion',
+    bedrooms: '6-7 Beds',
+    bathrooms: '8 Baths',
+    builtUpArea: '11,200 sq.ft',
+    pricePerSqFt: 'AED 3,392 / sq.ft',
+    handover: 'Q3 2027',
+    paymentPlan: '60/40 Plan',
+    estimatedROI: '7.8% - 9.5%',
+    amenities: ['Double Private Beachfront', 'Private Sunset Deck', 'Elevator to All Floors', 'Rooftop Solarium', 'Smart Home AI Integration'],
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 17, 
+    title: 'Bulgari Lighthouse | Jumeira Bay Island', 
+    category: 'Penthouses', 
+    price: 'AED 72,000,000', 
+    rawPrice: 72000000,
+    location: 'Jumeira Bay Island', 
+    developer: 'Meraas / Bulgari',
+    type: 'Bespoke Island Sky Palace',
+    bedrooms: '5 Beds',
+    bathrooms: '7 Baths',
+    builtUpArea: '9,450 sq.ft',
+    pricePerSqFt: 'AED 7,619 / sq.ft',
+    handover: 'Q2 2027',
+    paymentPlan: '70/30 Handover',
+    estimatedROI: '6.5% - 8.2%',
+    amenities: ['Bulgari Resort Privileges', 'Private Island Marina', 'Dedicated Butler Team', 'Private Heated Pool', 'Private Yacht Slip'],
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 18, 
+    title: 'Creek Waters 2 | Dubai Creek Harbour', 
+    category: 'Apartments', 
+    price: 'AED 3,650,000', 
+    rawPrice: 3650000,
+    location: 'Dubai Creek Harbour', 
+    developer: 'Emaar Properties',
+    type: 'Waterfront Panoramic Residence',
+    bedrooms: '2-3 Beds',
+    bathrooms: '3 Baths',
+    builtUpArea: '1,850 sq.ft',
+    pricePerSqFt: 'AED 1,972 / sq.ft',
+    handover: 'Q1 2027',
+    paymentPlan: '80/20 with 10% Down',
+    estimatedROI: '8.9% - 11.2%',
+    amenities: ['Unobstructed Skyline Views', 'Resort-Style Infinity Pool', 'Direct Island Park Access', 'Concierge & Valet', 'State-of-the-Art Gym'],
+    image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 19, 
+    title: 'DAMAC Lagoons Morocco Cluster | Mediterranean Living', 
+    category: 'Townhouses', 
+    price: 'AED 2,990,000', 
+    rawPrice: 2990000,
+    location: 'DAMAC Lagoons', 
+    developer: 'DAMAC Properties',
+    type: 'Mediterranean Lagoon Townhouse',
+    bedrooms: '4-5 Beds',
+    bathrooms: '5 Baths',
+    builtUpArea: '2,650 sq.ft',
+    pricePerSqFt: 'AED 1,128 / sq.ft',
+    handover: 'Q4 2026',
+    paymentPlan: '1% Monthly Payment Plan',
+    estimatedROI: '9.2% - 11.8%',
+    amenities: ['Crystal Blue Swimmable Lagoons', 'Moroccan Spa & Hammam', 'Private Floating Amphitheatre', 'Kids Water Park', 'Sandy Beaches'],
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 20, 
+    title: 'One Za\'abeel The Residences | Ready Cantilever Landmark', 
+    category: 'Ready to Move', 
+    price: 'AED 12,800,000', 
+    rawPrice: 12800000,
+    location: 'Za\'abeel, Downtown Corridor', 
+    developer: 'Ithra Dubai',
+    type: 'Cantilever Dual-Tower Residence',
+    bedrooms: '3 Beds',
+    bathrooms: '4 Baths',
+    builtUpArea: '3,200 sq.ft',
+    pricePerSqFt: 'AED 4,000 / sq.ft',
+    handover: 'Ready to Move',
+    paymentPlan: '100% Cash or 25% + Mortgage',
+    estimatedROI: '7.5% - 9.0%',
+    amenities: ['The Link Cantilever Sky Deck', 'Michelin Star Dining Access', 'Infinity Sky Pool', 'Direct DIFC Connectivity', 'One&Only Resort Access'],
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 21, 
+    title: 'Kempinski Marina Residences | Canal Front', 
+    category: 'Apartments', 
+    price: 'AED 5,450,000', 
+    rawPrice: 5450000,
+    location: 'Dubai Marina', 
+    developer: 'ABA Group / Kempinski',
+    type: 'Branded 5-Star Serviced Suites',
+    bedrooms: '3 Beds',
+    bathrooms: '3 Baths',
+    builtUpArea: '2,200 sq.ft',
+    pricePerSqFt: 'AED 2,477 / sq.ft',
+    handover: 'Q3 2027',
+    paymentPlan: '50/50 Payment Scheme',
+    estimatedROI: '8.7% - 10.5%',
+    amenities: ['5-Star Kempinski Hotel Concierge', 'Marina Water Taxi Access', 'Zen Gardens & Padel Courts', 'Private Chef Services', 'Panoramic Balcony'],
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800' 
+  },
+  { 
+    id: 22, 
+    title: 'The Oasis by Emaar | Palmier Luxury Villa', 
+    category: 'Luxury Villas', 
+    price: 'AED 18,900,000', 
+    rawPrice: 18900000,
+    location: 'The Oasis, Dubai', 
+    developer: 'Emaar Properties',
+    type: 'Private Water Sanctuary Villa',
+    bedrooms: '5 Beds',
+    bathrooms: '6 Baths',
+    builtUpArea: '7,900 sq.ft',
+    pricePerSqFt: 'AED 2,392 / sq.ft',
+    handover: 'Q2 2028',
+    paymentPlan: '80/20 Direct Developer',
+    estimatedROI: '7.8% - 9.6%',
+    amenities: ['Swimmable Water Canals', 'Private Gated Compound', 'Wellness Center & Spa', 'Jogging & Cycling Trails', 'International Golf Course Nearby'],
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800' 
+  },
 ];
 
 const COMMUNITIES = [
@@ -2576,6 +3340,60 @@ export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All Properties');
+  const [showAllProperties, setShowAllProperties] = useState(false);
+
+  // Deterministic daily rotation seed based on calendar date so top 8-10 listings rotate fresh every single day
+  const dailyRotatedProperties = useMemo(() => {
+    const today = new Date();
+    const daySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+    const offset = daySeed % PROPERTIES.length;
+    return [...PROPERTIES.slice(offset), ...PROPERTIES.slice(0, offset)];
+  }, []);
+
+  const displayProperties = useMemo(() => {
+    const filtered = dailyRotatedProperties.filter(
+      p => activeFilter === 'All Properties' || p.category === activeFilter
+    );
+    if (!showAllProperties && filtered.length > 9) {
+      return filtered.slice(0, 9);
+    }
+    return filtered;
+  }, [dailyRotatedProperties, activeFilter, showAllProperties]);
+  
+  // Compare Properties State (Max 3 units side-by-side)
+  const [compareList, setCompareList] = useState<number[]>([]);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+  const [compareToast, setCompareToast] = useState<string | null>(null);
+
+  const toggleCompare = (id: number) => {
+    setCompareList(prev => {
+      if (prev.includes(id)) {
+        return prev.filter(item => item !== id);
+      }
+      if (prev.length >= 3) {
+        setCompareToast('Maximum 3 properties can be compared simultaneously.');
+        setTimeout(() => setCompareToast(null), 3500);
+        return prev;
+      }
+      return [...prev, id];
+    });
+  };
+
+  const removeCompare = (id: number) => {
+    setCompareList(prev => prev.filter(item => item !== id));
+  };
+
+  const clearCompare = () => {
+    setCompareList([]);
+  };
+
+  const addCompare = (id: number) => {
+    if (compareList.length < 3 && !compareList.includes(id)) {
+      setCompareList(prev => [...prev, id]);
+    }
+  };
+
+  const selectedCompareProperties = PROPERTIES.filter(p => compareList.includes(p.id));
 
   useEffect(() => {
     // Check if shared article ID exists in URL query params
@@ -2881,7 +3699,7 @@ Furnish: ${searchFurnishStatus}
       </header>
 
       {/* Hero Section */}
-      <div className="relative min-h-screen flex items-center">
+      <div className="relative min-h-[88vh] sm:min-h-screen flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.img 
@@ -2893,7 +3711,7 @@ Furnish: ${searchFurnishStatus}
             src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=1920"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-black/45"></div>
           
           {/* Technical Grid Overlay */}
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
@@ -2902,25 +3720,25 @@ Furnish: ${searchFurnishStatus}
           </div>
         </div>
 
-        <div className="relative w-full px-6 md:px-8 lg:px-16 pt-16 md:pt-20 flex flex-col items-center text-center">
-          <div className="max-w-5xl mb-6 md:mb-12">
+        <div className="relative w-full px-4 sm:px-8 lg:px-16 pt-20 sm:pt-24 pb-8 sm:pb-14 flex flex-col items-center text-center">
+          <div className="max-w-5xl mb-4 sm:mb-8 md:mb-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center justify-center gap-3 md:gap-4 mb-4 md:mb-6"
+              className="flex items-center justify-center gap-2.5 sm:gap-4 mb-3 sm:mb-5"
             >
-              <div className="w-8 md:w-12 h-[2px] bg-porsche-red"></div>
-              <p className="text-white text-[10px] md:text-[12px] tracking-[0.3em] uppercase font-technical font-bold opacity-60">
+              <div className="w-6 sm:w-12 h-[2px] bg-porsche-red"></div>
+              <p className="text-white text-[9px] sm:text-[11px] md:text-[12px] tracking-[0.25em] sm:tracking-[0.3em] uppercase font-technical font-bold opacity-75">
                 The New Standard of Luxury
               </p>
-              <div className="w-8 md:w-12 h-[2px] bg-porsche-red"></div>
+              <div className="w-6 sm:w-12 h-[2px] bg-porsche-red"></div>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white leading-[1.15] mb-6 md:mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] uppercase text-center mx-auto text-balance"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white leading-[1.12] mb-3 sm:mb-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] uppercase text-center mx-auto text-balance"
             >
               <span className="text-[0.8em] sm:text-[0.85em] md:text-[0.88em] font-extrabold tracking-[0.03em] sm:tracking-[0.05em] inline-block align-baseline">Best Property Deals in</span>{' '}
               <span className="text-porsche-red glow-porsche tracking-normal sm:tracking-[0.02em] inline-block">Dubai.</span>
@@ -2930,7 +3748,7 @@ Furnish: ${searchFurnishStatus}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-white/50 text-[8px] md:text-xs font-light tracking-[0.3em] md:tracking-[0.4em] uppercase max-w-xs md:max-w-none mx-auto"
+              className="text-white/60 text-[9px] sm:text-xs font-light tracking-[0.2em] sm:tracking-[0.35em] uppercase max-w-sm sm:max-w-none mx-auto"
             >
               Buy Property in Dubai with 1% Payment Plans and Zero Commission
             </motion.p>
@@ -2942,13 +3760,13 @@ Furnish: ${searchFurnishStatus}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="w-full max-w-4xl bg-black/20 backdrop-blur-3xl border border-white/10 rounded-2xl p-3 md:p-5 shadow-[0_0_100px_rgba(0,0,0,0.6)] relative z-10 group"
+            className="w-full max-w-4xl bg-black/35 backdrop-blur-3xl border border-white/15 rounded-2xl p-3 sm:p-4 md:p-5 shadow-[0_10px_50px_rgba(0,0,0,0.6)] relative z-10 group"
           >
             {/* Animated Border Glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-porsche-red/10 via-transparent to-porsche-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none rounded-2xl"></div>
             
-            {/* Tabs */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-wrap items-center justify-center gap-2 mb-4 relative z-10">
+            {/* Tabs - Single scrollable row on mobile for seamless thumb swiping */}
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-1 mb-3 sm:mb-4 justify-start sm:justify-center relative z-10 -mx-1 px-1">
               {['RENT', 'BUY', 'NEW LAUNCHES', 'OFF PLAN', 'COMMERCIAL'].map((tab) => (
                 <button
                   key={tab}
@@ -2959,12 +3777,22 @@ Furnish: ${searchFurnishStatus}
                     } else if (tab === 'OFF PLAN') {
                       setOffPlanInitialSearch(searchLocation);
                       setView('off-plan');
+                    } else if (tab === 'BUY') {
+                      setActiveFilter('All Properties');
+                      setShowAllProperties(false);
+                      const el = document.getElementById('property-types');
+                      el?.scrollIntoView({ behavior: 'smooth' });
+                    } else if (tab === 'RENT') {
+                      setActiveFilter('Apartments');
+                      setShowAllProperties(false);
+                      const el = document.getElementById('property-types');
+                      el?.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className={`px-3 md:px-4 py-2.5 md:py-1.5 rounded-xl text-[11px] md:text-[13px] font-technical font-bold tracking-[0.2em] md:tracking-[0.25em] transition-all duration-500 min-h-[44px] md:min-h-0 flex-1 md:flex-none ${
+                  className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-[12px] md:text-[13px] font-technical font-bold tracking-[0.15em] sm:tracking-[0.2em] transition-all duration-300 min-h-[44px] shrink-0 whitespace-nowrap ${
                     searchTab === tab 
                       ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.5)]' 
-                      : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white'
+                      : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white'
                   }`}
                 >
                   {tab}
@@ -2972,31 +3800,31 @@ Furnish: ${searchFurnishStatus}
               ))}
             </div>
 
-            {/* Inputs Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-1.5 md:gap-1.5 relative z-10">
+            {/* Inputs Grid - Uniform height and clear inputs */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-2 relative z-10">
               {/* Location Input */}
               <div className="relative lg:col-span-3">
-                <Search className="absolute left-4 md:left-3 top-1/2 -translate-y-1/2 w-3 h-3 md:w-2.5 md:h-2.5 text-porsche-red" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-porsche-red pointer-events-none" />
                 <input 
                   type="text"
-                  placeholder="Search Location"
+                  placeholder="Search Location..."
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
-                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 pl-11 md:pl-9 pr-4 md:pr-3 text-white text-[14px] font-technical tracking-widest focus:outline-none focus:border-porsche-red/40 transition-all placeholder:text-white/10"
+                  className="w-full h-11 sm:h-12 bg-white/10 border border-white/15 rounded-xl pl-10 pr-3 text-white text-[13px] sm:text-sm font-technical tracking-wider focus:outline-none focus:border-porsche-red transition-all placeholder:text-white/40"
                 />
               </div>
 
               {/* Price Input */}
               <div className="relative lg:col-span-2">
-                <div className="relative h-full">
+                <div className="relative h-11 sm:h-12">
                   <input 
                     type="text"
                     placeholder="Price (AED)"
                     value={searchPrice.max}
                     onChange={(e) => setSearchPrice({...searchPrice, max: e.target.value.replace(/[^0-9]/g, '')})}
-                    className="w-full h-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest focus:outline-none focus:border-porsche-red/40 transition-all placeholder:text-white/10 min-h-[48px] md:min-h-0"
+                    className="w-full h-full bg-white/10 border border-white/15 rounded-xl px-3.5 pr-10 text-white text-[13px] sm:text-sm font-technical tracking-wider focus:outline-none focus:border-porsche-red transition-all placeholder:text-white/40"
                   />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-black text-white/20 pointer-events-none">AED</div>
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-black text-white/40 pointer-events-none">AED</div>
                 </div>
               </div>
 
@@ -3004,14 +3832,14 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-2">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'beds' ? null : 'beds')}
-                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-mono tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
+                  className="w-full h-11 sm:h-12 bg-white/10 border border-white/15 rounded-xl px-3.5 text-white text-[13px] sm:text-sm font-technical tracking-wider flex items-center justify-between hover:bg-white/15 transition-all whitespace-nowrap overflow-hidden"
                 >
                   <span className="truncate">
                     {searchBeds.beds === 0 && searchBeds.baths === 0 ? 'Beds & Baths' : 
                      searchBeds.beds === 0 ? `Studio / ${searchBeds.baths}Ba` : 
                      `${searchBeds.beds}B / ${searchBeds.baths}Ba`}
                   </span>
-                  <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'beds' ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 text-white/40 transition-transform shrink-0 ml-1.5 ${activePopover === 'beds' ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
                   {activePopover === 'beds' && (
@@ -3019,17 +3847,17 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-6 z-[60] shadow-2xl min-w-[280px] md:min-w-[320px]"
+                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/15 rounded-2xl p-5 z-[60] shadow-2xl min-w-[280px] md:min-w-[320px]"
                     >
-                      <div className="space-y-6">
+                      <div className="space-y-5">
                         <div>
-                          <p className="text-white/40 text-[12px] font-technical font-bold tracking-widest uppercase mb-3">Bedrooms</p>
+                          <p className="text-white/50 text-[11px] font-technical font-bold tracking-widest uppercase mb-2.5">Bedrooms</p>
                           <div className="flex flex-wrap gap-1.5">
                             {['ST', 1, 2, 3, 4, 5, 6, 7, 8].map(n => (
                               <button 
                                 key={n}
                                 onClick={() => setSearchBeds({...searchBeds, beds: n === 'ST' ? 0 : Number(n)})}
-                                className={`w-10 h-10 rounded-lg text-[11px] font-technical font-bold transition-all ${((n === 'ST' && searchBeds.beds === 0) || (typeof n === 'number' && searchBeds.beds === n)) ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/1 text-white/40 hover:bg-white/10'}`}
+                                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg text-[11px] font-technical font-bold transition-all ${((n === 'ST' && searchBeds.beds === 0) || (typeof n === 'number' && searchBeds.beds === n)) ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/10 text-white/50 hover:bg-white/20'}`}
                               >
                                 {n}
                               </button>
@@ -3037,29 +3865,29 @@ Furnish: ${searchFurnishStatus}
                           </div>
                         </div>
                         <div>
-                          <p className="text-white/40 text-[12px] font-technical font-bold tracking-widest uppercase mb-3">Bathrooms</p>
+                          <p className="text-white/50 text-[11px] font-technical font-bold tracking-widest uppercase mb-2.5">Bathrooms</p>
                           <div className="flex flex-wrap gap-1.5">
                             {[1, 2, 3, 4, 5, 6].map(n => (
                               <button 
                                 key={n}
                                 onClick={() => setSearchBeds({...searchBeds, baths: n})}
-                                className={`w-10 h-10 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.baths === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/1 text-white/40 hover:bg-white/10'}`}
+                                className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg text-[11px] font-technical font-bold transition-all ${searchBeds.baths === n ? 'bg-porsche-red text-white shadow-[0_0_15px_rgba(213,0,28,0.4)]' : 'bg-white/10 text-white/50 hover:bg-white/20'}`}
                               >
                                 {n}
                               </button>
                             ))}
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 pt-2">
+                        <div className="flex items-center gap-2 pt-1">
                           <button 
                             onClick={() => { setSearchBeds({beds: 0, baths: 0}); setActivePopover(null); }}
-                            className="flex-1 py-3 bg-white/1 text-[12px] font-technical font-bold text-white/40 uppercase tracking-widest hover:bg-white/10 transition-all rounded-xl"
+                            className="flex-1 py-2.5 bg-white/10 text-[11px] font-technical font-bold text-white/50 uppercase tracking-widest hover:bg-white/20 transition-all rounded-xl"
                           >
                             Reset
                           </button>
                           <button 
                             onClick={() => setActivePopover(null)}
-                            className="flex-1 py-3 bg-porsche-red text-[12px] font-technical font-bold text-white uppercase tracking-widest hover:bg-porsche-red/80 transition-all rounded-xl shadow-[0_0_15px_rgba(213,0,28,0.4)]"
+                            className="flex-1 py-2.5 bg-porsche-red text-[11px] font-technical font-bold text-white uppercase tracking-widest hover:bg-porsche-red/80 transition-all rounded-xl shadow-[0_0_15px_rgba(213,0,28,0.4)]"
                           >
                             Done
                           </button>
@@ -3074,10 +3902,10 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-2">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'type' ? null : 'type')}
-                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-mono tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
+                  className="w-full h-11 sm:h-12 bg-white/10 border border-white/15 rounded-xl px-3.5 text-white text-[13px] sm:text-sm font-technical tracking-wider flex items-center justify-between hover:bg-white/15 transition-all whitespace-nowrap overflow-hidden"
                 >
                   <span className="truncate">{searchPropertyType}</span>
-                  <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'type' ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 text-white/40 transition-transform shrink-0 ml-1.5 ${activePopover === 'type' ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
                   {activePopover === 'type' && (
@@ -3085,13 +3913,13 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
+                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/15 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
                     >
                       {['Studio', 'Apartment', 'Townhouse', 'Villa', 'Hotel Apartments'].map(type => (
                         <button 
                           key={type}
                           onClick={() => { setSearchPropertyType(type); setActivePopover(null); }}
-                          className="w-full text-left px-4 py-3 text-[11px] font-technical font-bold tracking-widest uppercase text-white/40 hover:text-white hover:bg-white/2 rounded-xl transition-all"
+                          className="w-full text-left px-4 py-2.5 text-[11px] font-technical font-bold tracking-widest uppercase text-white/60 hover:text-white hover:bg-white/10 rounded-xl transition-all"
                         >
                           {type}
                         </button>
@@ -3105,10 +3933,10 @@ Furnish: ${searchFurnishStatus}
               <div className="relative lg:col-span-1">
                 <button 
                   onClick={() => setActivePopover(activePopover === 'furnish' ? null : 'furnish')}
-                  className="w-full bg-white/1 border border-white/5 rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-white text-[14px] font-technical tracking-widest flex items-center justify-between hover:bg-white/10 transition-all whitespace-nowrap overflow-hidden min-h-[48px] md:min-h-0"
+                  className="w-full h-11 sm:h-12 bg-white/10 border border-white/15 rounded-xl px-3.5 text-white text-[13px] sm:text-sm font-technical tracking-wider flex items-center justify-between hover:bg-white/15 transition-all whitespace-nowrap overflow-hidden"
                 >
                   <span className="truncate">{searchFurnishStatus === 'Furnish Status' ? 'Furnish' : searchFurnishStatus}</span>
-                  <ChevronDown className={`w-3 h-3 md:w-2.5 md:h-2.5 text-white/30 transition-transform flex-shrink-0 ml-1 ${activePopover === 'furnish' ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 text-white/40 transition-transform shrink-0 ml-1.5 ${activePopover === 'furnish' ? 'rotate-180' : ''}`} />
                 </button>
                 <AnimatePresence>
                   {activePopover === 'furnish' && (
@@ -3116,13 +3944,13 @@ Furnish: ${searchFurnishStatus}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
+                      className="absolute top-full left-0 right-0 md:left-auto md:right-0 mt-3 bg-black/95 backdrop-blur-3xl border border-white/15 rounded-2xl p-2 z-[60] shadow-2xl min-w-[200px]"
                     >
                       {['Furnished', 'Fully Furnished', 'Semi Furnished', 'Vacant'].map(status => (
                         <button 
                           key={status}
                           onClick={() => { setSearchFurnishStatus(status); setActivePopover(null); }}
-                          className="w-full text-left px-4 py-3 text-[11px] font-technical font-bold tracking-widest uppercase text-white/40 hover:text-white hover:bg-white/2 rounded-xl transition-all"
+                          className="w-full text-left px-4 py-2.5 text-[11px] font-technical font-bold tracking-widest uppercase text-white/60 hover:text-white hover:bg-white/10 rounded-xl transition-all"
                         >
                           {status}
                         </button>
@@ -3144,10 +3972,72 @@ Furnish: ${searchFurnishStatus}
                     setIsEnquiryModalOpen(true);
                   }
                 }}
-                className="lg:col-span-2 bg-porsche-red text-white rounded-lg py-3.5 md:py-2 px-4 md:px-3 text-[12px] font-technical font-bold tracking-[0.25em] uppercase hover:bg-porsche-red/80 transition-all shadow-[0_0_15px_rgba(213,0,28,0.4)] active:scale-95 min-h-[48px] md:min-h-0 flex items-center justify-center gap-1.5"
+                className="lg:col-span-2 h-11 sm:h-12 bg-porsche-red text-white rounded-xl px-4 text-[12px] font-technical font-bold tracking-[0.2em] uppercase hover:bg-porsche-red/90 transition-all shadow-[0_0_20px_rgba(213,0,28,0.4)] active:scale-95 flex items-center justify-center gap-1.5"
               >
                 {searchTab === 'NEW LAUNCHES' ? 'New Launches' : searchTab === 'OFF PLAN' ? 'View Off-Plan' : 'Submit Enquiry'}
               </button>
+            </div>
+
+            {/* Daily Fresh Curated Shortcuts - 8 to 10 daily fresh listings */}
+            <div className="flex flex-wrap items-center justify-between gap-2.5 mt-3 pt-3 border-t border-white/10 text-xs relative z-10">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span className="text-white/70 font-technical text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold">
+                  Today&apos;s Fresh Curation (8–10 Daily Rotated Units)
+                </span>
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveFilter('All Properties');
+                    setShowAllProperties(false);
+                    const el = document.getElementById('property-types');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-2.5 sm:px-3 py-1 bg-white/10 hover:bg-porsche-red hover:text-white border border-white/15 rounded-full text-white/90 text-[10px] font-technical uppercase tracking-wider transition-all flex items-center gap-1 shadow-sm active:scale-95"
+                >
+                  <Flame className="w-3 h-3 text-porsche-red" />
+                  <span>Fresh 9 Today</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveFilter('Luxury Villas');
+                    setShowAllProperties(false);
+                    const el = document.getElementById('property-types');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-2.5 sm:px-3 py-1 bg-white/10 hover:bg-white/20 border border-white/15 rounded-full text-white/80 hover:text-white text-[10px] font-technical uppercase tracking-wider transition-all active:scale-95"
+                >
+                  <span>Villas Top 8</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveFilter('Apartments');
+                    setShowAllProperties(false);
+                    const el = document.getElementById('property-types');
+                    el?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-2.5 sm:px-3 py-1 bg-white/10 hover:bg-white/20 border border-white/15 rounded-full text-white/80 hover:text-white text-[10px] font-technical uppercase tracking-wider transition-all active:scale-95"
+                >
+                  <span>Waterfront 8</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setView('new-launches');
+                  }}
+                  className="px-2.5 sm:px-3 py-1 bg-porsche-red/80 hover:bg-porsche-red border border-porsche-red rounded-full text-white text-[10px] font-technical font-bold uppercase tracking-wider transition-all flex items-center gap-1 active:scale-95"
+                >
+                  <Zap className="w-3 h-3 text-white" />
+                  <span>New Launches</span>
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -3155,7 +4045,7 @@ Furnish: ${searchFurnishStatus}
 
       <section 
         id="filters" 
-        className={`px-4 md:px-8 lg:px-16 py-4 bg-white/90 backdrop-blur-md border-b border-gray-100 sticky z-40 transition-all duration-500 ${isScrolled ? 'top-[60px] shadow-lg' : 'top-[70px] md:top-[80px] shadow-sm'}`}
+        className={`px-3 sm:px-6 md:px-8 lg:px-16 py-2.5 sm:py-3.5 bg-white/95 backdrop-blur-md border-b border-gray-100 sticky z-40 transition-all duration-300 ${isScrolled ? 'top-[56px] sm:top-[60px] shadow-md' : 'top-[56px] sm:top-[70px] md:top-[80px] shadow-sm'}`}
       >
         <div className="max-w-7xl mx-auto overflow-x-auto no-scrollbar -mx-4 px-4">
           <div className="flex items-center justify-start md:justify-center gap-3 min-w-max">
@@ -3200,29 +4090,29 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Intro Section */}
-      <section className="px-6 md:px-8 lg:px-24 py-12 md:py-20 bg-white">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
+      <section className="px-4 sm:px-8 lg:px-24 py-10 sm:py-16 md:py-20 bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-14 md:gap-24 items-center">
           <div>
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex items-center gap-4 mb-6 md:mb-8"
+              className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6"
             >
-              <div className="w-10 md:w-12 h-[1px] bg-porsche-red"></div>
-              <span className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.4em] uppercase font-black">Philosophy</span>
+              <div className="w-8 sm:w-12 h-[1px] bg-porsche-red"></div>
+              <span className="text-porsche-red text-[10px] sm:text-[12px] tracking-[0.35em] uppercase font-black">Philosophy</span>
             </motion.div>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-display font-black text-dark leading-[0.9] mb-8 md:mb-12 tracking-tighter">
+            <h2 className="text-3xl sm:text-5xl md:text-7xl font-display font-black text-dark leading-[0.95] mb-5 sm:mb-8 md:mb-12 tracking-tighter">
               DUBAI<br />
               <span className="text-porsche-red">REAL ESTATE</span><br />
               DEALS.
             </h2>
-            <p className="text-dark/60 text-base md:text-xl leading-relaxed font-light max-w-xl mb-8 md:mb-12">
+            <p className="text-dark/60 text-sm sm:text-base md:text-xl leading-relaxed font-light max-w-xl mb-6 sm:mb-8 md:mb-12">
               Rock Deals specializes in Dubai distress deals, off-plan properties, and high ROI investments. We provide a comprehensive Dubai property investment guide to help you find the cheapest property in Dubai with the best payment plans.
             </p>
             <motion.button
               whileHover={{ x: 10 }}
-              className="flex items-center gap-4 text-dark text-[12px] font-black tracking-[0.4em] uppercase group min-h-[44px]"
+              className="flex items-center gap-3 sm:gap-4 text-dark text-[11px] sm:text-[12px] font-black tracking-[0.35em] uppercase group min-h-[44px]"
             >
               Learn Our Method <ArrowRight className="w-4 h-4 text-porsche-red group-hover:translate-x-2 transition-transform" />
             </motion.button>
@@ -3234,9 +4124,9 @@ Furnish: ${searchFurnishStatus}
               { label: 'Smart Analytics', value: 'AI' },
               { label: 'Verified Listings', value: 'DLD' }
             ].map((stat, i) => (
-              <div key={i} className="bg-white p-6 md:p-12 hover:bg-gray-50 transition-colors group">
-                <div className="text-3xl md:text-5xl font-display font-black text-dark mb-2 md:mb-4 group-hover:text-porsche-red transition-colors">{stat.value}</div>
-                <div className="text-dark/30 text-[11px] md:text-[11px] tracking-[0.3em] uppercase font-black">{stat.label}</div>
+              <div key={i} className="bg-white p-4 sm:p-8 md:p-12 hover:bg-gray-50 transition-colors group">
+                <div className="text-2xl sm:text-4xl md:text-5xl font-display font-black text-dark mb-1 sm:mb-3 group-hover:text-porsche-red transition-colors">{stat.value}</div>
+                <div className="text-dark/40 text-[9px] sm:text-[11px] tracking-[0.25em] sm:tracking-[0.3em] uppercase font-black">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -3244,23 +4134,60 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Property Types Section (Filtered Grid) */}
-      <section id="property-types" className="px-6 md:px-8 lg:px-24 py-12 md:py-24 bg-white">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-8 md:gap-12">
+      <section id="property-types" className="px-4 sm:px-8 lg:px-24 py-10 sm:py-16 md:py-24 bg-white">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 sm:mb-14 md:mb-20 gap-6 md:gap-12">
           <div className="max-w-3xl">
-            <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Portfolio</p>
+            <div className="flex items-center gap-3 mb-3 sm:mb-5">
+              <span className="w-8 h-[2px] bg-porsche-red"></span>
+              <p className="text-porsche-red text-[10px] sm:text-[12px] tracking-[0.3em] sm:tracking-[0.45em] uppercase font-black flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span>
+                  {showAllProperties
+                    ? `Full Portfolio • All ${PROPERTIES.length} Verified Properties`
+                    : `Daily Fresh Curation • ${displayProperties.length} Handpicked Units • Rotates Every 24H`}
+                </span>
+              </p>
+            </div>
             <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-display font-black text-dark tracking-tighter leading-[0.8]">
               FEATURED<br />
               <span className="text-porsche-red">LISTINGS.</span>
             </h2>
           </div>
-          <p className="text-dark/40 text-sm md:text-base max-w-md leading-relaxed font-light">
-            Discover our curated selection of the UAE's most prestigious properties, filtered by your specific requirements.
-          </p>
+          <div className="flex flex-col items-start md:items-end gap-3">
+            <p className="text-dark/50 text-xs sm:text-sm md:text-base max-w-md leading-relaxed font-light text-left md:text-right">
+              {showAllProperties
+                ? `Browsing full inventory of ${PROPERTIES.length} verified UAE properties. Select up to 3 units to compare side-by-side.`
+                : `Showing today's ${displayProperties.length} curated luxury residences, rotated fresh every 24 hours to keep the interface fast and lightweight.`
+              }
+            </p>
+            <div className="flex items-center gap-2 flex-wrap">
+              {PROPERTIES.filter(p => activeFilter === 'All Properties' || p.category === activeFilter).length > 9 && (
+                <button
+                  onClick={() => setShowAllProperties(!showAllProperties)}
+                  className="px-4 py-2 rounded-full border border-dark/20 text-dark hover:border-porsche-red hover:text-porsche-red text-[11px] font-technical font-bold uppercase tracking-wider transition-all shadow-sm"
+                >
+                  {showAllProperties ? 'Show Daily Top 9' : `View All (${PROPERTIES.filter(p => activeFilter === 'All Properties' || p.category === activeFilter).length})`}
+                </button>
+              )}
+              {compareList.length > 0 && (
+                <button
+                  onClick={() => setIsCompareModalOpen(true)}
+                  className="px-4 py-2 bg-dark hover:bg-porsche-red text-white text-[11px] font-technical uppercase font-bold tracking-wider flex items-center gap-2 shadow-lg transition-colors rounded-full"
+                >
+                  <Layers className="w-3.5 h-3.5 text-porsche-red" />
+                  <span>Compare ({compareList.length}/3)</span>
+                </button>
+              )}
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <AnimatePresence mode="popLayout">
-            {PROPERTIES.filter(p => activeFilter === 'All Properties' || p.category === activeFilter).map((prop) => (
+            {displayProperties.map((prop) => (
               <motion.div 
                 layout
                 key={prop.id}
@@ -3268,7 +4195,9 @@ Furnish: ${searchFurnishStatus}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative aspect-[3/2] rounded-3xl md:rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer"
+                className={`group relative aspect-[3/2] rounded-3xl md:rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer transition-all duration-300 ${
+                  compareList.includes(prop.id) ? 'ring-4 ring-porsche-red shadow-2xl' : ''
+                }`}
               >
                 <img 
                   src={prop.image} 
@@ -3278,26 +4207,50 @@ Furnish: ${searchFurnishStatus}
                 />
                 
                 {/* Subtle Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
                 
-                {/* Category Badge (Optional, kept subtle) */}
-                <div className="absolute top-6 left-8">
-                  <span className="text-white/60 text-[13px] md:text-[12px] font-black tracking-[0.3em] uppercase">
+                {/* Category Badge */}
+                <div className="absolute top-4 sm:top-6 left-5 sm:left-7 z-10">
+                  <span className="text-white/80 text-[11px] sm:text-[12px] font-black tracking-[0.25em] uppercase bg-dark/60 backdrop-blur-md px-2.5 py-1">
                     {prop.category}
                   </span>
                 </div>
 
+                {/* Compare Toggle Button */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleCompare(prop.id);
+                  }}
+                  className={`absolute top-4 sm:top-6 right-5 sm:right-7 z-20 px-3 py-1.5 rounded-full text-[10px] font-technical uppercase font-bold tracking-wider flex items-center gap-1.5 backdrop-blur-md transition-all shadow-md ${
+                    compareList.includes(prop.id)
+                      ? 'bg-porsche-red text-white ring-2 ring-white/60 shadow-[0_0_15px_rgba(213,0,28,0.5)]'
+                      : 'bg-black/65 text-white/90 hover:bg-black/90 hover:text-white border border-white/20'
+                  }`}
+                  title={compareList.includes(prop.id) ? 'Remove from comparison' : 'Add to side-by-side comparison (max 3)'}
+                >
+                  <Layers className={`w-3.5 h-3.5 ${compareList.includes(prop.id) ? 'text-white' : 'text-porsche-red'}`} />
+                  <span>{compareList.includes(prop.id) ? 'Comparing' : '+ Compare'}</span>
+                </button>
+
                 {/* Content Overlay */}
-                <div className="absolute bottom-8 left-8 right-8 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <h3 className="text-white font-technical font-bold text-xl md:text-2xl tracking-tight uppercase flex items-center">
+                <div className="absolute bottom-6 sm:bottom-8 left-5 sm:left-8 right-5 sm:right-8 flex items-center justify-between pointer-events-none">
+                  <div className="flex flex-col max-w-[80%]">
+                    <p className="text-[10px] font-technical uppercase tracking-widest text-white/60 mb-0.5">
+                      {prop.developer}
+                    </p>
+                    <h3 className="text-white font-technical font-bold text-lg sm:text-2xl tracking-tight uppercase flex items-center line-clamp-1">
                       {prop.title}
                       <span className="text-porsche-red ml-1">.</span>
                     </h3>
-                    <p className="text-white/60 text-[13px] md:text-[12px] tracking-[0.2em] uppercase font-medium mt-1">{prop.location} — {prop.price}</p>
+                    <p className="text-white/70 text-[11px] sm:text-[12px] tracking-[0.15em] uppercase font-medium mt-1 truncate">
+                      {prop.location} — <span className="text-porsche-red font-bold">{prop.price}</span> ({prop.builtUpArea})
+                    </p>
                   </div>
                   
-                  <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500 shrink-0">
                     <ArrowRight className="w-4 h-4 text-white group-hover:text-dark transition-colors" />
                   </div>
                 </div>
@@ -3313,30 +4266,67 @@ Furnish: ${searchFurnishStatus}
                     aria-label={`View ${prop.title}`}
                   />
                 ) : (
-                  <a href="#contact" className="absolute inset-0 z-10"></a>
+                  <button 
+                    onClick={() => {
+                      setIsEnquiryModalOpen(true);
+                    }}
+                    className="absolute inset-0 z-10 w-full h-full text-transparent cursor-pointer"
+                    aria-label={`Enquire about ${prop.title}`}
+                  />
                 )}
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
         
-        {PROPERTIES.filter(p => activeFilter === 'All Properties' || p.category === activeFilter).length === 0 && (
+        {displayProperties.length === 0 && (
           <div className="py-20 text-center">
             <p className="text-dark/20 text-xl font-light tracking-widest uppercase">No properties found in this category.</p>
+          </div>
+        )}
+
+        {/* View All / Collapse Control to maintain lightweight feel */}
+        {!showAllProperties && PROPERTIES.filter(p => activeFilter === 'All Properties' || p.category === activeFilter).length > 9 && (
+          <div className="mt-12 sm:mt-16 text-center flex flex-col items-center justify-center gap-3">
+            <button
+              onClick={() => setShowAllProperties(true)}
+              className="px-8 py-4 bg-dark hover:bg-porsche-red text-white text-[11px] sm:text-xs font-technical font-bold tracking-[0.25em] uppercase rounded-xl transition-all shadow-xl hover:shadow-[0_0_25px_rgba(213,0,28,0.4)] flex items-center gap-3 group active:scale-95"
+            >
+              <span>Explore All {PROPERTIES.filter(p => activeFilter === 'All Properties' || p.category === activeFilter).length} Available Listings</span>
+              <ArrowRight className="w-4 h-4 text-porsche-red group-hover:text-white transition-colors group-hover:translate-x-1" />
+            </button>
+            <p className="text-dark/40 text-[11px] font-technical uppercase tracking-widest">
+              Daily Curation rotates automatically every 24 hours to keep options fresh
+            </p>
+          </div>
+        )}
+
+        {showAllProperties && (
+          <div className="mt-12 sm:mt-16 text-center">
+            <button
+              onClick={() => {
+                setShowAllProperties(false);
+                const el = document.getElementById('property-types');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-dark text-xs font-technical font-bold tracking-[0.2em] uppercase rounded-xl transition-all active:scale-95"
+            >
+              Collapse to Today&apos;s Top 9 Daily Fresh Deals
+            </button>
           </div>
         )}
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="px-6 md:px-8 lg:px-24 py-12 md:py-20 bg-gray-50/50">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-8 md:gap-12">
+      <section id="features" className="px-4 sm:px-8 lg:px-24 py-10 sm:py-16 md:py-20 bg-gray-50/50">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 sm:mb-12 md:mb-16 gap-4 sm:gap-8 md:gap-12">
           <div className="max-w-2xl">
-            <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Innovation</p>
-            <h2 className="text-4xl sm:text-6xl md:text-9xl font-display font-black text-dark tracking-tighter leading-[0.8]">
+            <p className="text-porsche-red text-[10px] sm:text-[12px] tracking-[0.4em] sm:tracking-[0.5em] uppercase font-black mb-3 sm:mb-5">Innovation</p>
+            <h2 className="text-3xl sm:text-6xl md:text-8xl font-display font-black text-dark tracking-tighter leading-[0.9]">
               THE<br />SMART HUB.
             </h2>
           </div>
-          <p className="text-dark/40 text-sm md:text-base max-w-md font-light leading-relaxed">
+          <p className="text-dark/40 text-xs sm:text-sm md:text-base max-w-md font-light leading-relaxed">
             Experience the Dubai property market through the lens of high-performance technology. Find the best off-plan projects in Dubai and new launch projects with high ROI.
           </p>
         </div>
@@ -3344,32 +4334,32 @@ Furnish: ${searchFurnishStatus}
         {/* New Launches VIP Banner */}
         <div 
           onClick={() => setView('new-launches')}
-          className="mb-8 p-6 md:p-8 bg-dark text-white border-l-4 border-porsche-red flex flex-col md:flex-row items-start md:items-center justify-between gap-6 cursor-pointer hover:bg-black transition-colors group shadow-xl"
+          className="mb-6 sm:mb-8 p-4 sm:p-6 md:p-8 bg-dark text-white border-l-4 border-porsche-red flex flex-col md:flex-row items-start md:items-center justify-between gap-4 sm:gap-6 cursor-pointer hover:bg-black transition-colors group shadow-xl"
         >
-          <div className="flex items-center gap-5">
-            <div className="w-14 h-14 bg-porsche-red/10 border border-porsche-red/30 flex items-center justify-center shrink-0 text-porsche-red group-hover:bg-porsche-red group-hover:text-white transition-all">
-              <Flame className="w-7 h-7" />
+          <div className="flex items-center gap-3.5 sm:gap-5">
+            <div className="w-11 h-11 sm:w-14 sm:h-14 bg-porsche-red/10 border border-porsche-red/30 flex items-center justify-center shrink-0 text-porsche-red group-hover:bg-porsche-red group-hover:text-white transition-all">
+              <Flame className="w-5 h-5 sm:w-7 sm:h-7" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="px-2 py-0.5 bg-porsche-red text-white text-[9px] font-black uppercase tracking-widest">
+                <span className="px-2 py-0.5 bg-porsche-red text-white text-[8px] sm:text-[9px] font-black uppercase tracking-widest">
                   LIVE REGISTRY
                 </span>
-                <span className="text-[11px] font-technical uppercase tracking-widest text-white/50">
+                <span className="text-[10px] sm:text-[11px] font-technical uppercase tracking-widest text-white/50">
                   41 Newly Unveiled Developments
                 </span>
               </div>
-              <h3 className="text-xl md:text-2xl font-display font-black uppercase tracking-tight text-white group-hover:text-porsche-red transition-colors">
+              <h3 className="text-base sm:text-xl md:text-2xl font-display font-black uppercase tracking-tight text-white group-hover:text-porsche-red transition-colors">
                 Dubai & Abu Dhabi Master Developer New Launches
               </h3>
-              <p className="text-xs text-white/60 font-light mt-1">
+              <p className="text-[11px] sm:text-xs text-white/60 font-light mt-0.5">
                 Direct access to Nakheel Palm Springs, Binghatti Starfall, DAMAC Chelsea, and 38+ brand-new pre-construction releases.
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-3 text-porsche-red text-xs font-black tracking-widest uppercase shrink-0 group-hover:translate-x-1 transition-transform">
+          <div className="flex items-center gap-2 text-porsche-red text-[11px] sm:text-xs font-black tracking-widest uppercase shrink-0 group-hover:translate-x-1 transition-transform">
             <span>Explore 41 Launches</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </div>
         </div>
 
@@ -3406,18 +4396,18 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* The Journey - Mapped Blueprint */}
-      <section id="journey" className="px-6 md:px-8 lg:px-24 py-12 md:py-24 bg-white overflow-hidden">
+      <section id="journey" className="px-4 sm:px-8 lg:px-24 py-10 sm:py-16 md:py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 md:mb-24">
+          <div className="text-center mb-10 sm:mb-16 md:mb-24">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="inline-block border border-dark/10 px-6 md:px-10 py-3 md:py-4 mb-8 md:mb-12"
+              className="inline-block border border-dark/10 px-4 sm:px-8 md:px-10 py-2 sm:py-3 md:py-4 mb-4 sm:mb-8 md:mb-12"
             >
-              <span className="text-dark text-[11px] md:text-[13px] tracking-[0.5em] md:tracking-[0.8em] uppercase font-black">Technical_Process_Flow</span>
+              <span className="text-dark text-[10px] sm:text-[12px] md:text-[13px] tracking-[0.4em] sm:tracking-[0.6em] md:tracking-[0.8em] uppercase font-black">Technical_Process_Flow</span>
             </motion.div>
-            <h2 className="text-4xl sm:text-6xl md:text-[10rem] lg:text-[12rem] font-display font-black text-dark tracking-tighter leading-none">
+            <h2 className="text-4xl sm:text-6xl md:text-[8rem] lg:text-[11rem] font-display font-black text-dark tracking-tighter leading-none">
               THE<br />
               <span className="text-porsche-red">JOURNEY.</span>
             </h2>
@@ -3442,7 +4432,7 @@ Furnish: ${searchFurnishStatus}
               />
             </div>
 
-            <div className="relative z-10 flex flex-row overflow-x-auto lg:overflow-x-visible no-scrollbar gap-8 lg:gap-0 pb-20 lg:pb-0 snap-x snap-mandatory">
+            <div className="relative z-10 flex flex-row overflow-x-auto lg:overflow-x-visible no-scrollbar gap-5 sm:gap-8 lg:gap-0 pb-8 sm:pb-16 lg:pb-0 snap-x snap-mandatory">
               <div className="snap-center">
                 <JourneyStep 
                   number="01" 
@@ -3483,28 +4473,28 @@ Furnish: ${searchFurnishStatus}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 1.5 }}
-              className="flex flex-col items-center mt-32"
+              className="flex flex-col items-center mt-12 sm:mt-20 md:mt-32"
             >
-              <div className="w-8 h-8 bg-porsche-red rotate-45 mb-8 shadow-[0_0_30px_rgba(213,0,28,0.4)] flex items-center justify-center">
-                <div className="w-2 h-2 bg-white rotate-45"></div>
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-porsche-red rotate-45 mb-4 sm:mb-8 shadow-[0_0_30px_rgba(213,0,28,0.4)] flex items-center justify-center">
+                <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rotate-45"></div>
               </div>
-              <span className="text-dark font-display font-black text-[11px] tracking-[0.6em] uppercase">Destination Reached</span>
+              <span className="text-dark font-display font-black text-[10px] sm:text-[11px] tracking-[0.4em] sm:tracking-[0.6em] uppercase">Destination Reached</span>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Area Guide Section - Interactive Map */}
-      <section id="explore" className="px-6 md:px-8 lg:px-24 py-12 md:py-24 bg-dark">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 md:gap-12 mb-12 md:mb-20">
+      <section id="explore" className="px-4 sm:px-8 lg:px-24 py-10 sm:py-16 md:py-24 bg-dark">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 md:gap-12 mb-8 sm:mb-12 md:mb-20">
           <div className="max-w-3xl">
-            <p className="text-porsche-red text-[11px] md:text-[12px] tracking-[0.5em] uppercase font-black mb-4 md:mb-6">Location Intelligence</p>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-display font-black text-white tracking-tighter leading-[0.8]">
+            <p className="text-porsche-red text-[10px] sm:text-[12px] tracking-[0.4em] sm:tracking-[0.5em] uppercase font-black mb-3 sm:mb-5">Location Intelligence</p>
+            <h2 className="text-3xl sm:text-6xl md:text-8xl lg:text-[10rem] font-display font-black text-white tracking-tighter leading-[0.85]">
               ZONE<br />
               <span className="text-porsche-red">EXPLORER.</span>
             </h2>
           </div>
-          <p className="text-white/40 text-sm md:text-base max-w-md leading-relaxed font-light">
+          <p className="text-white/50 text-xs sm:text-sm md:text-base max-w-md leading-relaxed font-light">
             Navigate the most prestigious investment zones in the UAE. Our interactive map provides real-time yield data and district insights.
           </p>
         </div>
@@ -3513,8 +4503,8 @@ Furnish: ${searchFurnishStatus}
       </section>
 
       {/* Footer */}
-      <footer id="contact" className="bg-white border-t border-gray-100">
-        <div className="px-6 md:px-8 lg:px-24 py-12 md:py-20">
+      <footer id="contact" className="bg-white border-t border-gray-100 pb-16 sm:pb-0">
+        <div className="px-4 sm:px-8 lg:px-24 py-10 sm:py-16 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-20">
             <div className="md:col-span-4">
               <div className="flex items-baseline gap-1 mb-4">
@@ -3760,7 +4750,7 @@ Furnish: ${searchFurnishStatus}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 20, stiffness: 150 }}
-            className="fixed bottom-6 right-6 z-[150] w-[calc(100vw-32px)] sm:w-[380px] bg-dark text-white p-5 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-none overflow-hidden group cursor-pointer"
+            className="fixed bottom-20 sm:bottom-6 right-3 sm:right-6 z-[150] w-[calc(100vw-24px)] sm:w-[380px] bg-dark text-white p-4 sm:p-5 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-none overflow-hidden group cursor-pointer"
             onClick={() => {
               setSelectedBlogId(BLOG_POSTS[0].id);
               setView('blog');
@@ -3772,13 +4762,13 @@ Furnish: ${searchFurnishStatus}
             {/* Top red Accent bar */}
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-porsche-red" />
             
-            <div className="flex items-start justify-between gap-3 mb-3">
+            <div className="flex items-start justify-between gap-3 mb-2.5">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-porsche-red opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-porsche-red"></span>
                 </span>
-                <span className="text-[9px] tracking-[0.3em] uppercase font-black text-white/50">
+                <span className="text-[9px] tracking-[0.25em] sm:tracking-[0.3em] uppercase font-black text-white/50">
                   Live Market Alert • {BLOG_POSTS[0].date}
                 </span>
               </div>
@@ -3795,17 +4785,17 @@ Furnish: ${searchFurnishStatus}
               </button>
             </div>
 
-            <h4 className="text-sm font-display font-black uppercase tracking-tight leading-snug group-hover:text-porsche-red transition-colors duration-300 mb-2 line-clamp-2">
+            <h4 className="text-sm font-display font-black uppercase tracking-tight leading-snug group-hover:text-porsche-red transition-colors duration-300 mb-1.5 line-clamp-2">
               {BLOG_POSTS[0].title}
             </h4>
             
-            <p className="text-white/60 text-xs font-light leading-relaxed mb-3 line-clamp-2">
+            <p className="text-white/60 text-xs font-light leading-relaxed mb-2.5 line-clamp-2">
               {BLOG_POSTS[0].summary}
             </p>
 
             {/* Social Media Share Actions in Daily News Popup */}
             <div 
-              className="py-2 px-3 mb-3 bg-white/[0.04] border border-white/5 flex items-center justify-between"
+              className="py-1.5 px-3 mb-2.5 bg-white/[0.04] border border-white/5 flex items-center justify-between"
               onClick={(e) => e.stopPropagation()}
             >
               <SocialShare
@@ -3817,13 +4807,92 @@ Furnish: ${searchFurnishStatus}
               />
             </div>
 
-            <div className="flex items-center justify-between pt-2.5 border-t border-white/5 text-[10px] tracking-widest uppercase font-black text-porsche-red group-hover:translate-x-1 transition-transform duration-300">
+            <div className="flex items-center justify-between pt-2 border-t border-white/5 text-[10px] tracking-widest uppercase font-black text-porsche-red group-hover:translate-x-1 transition-transform duration-300">
               <span>Read Full Report</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Mobile Sticky Thumb-Zone Navigation Bar */}
+      <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-[120] bg-dark/95 backdrop-blur-2xl border-t border-white/10 px-2 py-1.5 flex items-center justify-around shadow-[0_-10px_30px_rgba(0,0,0,0.6)]">
+        <button 
+          onClick={() => { setView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          className={`flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 transition-colors ${view === 'home' ? 'text-porsche-red' : 'text-white/50 hover:text-white'}`}
+        >
+          <Home className="w-4 h-4 mb-0.5" />
+          <span className="text-[9px] font-technical uppercase tracking-wider font-bold">Home</span>
+        </button>
+        <button 
+          onClick={() => { setView('new-launches'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          className={`flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 transition-colors ${view === 'new-launches' ? 'text-porsche-red' : 'text-white/50 hover:text-white'}`}
+        >
+          <Zap className="w-4 h-4 mb-0.5" />
+          <span className="text-[9px] font-technical uppercase tracking-wider font-bold">Launches</span>
+        </button>
+        <button 
+          onClick={() => { setOffPlanInitialSearch(''); setView('off-plan'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          className={`flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 transition-colors ${view === 'off-plan' ? 'text-porsche-red' : 'text-white/50 hover:text-white'}`}
+        >
+          <Building2 className="w-4 h-4 mb-0.5" />
+          <span className="text-[9px] font-technical uppercase tracking-wider font-bold">Off-Plan</span>
+        </button>
+        <button 
+          onClick={() => { setView('calculator'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          className={`flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 transition-colors ${view === 'calculator' ? 'text-porsche-red' : 'text-white/50 hover:text-white'}`}
+        >
+          <Calculator className="w-4 h-4 mb-0.5" />
+          <span className="text-[9px] font-technical uppercase tracking-wider font-bold">Finance</span>
+        </button>
+        <a 
+          href="https://wa.me/971529178630?text=Hello%20Rock%20Deals%20VIP%20Desk,%20I%20am%20interested%20in%20Dubai%20properties"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] py-1 text-white/50 hover:text-porsche-red transition-colors"
+        >
+          <Phone className="w-4 h-4 mb-0.5 text-porsche-red" />
+          <span className="text-[9px] font-technical uppercase tracking-wider font-bold">VIP Desk</span>
+        </a>
+      </nav>
+
+      {/* Toast Notification for Max 3 Properties */}
+      <AnimatePresence>
+        {compareToast && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: -20, x: '-50%' }}
+            className="fixed top-20 left-1/2 z-[250] bg-dark text-white px-5 py-3 border border-porsche-red/60 shadow-2xl flex items-center gap-2.5 text-xs font-technical font-bold uppercase tracking-wider rounded-none"
+          >
+            <Layers className="w-4 h-4 text-porsche-red shrink-0" />
+            <span>{compareToast}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Property Comparison Dock */}
+      <PropertyCompareBar
+        selectedProperties={selectedCompareProperties}
+        onRemove={removeCompare}
+        onClear={clearCompare}
+        onOpenModal={() => setIsCompareModalOpen(true)}
+      />
+
+      {/* Detailed Side-by-Side Property Comparison Modal */}
+      <PropertyCompareModal
+        isOpen={isCompareModalOpen}
+        onClose={() => setIsCompareModalOpen(false)}
+        properties={selectedCompareProperties}
+        allProperties={PROPERTIES}
+        onRemove={removeCompare}
+        onAdd={addCompare}
+        onClear={clearCompare}
+        onEnquire={(propertyTitle) => {
+          setIsCompareModalOpen(false);
+          setIsEnquiryModalOpen(true);
+        }}
+      />
     </>
   );
 }
