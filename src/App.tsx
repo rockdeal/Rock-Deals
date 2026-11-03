@@ -2920,9 +2920,10 @@ Furnish: ${searchFurnishStatus}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white leading-[1.1] mb-6 md:mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] uppercase tracking-tighter"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black text-white leading-[1.15] mb-6 md:mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] uppercase text-center mx-auto text-balance"
             >
-              Best Property Deals in <span className="text-porsche-red glow-porsche">Dubai.</span>
+              <span className="text-[0.8em] sm:text-[0.85em] md:text-[0.88em] font-extrabold tracking-[0.03em] sm:tracking-[0.05em] inline-block align-baseline">Best Property Deals in</span>{' '}
+              <span className="text-porsche-red glow-porsche tracking-normal sm:tracking-[0.02em] inline-block">Dubai.</span>
             </motion.h1>
 
             <motion.p
